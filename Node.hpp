@@ -40,7 +40,6 @@ public:
 		}
 		node->next_ = this;
 		this->prev_ = node;
-		//TODO function is not complete
 	}
 
 	void insert_after(Node* node)
@@ -54,7 +53,7 @@ public:
 		node->prev_ = this;
 	}
 
-	Node& prev(){
+	Node*& prev(){
 		return this->prev_;
 	}
 	Node const& prev() const {
@@ -68,7 +67,7 @@ public:
 		return this->value_;
 	}
 
-	Node& next(){
+	Node*& next(){
 		return this->next_;
 	}
 	Node const& next() const{

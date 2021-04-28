@@ -5,6 +5,7 @@
 #include "list.hpp"
 #include <list>
 #include "Node.hpp"
+#include "test.hpp"
 
 template <typename T>
 void printList (std::list<T> listToPrint)
@@ -17,8 +18,49 @@ void printList (std::list<T> listToPrint)
 
 int main ()
 {
-	ft::Node<int>		myNode(15);
-	std::cout << myNode.value() << std::endl;
+//	ft::Node<int>		myNode1(15);
+//	ft::Node<int>		myNode2(25);
+//	std::cout << myNode1.value() << std::endl;
+
+//	myNode1.insert_before(&myNode2);
+//	std::cout << myNode1.prev() << std::endl;
+//	int numbers[]={10,20,30,40,50};
+//	std::list<int> 	myVector;
+//	ft::iterator<int> from(numbers);
+//	ft::iterator<int> until(numbers+5);
+//	for (ft::iterator<int> it=from; it!=until; it++)
+//		std::cout << *myVector.end() << ' ';
+	List	myList;
+	myList.append(10);
+	myList.append(20);
+	myList.append(30);
+	List::iterator it = myList.begin();
+//	std::list<int> myList;
+//	std::list<int>::iterator it = myList.begin();
+//	myList.push_back(10);
+//	myList.push_back(20);
+//	myList.push_back(30);
+//	myList.push_back(40);
+//	myList.push_back(40);
+//	myList.push_back(70);
+
+	++it;
+	++it;
+	++it;
+	++it;
+	++it;
+	++it;
+
+//	myList.append(30);
+//	myList.append(10);
+//	myList.append(10);
+//	myList.append(20);
+//	myList.append(30);
+//	for (auto it=myList.begin(); it != myList.end(); it++)
+//	List::iterator it = myList.end();
+		std::cout <<  *(it) << ' ';
+	std::cout << '\n';
+
 
 //	std::list<double> myList;
 //	myList.push_back(15.15);
