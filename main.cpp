@@ -5,16 +5,16 @@
 #include "list.hpp"
 #include <list>
 #include "Node.hpp"
-#include "test.hpp"
+//#include "test.hpp"
 
-template <typename T>
-void printList (std::list<T> listToPrint)
-{
-	typename std::list<T>::iterator it = listToPrint.begin();
-	for (; it != listToPrint.end(); ++it)
-		std::cout << *it << " ";
-	std::cout << std::endl;
-}
+//template <typename T>
+//void printList (std::list<T> listToPrint)
+//{
+//	typename std::list<T>::iterator it = listToPrint.begin();
+//	for (; it != listToPrint.end(); ++it)
+//		std::cout << *it << " ";
+//	std::cout << std::endl;
+//}
 
 int main ()
 {
@@ -30,11 +30,11 @@ int main ()
 //	ft::iterator<int> until(numbers+5);
 //	for (ft::iterator<int> it=from; it!=until; it++)
 //		std::cout << *myVector.end() << ' ';
-	List	myList;
+	ft::List<int>	myList;
+	ft::List<int>::iterator it = myList.begin();
 	myList.append(10);
 	myList.append(20);
 	myList.append(30);
-	List::iterator it = myList.begin();
 //	std::list<int> myList;
 //	std::list<int>::iterator it = myList.begin();
 //	myList.push_back(10);
@@ -43,21 +43,26 @@ int main ()
 //	myList.push_back(40);
 //	myList.push_back(40);
 //	myList.push_back(70);
-
-	++it;
-	++it;
-	++it;
-	++it;
-	++it;
-	++it;
+//	for (; it != myList.end(); ++it)
+//
+//	++it;
+//	--it;
+//	--it;
+//	--it;
+//	--it;
+//	--it;
+//	++it;
+//	++it;
+//	++it;
+//	++it;
+//	++it;
 
 //	myList.append(30);
 //	myList.append(10);
 //	myList.append(10);
 //	myList.append(20);
 //	myList.append(30);
-//	for (auto it=myList.begin(); it != myList.end(); it++)
-//	List::iterator it = myList.end();
+	for (it = myList.begin(); it != myList.end(); ++it)
 		std::cout <<  *(it) << ' ';
 	std::cout << '\n';
 
