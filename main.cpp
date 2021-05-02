@@ -32,36 +32,13 @@ int main ()
 //		std::cout << *myVector.end() << ' ';
 	ft::List<int>	myList;
 	ft::List<int>::iterator it = myList.begin();
-	myList.append(10);
-	myList.append(20);
-	myList.append(30);
 //	std::list<int> myList;
-//	std::list<int>::iterator it = myList.begin();
-//	myList.push_back(10);
-//	myList.push_back(20);
-//	myList.push_back(30);
-//	myList.push_back(40);
-//	myList.push_back(40);
-//	myList.push_back(70);
-//	for (; it != myList.end(); ++it)
-//
-//	++it;
-//	--it;
-//	--it;
-//	--it;
-//	--it;
-//	--it;
-//	++it;
-//	++it;
-//	++it;
-//	++it;
-//	++it;
+//	std::list<int>::reverse_iterator it = myList.rbegin();
 
-//	myList.append(30);
-//	myList.append(10);
-//	myList.append(10);
-//	myList.append(20);
-//	myList.append(30);
+	myList.push_back(10);
+	myList.push_back(20);
+	myList.push_back(30);
+
 	for (it = myList.begin(); it != myList.end(); ++it)
 		std::cout <<  *(it) << ' ';
 	std::cout << '\n';
