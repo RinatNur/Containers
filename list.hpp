@@ -8,21 +8,10 @@
 
 #include <iostream>
 #include <iterator>
+#include "reverse_iterator.hpp"
+#include "Node.hpp"
 
 namespace ft {
-
-struct Node {
-	Node *previous;
-	Node *next;
-
-	Node() : previous(this), next(this) {}
-};
-
-template <typename T>
-struct DataNode : Node {
-	T data;
-};
-
 template <typename T>
 class iterator {
 public:
@@ -30,6 +19,7 @@ public:
 	typedef ft::DataNode<value_type>	DataNode;
 	typedef ft::Node					node;
 	typedef node*						node_pointer;
+//	typedef d difference_type;
 
 public:
 	iterator(node_pointer node) : m_node(node) {}
@@ -75,20 +65,26 @@ private:
 
 };
 
-template<typename T>
+template<class T, class Alloc = std::allocator<T> >
 class List {
 public:
 
-	typedef T value_type;
-	typedef value_type*	pointer;
-	typedef value_type const *	const_pointer;
-	typedef value_type&	reference;
-	typedef value_type const *	const_reference;
-	typedef ft::iterator<T> iterator;
-	typedef ft::DataNode<value_type> DataNode;
-	typedef DataNode* DataNode_pointer;
-	typedef ft::Node node;
-	typedef node* node_pointer;
+	typedef T							value_type;
+	typedef Alloc						allocator_type;
+	typedef value_type&					reference;
+	typedef const value_type*			const_reference;
+	typedef value_type*					pointer;
+	typedef const value_type*			const_pointer;
+	typedef ft::iterator<T>				iterator;
+	typedef const iterator				const_iterator;
+	typedef ft::reverse_iterator<T>		reverse_iterator;
+	typedef const reverse_iterator		const_reverse_iterator;
+	typedef std::ptrdiff_t				difference_type;
+	typedef size_t						size_type;
+	typedef ft::DataNode<value_type>	DataNode;
+	typedef DataNode*					DataNode_pointer;
+	typedef ft::Node					node;
+	typedef node*						node_pointer;
 
 public:
 
@@ -97,8 +93,9 @@ public:
 	iterator begin() { return iterator(m_sentinal->next); }
 	iterator end() { return iterator(m_sentinal); }
 
-	iterator rbegin() { return iterator(m_sentinal); }
-	iterator rend() { return iterator(m_sentinal->next); }
+	reverse_iterator rbegin() {
+		return reverse_iterator(m_sentinal->previous); }
+	reverse_iterator rend() { return reverse_iterator(m_sentinal); }
 
 	iterator insert(iterator position, T data) {
 		DataNode* data_node = new DataNode;

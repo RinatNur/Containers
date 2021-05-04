@@ -7,6 +7,22 @@
 
 #include <iostream>
 
+namespace ft {
+
+	struct Node {
+		Node *previous;
+		Node *next;
+
+		Node() : previous(this), next(this) {}
+	};
+
+	template<typename T>
+	struct DataNode : Node {
+		T data;
+	};
+}
+
+
 //namespace ft {
 //template<typename value_type>
 //class node {
