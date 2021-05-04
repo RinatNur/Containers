@@ -26,11 +26,13 @@ struct DataNode : Node {
 template <typename T>
 class iterator {
 public:
-	typedef T value_type;
-	typedef ft::DataNode<value_type> DataNode;
-	typedef ft::Node Node;
+	typedef T							value_type;
+	typedef ft::DataNode<value_type>	DataNode;
+	typedef ft::Node					node;
+	typedef node*						node_pointer;
+
 public:
-	iterator(Node *node) : m_node(node) {}
+	iterator(node_pointer node) : m_node(node) {}
 	iterator() : m_node(0) {}
 
 	iterator(const iterator& rhs) : m_node(rhs.m_node) {};
@@ -54,6 +56,7 @@ public:
 		m_node = m_node->previous;
 		return *this;
 	}// prefix decrement operator
+
 	iterator operator--(int) {
 		iterator tmp(*this);
 		operator--();
@@ -64,9 +67,12 @@ public:
 	bool operator!=(const iterator& rhs) const { return this->m_node != rhs.m_node; }
 	T & operator*() { return reinterpret_cast<DataNode *>(m_node)->data; }
 
-	Node * getNode() const { return this->m_node; }
+	node_pointer  getNode() const { return this->m_node; }
+
 private:
-	Node *m_node;
+
+	node_pointer m_node;
+
 };
 
 template<typename T>
@@ -80,11 +86,13 @@ public:
 	typedef value_type const *	const_reference;
 	typedef ft::iterator<T> iterator;
 	typedef ft::DataNode<value_type> DataNode;
-	typedef ft::Node Node;
+	typedef DataNode* DataNode_pointer;
+	typedef ft::Node node;
+	typedef node* node_pointer;
 
 public:
 
-	List() : m_sentinal(new Node) {}
+	List() : m_sentinal(new node) {}
 
 	iterator begin() { return iterator(m_sentinal->next); }
 	iterator end() { return iterator(m_sentinal); }
@@ -95,7 +103,7 @@ public:
 	iterator insert(iterator position, T data) {
 		DataNode* data_node = new DataNode;
 		data_node->data = data;
-		Node* tmp = position.getNode();
+		node_pointer tmp = position.getNode();
 		data_node->next = tmp;
 		data_node->previous = tmp->previous;
 		tmp->previous->next = data_node; // tmp->previous = m_sentinal
@@ -111,7 +119,7 @@ public:
 	}
 
 private:
-	Node *m_sentinal;
+	node_pointer m_sentinal;
 };
 }
 

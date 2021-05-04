@@ -9,21 +9,21 @@
 
 //namespace ft {
 //template<typename value_type>
-//class Node {
+//class node {
 //private:
-//	Node<value_type> *prev_;
+//	node<value_type> *prev_;
 //	value_type value_;
-//	Node<value_type> *next_;
+//	node<value_type> *next_;
 //public:
-//	Node() : prev_(nullptr), value_(), next_(nullptr) {};
+//	node() : prev_(nullptr), value_(), next_(nullptr) {};
 //
-//	Node(value_type const &value) : prev_(nullptr), value_(value), next_(nullptr) {};
+//	node(value_type const &value) : prev_(nullptr), value_(value), next_(nullptr) {};
 //
-//	Node(const Node &obj) : prev_(obj.prev_), value_(obj.value_), next_(obj.next_) {};
+//	node(const node &obj) : prev_(obj.prev_), value_(obj.value_), next_(obj.next_) {};
 //
-//	virtual ~Node() {};
+//	virtual ~node() {};
 //
-//	Node &operator=(const Node &obj) {
+//	node &operator=(const node &obj) {
 //		if (this != &obj) {
 //			this->prev_ = obj.prev_;
 //			this->value_ = obj.value_;
@@ -32,7 +32,7 @@
 //		return *this;
 //	};
 //
-//	void insert_before(Node* node) {
+//	void insert_before(node* node) {
 //		if(this->prev_)
 //		{
 //			node->prev_ = this->prev_;
@@ -42,7 +42,7 @@
 //		this->prev_ = node;
 //	}
 //
-//	void insert_after(Node* node)
+//	void insert_after(node* node)
 //	{
 //		if (this->next_)
 //		{
@@ -53,10 +53,10 @@
 //		node->prev_ = this;
 //	}
 //
-//	Node*& prev(){
+//	node*& prev(){
 //		return this->prev_;
 //	}
-//	Node const& prev() const {
+//	node const& prev() const {
 //		return this->prev_;
 //	}
 //
@@ -67,10 +67,10 @@
 //		return this->value_;
 //	}
 //
-//	Node*& next(){
+//	node*& next(){
 //		return this->next_;
 //	}
-//	Node const& next() const{
+//	node const& next() const{
 //		return this->next_;
 //	}
 //
