@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <iterator>
-#include "reverse_iterator.hpp"
+#include "Reverse_iterator.hpp"
 #include "Node.hpp"
 
 namespace ft {
@@ -77,7 +77,7 @@ public:
 	typedef const value_type*			const_pointer;
 	typedef ft::iterator<T>				iterator;
 	typedef const iterator				const_iterator;
-	typedef ft::reverse_iterator<T>		reverse_iterator;
+	typedef ft::Reverse_iterator<T>		reverse_iterator;
 	typedef const reverse_iterator		const_reverse_iterator;
 	typedef std::ptrdiff_t				difference_type;
 	typedef size_t						size_type;
@@ -88,10 +88,19 @@ public:
 
 public:
 
-	List() : m_sentinal(new node) {}
+	List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), size(0) {}
+	explicit List (size_type n, const value_type& val = value_type(),
+				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), size(n){
 
-	iterator begin() { return iterator(m_sentinal->next); }
-	iterator end() { return iterator(m_sentinal); }
+	};
+	~List(){
+		std::cout << "List destructor called" << std::endl;
+//		clear();
+//		if (m_sentinal)
+//			delete m_sentinal;
+	}
+	iterator begin() const { return iterator(m_sentinal->next); }
+	iterator end() const { return iterator(m_sentinal); }
 
 	reverse_iterator rbegin() {
 		return reverse_iterator(m_sentinal->previous); }
@@ -105,8 +114,32 @@ public:
 		data_node->previous = tmp->previous;
 		tmp->previous->next = data_node; // tmp->previous = m_sentinal
 		tmp->previous = data_node;
+		++this->size;
 		return iterator(tmp);
 	}
+
+	iterator erase (iterator position) {
+//		if ()
+	};
+
+//	void resize (size_type n, value_type val = value_type()){
+//		iterator it = this->begin();
+//		if (n < this->size)
+//		{
+//			for (int i = 0; i < n ; ++i)
+//				++it;
+//			for(; it != this->end(); ++it)
+//				delete it.getNode();
+//		}
+//	};
+
+	void clear(){
+//		for (typename List<value_type>::reverse_iterator it_rev = this->rbegin(); it_rev != this->rend(); ++it_rev)
+//			delete it_rev.getNode();
+//		delete m_sentinal;
+		m_sentinal = new node;
+		this->size = 0;
+	};
 
 	void push_back(T data) {
 		insert(end(), data);
@@ -116,7 +149,8 @@ public:
 	}
 
 private:
-	node_pointer m_sentinal;
+	node_pointer	m_sentinal;
+	size_type		size;
 };
 }
 

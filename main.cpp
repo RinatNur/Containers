@@ -4,10 +4,12 @@
 
 
 #include "tests.hpp"
+#include <vector>
+#include <libc.h>
 
 int main ()
 {
 	test_list();
-
+//	sleep(10);
 	return 0;
 }

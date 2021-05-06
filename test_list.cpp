@@ -22,75 +22,91 @@ void test_list()
 		myList.push_back(10);
 		myList.push_back(20);
 		myList.push_back(30);
+		myList.push_back(40);
+		printList(myList);
+//		myList.resize(3);
+//		myList.push_back(50);
 
+//		printList(myList);
+//		myList.clear();
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
 		printList(myList);
 	}
 	{
 		printHeader("std::list iterators begin() end()");
 		std::list<int>	myList;
+//		myList.erase(myList.end());
 		myList.push_back(10);
 		myList.push_back(20);
 		myList.push_back(30);
-
+		printList(myList);
+		myList.resize(5, 33);
 		printList(myList);
 	}
-
-	{
-		printHeader("myList iterators rbegin() rend()");
-		ft::List<int>	myList;
-		myList.push_back(10);
-		myList.push_back(20);
-		myList.push_back(30);
-		ft::List<int>::reverse_iterator it_r = myList.rend();
-		printList(myList, myList.rbegin());
-	}
-	{
-		printHeader("std::list iterators rbegin() rend()");
-		std::list<int>	myList;
-		myList.push_back(10);
-		myList.push_back(20);
-		myList.push_back(30);
-
-		printList(myList, myList.rbegin());
-	}
-	{
-		printHeader("myList operator+ operator-");
-		ft::List<int>	myList;
-		for (int i = 1; i < 9; ++i)
-			myList.push_back(i);
-		ft::List<int>::reverse_iterator it_r = myList.rbegin();
-		ft::List<int>::reverse_iterator it_tmp;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		it_tmp = it_r + 4;
-//		std::cout << *it_tmp << "\n";
+//
+//	{
+//		printHeader("myList iterators rbegin() rend()");
+//		ft::List<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		ft::List<int>::reverse_iterator it_r = myList.rend();
+//
 //		printList(myList, myList.rbegin());
-	}
-	{
-		printHeader("std::list operator+ operator-");
-		std::list<int>	myList;
-		for (int i = 1; i < 9; ++i)
-			myList.push_back(i);
-		std::list<int>::reverse_iterator it_r = myList.rbegin();
-		std::list<int>::reverse_iterator it_tmp;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-		++it_r;
-		std::cout << *it_r << "\n";
-//		it_tmp = it_r + 4;
-//		std::cout << *it_tmp << "\n";
+//		myList.clear();
+////		printList(myList, myList.rbegin());
+//	}
+//	{
+//		printHeader("std::list iterators rbegin() rend()");
+//		std::list<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//
 //		printList(myList, myList.rbegin());
-	}
+//		myList.clear();
+//		printList(myList, myList.rbegin());
+//	}
+//	{
+//		printHeader("myList operator+ operator-");
+//		ft::List<int>	myList;
+//		for (int i = 1; i < 9; ++i)
+//			myList.push_back(i);
+//		ft::List<int>::reverse_iterator it_r = myList.rbegin();
+//		ft::List<int>::reverse_iterator it_tmp;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		it_tmp = it_r + 4;
+////		std::cout << *it_tmp << "\n";
+////		printList(myList, myList.rbegin());
+//	}
+//	{
+//		printHeader("std::list operator+ operator-");
+//		std::list<int>	myList;
+//		for (int i = 1; i < 9; ++i)
+//			myList.push_back(i);
+//		std::list<int>::reverse_iterator it_r = myList.rbegin();
+//		std::list<int>::reverse_iterator it_tmp;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		++it_r;
+////		std::cout << *it_r << "\n";
+////		it_tmp = it_r + 4;
+////		std::cout << *it_tmp << "\n";
+////		printList(myList, myList.rbegin());
+//	}
 }
