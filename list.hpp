@@ -95,9 +95,9 @@ public:
 	};
 	~List(){
 		std::cout << "List destructor called" << std::endl;
-//		clear();
-//		if (m_sentinal)
-//			delete m_sentinal;
+		clear();
+		if (m_sentinal)
+			delete m_sentinal;
 	}
 	iterator begin() const { return iterator(m_sentinal->next); }
 	iterator end() const { return iterator(m_sentinal); }
@@ -119,7 +119,11 @@ public:
 	}
 
 	iterator erase (iterator position) {
-//		if ()
+		node_pointer tmp = position.getNode();
+		tmp->next->previous = tmp->previous;
+		tmp->previous->next = tmp->next;
+		delete tmp;
+		return iterator(++position);
 	};
 
 //	void resize (size_type n, value_type val = value_type()){
@@ -134,9 +138,9 @@ public:
 //	};
 
 	void clear(){
-//		for (typename List<value_type>::reverse_iterator it_rev = this->rbegin(); it_rev != this->rend(); ++it_rev)
-//			delete it_rev.getNode();
-//		delete m_sentinal;
+		for (typename List<value_type>::iterator it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
+			delete it.getNode();
+		delete m_sentinal;
 		m_sentinal = new node;
 		this->size = 0;
 	};

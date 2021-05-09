@@ -24,7 +24,7 @@ void test_list()
 		myList.push_back(30);
 		myList.push_back(40);
 		printList(myList);
-//		myList.resize(3);
+		myList.erase( myList.begin());
 //		myList.push_back(50);
 
 //		printList(myList);
@@ -34,17 +34,18 @@ void test_list()
 //		myList.push_back(30);
 		printList(myList);
 	}
-	{
-		printHeader("std::list iterators begin() end()");
-		std::list<int>	myList;
-//		myList.erase(myList.end());
-		myList.push_back(10);
-		myList.push_back(20);
-		myList.push_back(30);
-		printList(myList);
-		myList.resize(5, 33);
-		printList(myList);
-	}
+//	{
+//		printHeader("std::list iterators begin() end()");
+//		std::list<int>	myList;
+////		myList.erase(myList.end()); //segfault
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		std::cout << *myList.begin() << std::endl;
+//		printList(myList);
+//		myList.erase(++myList.end());
+//		printList(myList);
+//	}
 //
 //	{
 //		printHeader("myList iterators rbegin() rend()");
