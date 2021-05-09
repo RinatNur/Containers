@@ -17,7 +17,7 @@ void printHeader(std::string header)
 void test_list()
 {
 	{
-		printHeader("myList resize");
+		printHeader("myList pop_back() pop_front()");
 		ft::List<int>	myList;
 		myList.push_back(10);
 		myList.push_back(20);
@@ -25,11 +25,12 @@ void test_list()
 		myList.push_back(40);
 
 		printList(myList);
-		myList.resize( 0,55);
+		myList.pop_back();
+		myList.pop_front();
 		printList(myList);
 	}
 	{
-		printHeader("std::list resize");
+		printHeader("std pop_back() pop_front()");
 		std::list<int>	myList;
 		myList.push_back(10);
 		myList.push_back(20);
@@ -37,9 +38,34 @@ void test_list()
 		myList.push_back(40);
 
 		printList(myList);
-		myList.resize(0, 55);
+		myList.pop_back();
+		myList.pop_front();
 		printList(myList);
 	}
+//	{
+//		printHeader("myList resize");
+//		ft::List<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		myList.push_back(40);
+//
+//		printList(myList);
+//		myList.resize( 10,55);
+//		printList(myList);
+//	}
+//	{
+//		printHeader("std::list resize");
+//		std::list<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		myList.push_back(40);
+//
+//		printList(myList);
+//		myList.resize(0, 55);
+//		printList(myList);
+//	}
 //	{
 //		printHeader("myList iterators begin() end()");
 //		ft::List<int>	myList;

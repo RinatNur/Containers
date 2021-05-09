@@ -123,6 +123,8 @@ public:
 		tmp->next->previous = tmp->previous;
 		tmp->previous->next = tmp->next;
 		delete tmp;
+		if (this->size > 0)
+			--this->size;
 		return iterator(++position);
 	}
 
@@ -133,6 +135,8 @@ public:
 		last_ptr->next->previous = first_ptr->previous;
 		for (; first != last; ++first)
 			delete first.getNode();
+		if (this->size > 0)
+			--this->size;
 		return (++last);
 	}
 
@@ -151,7 +155,7 @@ public:
 				insert(this->m_sentinal, val);
 		}
 		this->size = n;
-	};
+	}
 
 	void clear(){
 		for (typename List<value_type>::iterator it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
@@ -159,13 +163,25 @@ public:
 		delete m_sentinal;
 		m_sentinal = new node;
 		this->size = 0;
-	};
+	}
 
 	void push_back(T data) {
 		insert(end(), data);
+		++this->size;
 	}
 	void push_front(T data) {
 		insert(begin(), data);
+		++this->size;
+	}
+	void pop_back() {
+		erase(this->m_sentinal->previous);
+		if (this->size > 0)
+			--this->size;
+	}
+	void pop_front() {
+		erase(this->begin());
+		if (this->size > 0)
+			--this->size;
 	}
 
 private:
