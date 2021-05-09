@@ -20,25 +20,60 @@ void printHeader(std::string header)
 void test_list()
 {
 	{
-		printHeader("myList empty() size() max_size()");
+		printHeader("myList assign()");
 		unsigned long s;
 		ft::List<int>	myList;
-		myList.push_back(10);
+		ft::List<int>	myList_assign;
 
+		myList.push_back(10);
+		myList.push_back(20);
+		myList.push_back(30);
+		myList.push_back(40);
+
+		for (int i = 100; i < 115; ++i)
+			myList_assign.push_back(i);
 		printList(myList);
-		std::cout << "m_size = " << myList.size() << endl;
-		cout << "max_size = " << myList.max_size() << endl;
-		std::cout << "is list empty " << myList.empty() << endl;
+		printList(myList_assign);
+		myList_assign.assign(myList.begin(), myList.end());
+		printList(myList_assign);
+
 	}
 	{
-		printHeader("std empty() size() max_size()");
-		std::list<int>	myList;
+		printHeader("std assign()");
+		std::list<float>	myList;
+		std::list<int>	myList_assign;
 		myList.push_back(10);
+		myList.push_back(20);
+		myList.push_back(30);
+		myList.push_back(40);
+
+		for (int i = 100; i < 115; ++i)
+			myList_assign.push_back(i);
 		printList(myList);
-		std::cout << "m_size = " << myList.size() << endl;
-		cout << "max_size = " << myList.max_size() << endl;
-		std::cout << "is list empty " << myList.empty() << endl;
+		printList(myList_assign);
+		myList_assign.assign(myList.begin(), --myList.end());
+		printList(myList_assign);
 	}
+//	{
+//		printHeader("myList empty() size() max_size()");
+//		unsigned long s;
+//		ft::List<int>	myList;
+//		myList.push_back(10);
+//
+//		printList(myList);
+//		std::cout << "m_size = " << myList.size() << endl;
+//		cout << "max_size = " << myList.max_size() << endl;
+//		std::cout << "is list empty " << myList.empty() << endl;
+//	}
+//	{
+//		printHeader("std empty() size() max_size()");
+//		std::list<int>	myList;
+//		myList.push_back(10);
+//		printList(myList);
+//		std::cout << "m_size = " << myList.size() << endl;
+//		cout << "max_size = " << myList.max_size() << endl;
+//		std::cout << "is list empty " << myList.empty() << endl;
+//	}
 //	{
 //		printHeader("myList pop_back() pop_front()");
 //		ft::List<int>	myList;

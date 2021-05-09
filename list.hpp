@@ -131,6 +131,18 @@ public:
 
 
 	//Modifiers
+//	template <class InputIterator>
+	void assign (iterator first, iterator last){
+		this->clear();
+		for (; first != last; ++first)
+			push_back(*first);
+	}
+	void assign (size_type n, const value_type& val){
+		this->clear();
+		for (int i = 0; i < n; ++i)
+			push_back(val);
+	}
+
 	iterator insert(iterator position, T data) {
 		DataNode* data_node = new DataNode;
 		data_node->data = data;
