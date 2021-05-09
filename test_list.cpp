@@ -17,37 +17,61 @@ void printHeader(std::string header)
 void test_list()
 {
 	{
-		printHeader("myList iterators begin() end()");
+		printHeader("myList resize");
 		ft::List<int>	myList;
 		myList.push_back(10);
 		myList.push_back(20);
 		myList.push_back(30);
 		myList.push_back(40);
-		ft::List<int>::iterator first = myList.begin();
-		ft::List<int>::iterator second = myList.end();
-//		--second;
-//		--second;
+
 		printList(myList);
-		myList.erase( first,second);
+		myList.resize( 0,55);
 		printList(myList);
 	}
 	{
-		printHeader("std::list iterators begin() end()");
+		printHeader("std::list resize");
 		std::list<int>	myList;
-//		myList.erase(myList.end()); //segfault
 		myList.push_back(10);
 		myList.push_back(20);
 		myList.push_back(30);
 		myList.push_back(40);
-		std::list<int>::iterator first = myList.begin();
-		std::list<int>::iterator second = myList.end();
-		--second;
-		--second;
-//		std::cout << *myList.begin() << std::endl;
+
 		printList(myList);
-		myList.erase(first,first);
+		myList.resize(0, 55);
 		printList(myList);
 	}
+//	{
+//		printHeader("myList iterators begin() end()");
+//		ft::List<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		myList.push_back(40);
+//		ft::List<int>::iterator first = myList.begin();
+//		ft::List<int>::iterator second = myList.end();
+////		--second;
+////		--second;
+//		printList(myList);
+//		myList.erase( first,second);
+//		printList(myList);
+//	}
+//	{
+//		printHeader("std::list iterators begin() end()");
+//		std::list<int>	myList;
+////		myList.erase(myList.end()); //segfault
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		myList.push_back(40);
+//		std::list<int>::iterator first = myList.begin();
+//		std::list<int>::iterator second = myList.end();
+//		--second;
+//		--second;
+////		std::cout << *myList.begin() << std::endl;
+//		printList(myList);
+//		myList.erase(first,first);
+//		printList(myList);
+//	}
 //
 //	{
 //		printHeader("myList iterators rbegin() rend()");

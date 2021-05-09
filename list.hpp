@@ -136,16 +136,22 @@ public:
 		return (++last);
 	}
 
-//	void resize (size_type n, value_type val = value_type()){
-//		iterator it = this->begin();
-//		if (n < this->size)
-//		{
-//			for (int i = 0; i < n ; ++i)
-//				++it;
-//			for(; it != this->end(); ++it)
-//				delete it.getNode();
-//		}
-//	};
+	void resize (size_type n, value_type val = value_type()){
+		iterator it = this->begin();
+		if (n <= this->size)
+		{
+			for (int i = 0; i < n ; ++i)
+				++it;
+			for(; it != this->end(); ++it)
+				erase(it);
+		}
+		else
+		{
+			for (int i = this->size; i < n; ++i)
+				insert(this->m_sentinal, val);
+		}
+		this->size = n;
+	};
 
 	void clear(){
 		for (typename List<value_type>::iterator it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
