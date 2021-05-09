@@ -4,6 +4,9 @@
 
 #include "tests.hpp"
 
+using std::endl;
+using std::cout;
+
 void printHeader(std::string header)
 {
 	std::cout  << "\033[1;35m"
@@ -17,31 +20,51 @@ void printHeader(std::string header)
 void test_list()
 {
 	{
-		printHeader("myList pop_back() pop_front()");
+		printHeader("myList empty() size() max_size()");
+		unsigned long s;
 		ft::List<int>	myList;
 		myList.push_back(10);
-		myList.push_back(20);
-		myList.push_back(30);
-		myList.push_back(40);
 
 		printList(myList);
-		myList.pop_back();
-		myList.pop_front();
-		printList(myList);
+		std::cout << "m_size = " << myList.size() << endl;
+		cout << "max_size = " << myList.max_size() << endl;
+		std::cout << "is list empty " << myList.empty() << endl;
 	}
 	{
-		printHeader("std pop_back() pop_front()");
+		printHeader("std empty() size() max_size()");
 		std::list<int>	myList;
 		myList.push_back(10);
-		myList.push_back(20);
-		myList.push_back(30);
-		myList.push_back(40);
-
 		printList(myList);
-		myList.pop_back();
-		myList.pop_front();
-		printList(myList);
+		std::cout << "m_size = " << myList.size() << endl;
+		cout << "max_size = " << myList.max_size() << endl;
+		std::cout << "is list empty " << myList.empty() << endl;
 	}
+//	{
+//		printHeader("myList pop_back() pop_front()");
+//		ft::List<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		myList.push_back(40);
+//
+//		printList(myList);
+//		myList.pop_back();
+//		myList.pop_front();
+//		printList(myList);
+//	}
+//	{
+//		printHeader("std pop_back() pop_front()");
+//		std::list<int>	myList;
+//		myList.push_back(10);
+//		myList.push_back(20);
+//		myList.push_back(30);
+//		myList.push_back(40);
+//
+//		printList(myList);
+//		myList.pop_back();
+//		myList.pop_front();
+//		printList(myList);
+//	}
 //	{
 //		printHeader("myList resize");
 //		ft::List<int>	myList;

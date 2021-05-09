@@ -12,6 +12,10 @@
 #include "Node.hpp"
 
 namespace ft {
+template<class value_type>
+value_type const &min(value_type const &a, value_type const &b) {
+	return (a < b ? a : b);
+}
 template <typename T>
 class iterator {
 public:
@@ -88,9 +92,9 @@ public:
 
 public:
 
-	List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), size(0) {}
+	List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
 	explicit List (size_type n, const value_type& val = value_type(),
-				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), size(n){
+				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(n){
 
 	};
 	~List(){
@@ -99,6 +103,8 @@ public:
 		if (m_sentinal)
 			delete m_sentinal;
 	}
+
+	//ITERATORS
 	iterator begin() const { return iterator(m_sentinal->next); }
 	iterator end() const { return iterator(m_sentinal); }
 
@@ -106,6 +112,25 @@ public:
 		return reverse_iterator(m_sentinal->previous); }
 	reverse_iterator rend() { return reverse_iterator(m_sentinal); }
 
+	//Capacity
+
+	bool empty() const{
+		return (!this->m_size);
+	}
+
+	size_type size(){
+		return (this->m_size);
+	}
+
+	size_type max_size() {
+//		return (ft::min((size_type) std::numeric_limits<difference_type>::max(),// TODO why max of difference type is nesessary?
+//				  std::numeric_limits<size_type>::max() / sizeof(DataNode)));
+		return std::numeric_limits<size_type>::max() / sizeof(DataNode);
+	}
+
+
+
+	//Modifiers
 	iterator insert(iterator position, T data) {
 		DataNode* data_node = new DataNode;
 		data_node->data = data;
@@ -114,7 +139,7 @@ public:
 		data_node->previous = tmp->previous;
 		tmp->previous->next = data_node; // tmp->previous = m_sentinal
 		tmp->previous = data_node;
-		++this->size;
+		++this->m_size;
 		return iterator(tmp);
 	}
 
@@ -123,8 +148,8 @@ public:
 		tmp->next->previous = tmp->previous;
 		tmp->previous->next = tmp->next;
 		delete tmp;
-		if (this->size > 0)
-			--this->size;
+		if (this->m_size > 0)
+			--this->m_size;
 		return iterator(++position);
 	}
 
@@ -135,14 +160,14 @@ public:
 		last_ptr->next->previous = first_ptr->previous;
 		for (; first != last; ++first)
 			delete first.getNode();
-		if (this->size > 0)
-			--this->size;
+		if (this->m_size > 0)
+			--this->m_size;
 		return (++last);
 	}
 
 	void resize (size_type n, value_type val = value_type()){
 		iterator it = this->begin();
-		if (n <= this->size)
+		if (n <= this->m_size)
 		{
 			for (int i = 0; i < n ; ++i)
 				++it;
@@ -151,10 +176,10 @@ public:
 		}
 		else
 		{
-			for (int i = this->size; i < n; ++i)
+			for (int i = this->m_size; i < n; ++i)
 				insert(this->m_sentinal, val);
 		}
-		this->size = n;
+		this->m_size = n;
 	}
 
 	void clear(){
@@ -162,31 +187,29 @@ public:
 			delete it.getNode();
 		delete m_sentinal;
 		m_sentinal = new node;
-		this->size = 0;
+		this->m_size = 0;
 	}
 
 	void push_back(T data) {
 		insert(end(), data);
-		++this->size;
 	}
 	void push_front(T data) {
 		insert(begin(), data);
-		++this->size;
 	}
 	void pop_back() {
 		erase(this->m_sentinal->previous);
-		if (this->size > 0)
-			--this->size;
+		if (this->m_size > 0)
+			--this->m_size;
 	}
 	void pop_front() {
 		erase(this->begin());
-		if (this->size > 0)
-			--this->size;
+		if (this->m_size > 0)
+			--this->m_size;
 	}
 
 private:
 	node_pointer	m_sentinal;
-	size_type		size;
+	size_type		m_size;
 };
 }
 
