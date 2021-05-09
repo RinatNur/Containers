@@ -124,7 +124,17 @@ public:
 		tmp->previous->next = tmp->next;
 		delete tmp;
 		return iterator(++position);
-	};
+	}
+
+	iterator erase (iterator first, iterator last){
+		node_pointer first_ptr = first.getNode();
+		node_pointer last_ptr = last.getNode()->previous;
+		first_ptr->previous->next = last_ptr->next;
+		last_ptr->next->previous = first_ptr->previous;
+		for (; first != last; ++first)
+			delete first.getNode();
+		return (++last);
+	}
 
 //	void resize (size_type n, value_type val = value_type()){
 //		iterator it = this->begin();
