@@ -12,6 +12,13 @@
 #include "Node.hpp"
 
 namespace ft {
+
+	template<bool B, class T = void>
+	struct enable_if {};
+
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
+
 template<class value_type>
 value_type const &min(value_type const &a, value_type const &b) {
 	return (a < b ? a : b);
@@ -98,7 +105,7 @@ public:
 
 	};
 	~List(){
-		std::cout << "List destructor called" << std::endl;
+//		std::cout << "List destructor called" << std::endl;
 		clear();
 		if (m_sentinal)
 			delete m_sentinal;
@@ -131,16 +138,16 @@ public:
 
 
 	//Modifiers
-//	template <class InputIterator>
-	void assign (iterator first, iterator last){
+	template <class InputIterator>
+	void assign (InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0){
 		this->clear();
 		for (; first != last; ++first)
-			push_back(*first);
+			this->push_back(*first);
 	}
 	void assign (size_type n, const value_type& val){
 		this->clear();
 		for (int i = 0; i < n; ++i)
-			push_back(val);
+			this->push_back(val);
 	}
 
 	iterator insert(iterator position, T data) {

@@ -17,13 +17,20 @@ void printHeader(std::string header)
 			   << std::endl;
 }
 
+void printDescription(std::string desc)
+{
+	std::cout	<< "["
+				<< desc
+				<< "]:";
+}
+
 void test_list()
 {
 	{
 		printHeader("myList assign()");
 		unsigned long s;
 		ft::List<int>	myList;
-		ft::List<int>	myList_assign;
+		ft::List<int>	myList_tmp;
 
 		myList.push_back(10);
 		myList.push_back(20);
@@ -31,28 +38,50 @@ void test_list()
 		myList.push_back(40);
 
 		for (int i = 100; i < 115; ++i)
-			myList_assign.push_back(i);
+			myList_tmp.push_back(i);
+
+		printDescription("ft::myList");
 		printList(myList);
-		printList(myList_assign);
-		myList_assign.assign(myList.begin(), myList.end());
-		printList(myList_assign);
+
+		printDescription("ft::myList_tmp");
+		printList(myList_tmp);
+
+		myList_tmp.assign(myList.begin(), myList.end());
+		printDescription("myList_tmp.assign\n(myList.begin(), myList.end())");
+		printList(myList_tmp);
+
+		myList_tmp.assign(8, 50);
+		printDescription("myList_tmp.assign(8, 50)");
+		printList(myList_tmp);
 
 	}
 	{
 		printHeader("std assign()");
-		std::list<float>	myList;
-		std::list<int>	myList_assign;
+		unsigned long s;
+		std::list<int>	myList;
+		std::list<int>	myList_tmp;
+
 		myList.push_back(10);
 		myList.push_back(20);
 		myList.push_back(30);
 		myList.push_back(40);
 
 		for (int i = 100; i < 115; ++i)
-			myList_assign.push_back(i);
+			myList_tmp.push_back(i);
+
+		printDescription("std::myList");
 		printList(myList);
-		printList(myList_assign);
-		myList_assign.assign(myList.begin(), --myList.end());
-		printList(myList_assign);
+
+		printDescription("std::myList_tmp");
+		printList(myList_tmp);
+
+		myList_tmp.assign(myList.begin(), myList.end());
+		printDescription("myList_tmp.assign\n(myList.begin(), myList.end())");
+		printList(myList_tmp);
+
+		myList_tmp.assign(8, 50);
+		printDescription("myList_tmp.assign(8, 50)");
+		printList(myList_tmp);
 	}
 //	{
 //		printHeader("myList empty() size() max_size()");
