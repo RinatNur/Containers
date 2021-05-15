@@ -104,6 +104,7 @@ public:
 //	typedef DataNode*					DataNode_pointer;
 	typedef ft::Node<value_type>		node;
 	typedef node*						node_pointer;
+	typedef typename List<value_type>::iterator it_type;
 
 public:
 
@@ -233,7 +234,7 @@ public:
 	}
 
 	void clear(){
-		for (typename List<value_type>::iterator it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
+		for (it_type it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
 			delete it.getNode();
 		delete m_sentinal;
 		m_sentinal = new node;
@@ -260,14 +261,25 @@ public:
 			--this->m_size;
 	}
 
+	//Operations:
+
 	void splice (iterator position, List& x){
-//		for ()
-//		this->insert(position, )
+		for (it_type it = x.begin(); it != x.end(); ++it)
+			this->insert(position, *it);
+		x.clear();
 	};
 
-	void splice (iterator position, List& x, iterator i){};
+	void splice (iterator position, List& x, iterator i){
+		this->insert(position, *i);
+		x.erase(i);
+	};
 
-	void splice (iterator position, List& x, iterator first, iterator last){};
+	void splice (iterator position, List& x, iterator first, iterator last){
+		for (it_type it = first; it != last; ++it) {
+			this->insert(position, *it);
+			x.erase(it);
+		}
+	};
 
 private:
 	node_pointer	m_sentinal;

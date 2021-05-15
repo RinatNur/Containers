@@ -28,59 +28,79 @@ void test_list()
 {
 	{
 		printHeader("myList swap()");
-		ft::List<int> first (3, 222);   // three ints with a value of 100
-		ft::List<int> second (5,555);  // five ints with a value of 200
+		ft::List<int> mylist1, mylist2;
+		ft::List<int>::iterator it;
 
-		printDescription("first list");
-		printList(first);
-		printDescription("first.size()");
-		cout << first.size() << endl;
-		printDescription("first.begin()");
-		cout << *first.begin() << endl;
-		printDescription("second list");
-		printList(second);
-		printDescription("second.size()");
-		cout << second.size() << endl;
-		printDescription("second.begin()");
-		cout << *second.begin() << endl;
-		first.swap(second);
+		// set some initial values:
+		for (int i=1; i<=4; ++i)
+			mylist1.push_back(i);      // mylist1: 1 2 3 4
 
+		for (int i=1; i<=3; ++i)
+			mylist2.push_back(i*10);   // mylist2: 10 20 30
 
-		std::cout << "first contains:";
-		for (ft::List<int>::iterator it=first.begin(); it!=first.end(); it++)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
+		it = mylist1.begin();
+		++it;                         // points to 2
 
-		std::cout << "second contains:";
-		for (ft::List<int>::iterator it=second.begin(); it!=second.end(); it++)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
+		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
+		// mylist2 (empty)
+		// "it" still points to 2 (the 5th element)
 
-		printDescription("first.begin()");
-		cout << *first.begin() << endl;
-		printDescription("first.size()");
-		cout << first.size() << endl;
-		printDescription("second.begin()");
-		cout << *second.begin() << endl;
-		printDescription("second.size()");
-		cout << second.size() << endl;
+		mylist2.splice (mylist2.begin(),mylist1, it);
+		// mylist1: 1 10 20 30 3 4
+		// mylist2: 2
+		// "it" is now invalid.
+		it = mylist1.begin();
+		++it; ++it; ++it;          // "it" points now to 30
+
+		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+		// mylist1: 30 3 4 1 10 20
+
+		printDescription("mylist1 contains:");
+		printList(mylist1);
+		printDescription("myList1.size()");
+		cout << mylist1.size() << endl;
+		printDescription("mylist2 contains:");
+		printList(mylist2);
+		printDescription("myList2.size()");
+		cout << mylist2.size() << endl;
 	}
 	{
-		printHeader("std swap()");
-		std::list<int> first (3,100);   // three ints with a value of 100
-		std::list<int> second (5,200);  // five ints with a value of 200
+		printHeader("std splice()");
+		std::list<int> mylist1, mylist2;
+		std::list<int>::iterator it;
 
-		first.swap(second);
+		// set some initial values:
+		for (int i=1; i<=4; ++i)
+			mylist1.push_back(i);      // mylist1: 1 2 3 4
 
-		std::cout << "first contains:";
-		for (std::list<int>::iterator it=first.begin(); it!=first.end(); it++)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
+		for (int i=1; i<=3; ++i)
+			mylist2.push_back(i*10);   // mylist2: 10 20 30
 
-		std::cout << "second contains:";
-		for (std::list<int>::iterator it=second.begin(); it!=second.end(); it++)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
+		it = mylist1.begin();
+		++it;                         // points to 2
+
+		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
+		// mylist2 (empty)
+		// "it" still points to 2 (the 5th element)
+
+		mylist2.splice (mylist2.begin(),mylist1, it);
+		// mylist1: 1 10 20 30 3 4
+		// mylist2: 2
+		// "it" is now invalid.
+		it = mylist1.begin();
+		std::advance(it,3);           // "it" points now to 30
+
+		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+		// mylist1: 30 3 4 1 10 20
+
+		printDescription("mylist1 contains:");
+		printList(mylist1);
+		printDescription("myList1.size()");
+		cout << mylist1.size() << endl;
+		printDescription("mylist2 contains:");
+		printList(mylist2);
+		printDescription("myList2.size()");
+		cout << mylist2.size() << endl;
 	}
 //	{
 //		printHeader("myList front() back()");
