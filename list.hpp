@@ -19,6 +19,14 @@ namespace ft {
 	template<class T>
 	struct enable_if<true, T> { typedef T type; };
 
+	template<class value_type>
+	void swap(value_type& a, value_type& b)
+	{
+		value_type tmp(a);
+		a = b;
+		b = tmp;
+	}
+
 template<class value_type>
 value_type const &min(value_type const &a, value_type const &b) {
 	return (a < b ? a : b);
@@ -101,8 +109,11 @@ public:
 
 	List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
 	explicit List (size_type n, const value_type& val = value_type(),
-				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(n){
-
+				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0){
+		for (int i = 0; i < n; ++i)
+		{
+			this->push_back(val);
+		}
 	};
 	~List(){
 //		std::cout << "List destructor called" << std::endl;
@@ -138,11 +149,18 @@ public:
 	//Element access:
 
 	reference front(){
-		return this->begin().getNode().value;
-	};
-	const_reference front() const{};
+		return this->m_sentinal->next()->getValue();
+	}
+	const_reference front() const{
+		return this->m_sentinal->next()->getValue();
+	}
 
-
+	reference back(){
+		return this->m_sentinal->previous()->getValue();
+	}
+	const_reference back() const{
+		return this->m_sentinal->previous()->getValue();
+	}
 
 	//Modifiers
 	template <class InputIterator>
@@ -192,6 +210,11 @@ public:
 		return (++last);
 	}
 
+	void swap(List& x) {
+		ft::swap(this->m_sentinal, x.m_sentinal);
+		ft::swap(this->m_size, x.m_size);
+	}
+
 	void resize (size_type n, value_type val = value_type()){
 		iterator it = this->begin();
 		if (n <= this->m_size)
@@ -236,6 +259,15 @@ public:
 		if (this->m_size > 0)
 			--this->m_size;
 	}
+
+	void splice (iterator position, List& x){
+//		for ()
+//		this->insert(position, )
+	};
+
+	void splice (iterator position, List& x, iterator i){};
+
+	void splice (iterator position, List& x, iterator first, iterator last){};
 
 private:
 	node_pointer	m_sentinal;
