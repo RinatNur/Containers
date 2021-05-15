@@ -14,11 +14,18 @@ namespace ft {
 		Node *next;
 
 		Node() : previous(this), next(this) {}
+//		Node * getNode(){
+//			return this->next;
+//		}
+
 	};
 
 	template<typename T>
 	struct DataNode : Node {
 		T data;
+		T getData() const{
+			return this->data;
+		}
 	};
 }
 

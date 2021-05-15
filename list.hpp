@@ -135,6 +135,13 @@ public:
 		return std::numeric_limits<size_type>::max() / sizeof(DataNode);
 	}
 
+	//Element access:
+
+	reference front(){
+		return this->begin().getNode().data;
+	};
+	const_reference front() const{};
+
 
 
 	//Modifiers
@@ -144,6 +151,7 @@ public:
 		for (; first != last; ++first)
 			this->push_back(*first);
 	}
+
 	void assign (size_type n, const value_type& val){
 		this->clear();
 		for (int i = 0; i < n; ++i)
@@ -212,14 +220,17 @@ public:
 	void push_back(T data) {
 		insert(end(), data);
 	}
+
 	void push_front(T data) {
 		insert(begin(), data);
 	}
+
 	void pop_back() {
 		erase(this->m_sentinal->previous);
 		if (this->m_size > 0)
 			--this->m_size;
 	}
+
 	void pop_front() {
 		erase(this->begin());
 		if (this->m_size > 0)
