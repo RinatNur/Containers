@@ -9,24 +9,66 @@
 
 namespace ft {
 
-	struct Node {
-		Node *previous;
-		Node *next;
-
-		Node() : previous(this), next(this) {}
-//		Node * getNode(){
-//			return this->next;
-//		}
-
-	};
-
 	template<typename T>
-	struct DataNode : Node {
-		T data;
-		T getData() const{
-			return this->data;
+	struct Node {
+	public:
+
+		typedef T	value_type;
+		typedef Node<value_type>	node;
+		typedef node*				pointer;
+		typedef node&				reference;
+
+	private:
+
+		pointer		_previous;
+		value_type	_value;
+		pointer		_next;
+
+	public:
+
+		Node() : _previous(this), _value(0), _next(this) {}
+
+		void setValue(value_type data) {
+			this->_value = data;
 		}
+
+		void setNext(pointer ptr)
+		{
+			this->_next = ptr;
+		}
+
+		void setPrevious(pointer ptr)
+		{
+			this->_previous = ptr;
+		}
+
+		value_type & getValue() {
+			return this->_value;
+		}
+		pointer previous() {
+			return this->_previous;
+		}
+		pointer next() {
+			return this->_next;
+		}
+
+		pointer const previous() const{
+			return this->_previous;
+		}
+		pointer const next() const{
+			return this->_next;
+		}
+
+
 	};
+
+//	template<typename T>
+//	struct DataNode : Node {
+//		T data;
+//		T getData() const{
+//			return this->data;
+//		}
+//	};
 }
 
 

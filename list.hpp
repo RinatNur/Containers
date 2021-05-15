@@ -27,8 +27,8 @@ template <typename T>
 class iterator {
 public:
 	typedef T							value_type;
-	typedef ft::DataNode<value_type>	DataNode;
-	typedef ft::Node					node;
+//	typedef ft::DataNode<value_type>	DataNode;
+	typedef ft::Node<value_type>		node;
 	typedef node*						node_pointer;
 //	typedef d difference_type;
 
@@ -44,7 +44,7 @@ public:
 		return *this;
 	}
 	iterator &operator++() {
-		m_node = m_node->next;
+		m_node = m_node->next();
 		return *this;
 	}
 	iterator operator++(int) {
@@ -54,7 +54,7 @@ public:
 	}// postfix increment operator
 
 	iterator &operator--() {
-		m_node = m_node->previous;
+		m_node = m_node->previous();
 		return *this;
 	}// prefix decrement operator
 
@@ -66,7 +66,7 @@ public:
 
 	bool operator==(const iterator& rhs) const { return this->m_node == rhs.m_node; }
 	bool operator!=(const iterator& rhs) const { return this->m_node != rhs.m_node; }
-	T & operator*() { return reinterpret_cast<DataNode *>(m_node)->data; }
+	T & operator*() { return (m_node->getValue()); }
 
 	node_pointer  getNode() const { return this->m_node; }
 
@@ -92,9 +92,9 @@ public:
 	typedef const reverse_iterator		const_reverse_iterator;
 	typedef std::ptrdiff_t				difference_type;
 	typedef size_t						size_type;
-	typedef ft::DataNode<value_type>	DataNode;
-	typedef DataNode*					DataNode_pointer;
-	typedef ft::Node					node;
+//	typedef ft::DataNode<value_type>	DataNode;
+//	typedef DataNode*					DataNode_pointer;
+	typedef ft::Node<value_type>		node;
 	typedef node*						node_pointer;
 
 public:
@@ -112,11 +112,11 @@ public:
 	}
 
 	//ITERATORS
-	iterator begin() const { return iterator(m_sentinal->next); }
+	iterator begin() const { return iterator(m_sentinal->next()); }
 	iterator end() const { return iterator(m_sentinal); }
 
 	reverse_iterator rbegin() {
-		return reverse_iterator(m_sentinal->previous); }
+		return reverse_iterator(m_sentinal->previous()); }
 	reverse_iterator rend() { return reverse_iterator(m_sentinal); }
 
 	//Capacity
@@ -132,13 +132,13 @@ public:
 	size_type max_size() {
 //		return (ft::min((size_type) std::numeric_limits<difference_type>::max(),// TODO why max of difference type is nesessary?
 //				  std::numeric_limits<size_type>::max() / sizeof(DataNode)));
-		return std::numeric_limits<size_type>::max() / sizeof(DataNode);
+		return std::numeric_limits<size_type>::max() / sizeof(Node<T>);
 	}
 
 	//Element access:
 
 	reference front(){
-		return this->begin().getNode().data;
+		return this->begin().getNode().value;
 	};
 	const_reference front() const{};
 
@@ -159,21 +159,21 @@ public:
 	}
 
 	iterator insert(iterator position, T data) {
-		DataNode* data_node = new DataNode;
-		data_node->data = data;
+		node_pointer data_node = new node;
+		data_node->setValue(data);
 		node_pointer tmp = position.getNode();
-		data_node->next = tmp;
-		data_node->previous = tmp->previous;
-		tmp->previous->next = data_node; // tmp->previous = m_sentinal
-		tmp->previous = data_node;
+		data_node->setNext(tmp);
+		data_node->setPrevious(tmp->previous());
+		tmp->previous()->setNext(data_node); // tmp->previous() = m_sentinal
+		tmp->setPrevious(data_node);
 		++this->m_size;
 		return iterator(tmp);
 	}
 
 	iterator erase (iterator position) {
 		node_pointer tmp = position.getNode();
-		tmp->next->previous = tmp->previous;
-		tmp->previous->next = tmp->next;
+		tmp->next()->setPrevious(tmp->previous());
+		tmp->previous()->setNext(tmp->next());
 		delete tmp;
 		if (this->m_size > 0)
 			--this->m_size;
@@ -182,9 +182,9 @@ public:
 
 	iterator erase (iterator first, iterator last){
 		node_pointer first_ptr = first.getNode();
-		node_pointer last_ptr = last.getNode()->previous;
-		first_ptr->previous->next = last_ptr->next;
-		last_ptr->next->previous = first_ptr->previous;
+		node_pointer last_ptr = last.getNode()->previous();
+		first_ptr->previous()->setNext(last_ptr->next());
+		last_ptr->next()->setPrevious(first_ptr->previous());
 		for (; first != last; ++first)
 			delete first.getNode();
 		if (this->m_size > 0)
@@ -226,7 +226,7 @@ public:
 	}
 
 	void pop_back() {
-		erase(this->m_sentinal->previous);
+		erase(this->m_sentinal->previous());
 		if (this->m_size > 0)
 			--this->m_size;
 	}
