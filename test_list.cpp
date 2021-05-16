@@ -50,16 +50,19 @@ void test_list()
 		// mylist2: 2
 		// "it" is now invalid.
 		it = mylist1.begin();
-		++it; ++it; ++it;          // "it" points now to 30
+		++it;          // "it" points now to 30
+		++it;          // "it" points now to 30
+		++it;          // "it" points now to 30
 
 		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
 		// mylist1: 30 3 4 1 10 20
 
-		printDescription("mylist1 contains:");
+		printDescription("myList1");
 		printList(mylist1);
 		printDescription("myList1.size()");
 		cout << mylist1.size() << endl;
-		printDescription("mylist2 contains:");
+
+		printDescription("myList2");
 		printList(mylist2);
 		printDescription("myList2.size()");
 		cout << mylist2.size() << endl;
@@ -93,11 +96,12 @@ void test_list()
 		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
 		// mylist1: 30 3 4 1 10 20
 
-		printDescription("mylist1 contains:");
+		printDescription("myList1");
 		printList(mylist1);
 		printDescription("myList1.size()");
 		cout << mylist1.size() << endl;
-		printDescription("mylist2 contains:");
+
+		printDescription("myList2");
 		printList(mylist2);
 		printDescription("myList2.size()");
 		cout << mylist2.size() << endl;

@@ -27,6 +27,19 @@ namespace ft {
 		b = tmp;
 	}
 
+	template<class It>
+	int distance(It const & first, It const & last)
+	{
+		int counter = 0;
+		It tmp = first;
+
+		for (; tmp != last; ++tmp)
+			++counter;
+		return counter;
+	}
+
+
+
 template<class value_type>
 value_type const &min(value_type const &a, value_type const &b) {
 	return (a < b ? a : b);
@@ -264,21 +277,34 @@ public:
 	//Operations:
 
 	void splice (iterator position, List& x){
-		for (it_type it = x.begin(); it != x.end(); ++it)
-			this->insert(position, *it);
-		x.clear();
+		splice(position, x, x.begin(), x.end());
 	};
 
 	void splice (iterator position, List& x, iterator i){
-		this->insert(position, *i);
-		x.erase(i);
+		splice(position, x, i, ++i);
 	};
 
 	void splice (iterator position, List& x, iterator first, iterator last){
-		for (it_type it = first; it != last; ++it) {
-			this->insert(position, *it);
-			x.erase(it);
-		}
+		if (first == last)
+			return ;
+		int sizeOfCutSection = ft::distance(first, last);
+		it_type	 tmp_target = position;
+		--position;
+		it_type endOfCutSection = last;
+		--endOfCutSection;
+		//change this list
+		first.getNode()->previous()->setNext(last.getNode()); // link from "first" to "last"
+		last.getNode()->setPrevious(first.getNode()->previous()); // link "last" to "before first" node
+
+		//change x list
+		first.getNode()->setPrevious(position.getNode()); // link "first" to "position" node
+		position.getNode()->setNext(first.getNode()); // link "position" to "firs" node
+		endOfCutSection.getNode()->setNext(tmp_target.getNode()); // link "last of cut section" to "after cut section" node
+		tmp_target.getNode()->setPrevious(endOfCutSection.getNode()); // link "after cut section" to "last of cut section" node
+
+		//change size of both lists
+		this->m_size += sizeOfCutSection;
+		x.m_size -= sizeOfCutSection;
 	};
 
 private:
