@@ -307,6 +307,14 @@ public:
 		x.m_size -= sizeOfCutSection;
 	};
 
+	void remove (const value_type& val){
+		for (it_type it = this->begin(); it != this->end(); ++it)
+		{
+			if (*it == val)
+				this->erase(it);
+		}
+	}
+
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;

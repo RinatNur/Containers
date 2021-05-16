@@ -27,85 +27,111 @@ void printDescription(std::string desc)
 void test_list()
 {
 	{
-		printHeader("myList swap()");
-		ft::List<int> mylist1, mylist2;
-		ft::List<int>::iterator it;
+		printHeader("myList remove()");
+		int myints[]= {17,89,7,14};
+		ft::List<int> mylist;
+//		for (int i = 0; i < 4; ++i)
+//			mylist.push_back(myints[i]);
 
-		// set some initial values:
-		for (int i=1; i<=4; ++i)
-			mylist1.push_back(i);      // mylist1: 1 2 3 4
+		mylist.remove(55);
 
-		for (int i=1; i<=3; ++i)
-			mylist2.push_back(i*10);   // mylist2: 10 20 30
-
-		it = mylist1.begin();
-		++it;                         // points to 2
-
-		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
-		// mylist2 (empty)
-		// "it" still points to 2 (the 5th element)
-
-		mylist2.splice (mylist2.begin(),mylist1, it);
-		// mylist1: 1 10 20 30 3 4
-		// mylist2: 2
-		// "it" is now invalid.
-		it = mylist1.begin();
-		++it;          // "it" points now to 30
-		++it;          // "it" points now to 30
-		++it;          // "it" points now to 30
-
-		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
-		// mylist1: 30 3 4 1 10 20
-
-		printDescription("myList1");
-		printList(mylist1);
-		printDescription("myList1.size()");
-		cout << mylist1.size() << endl;
-
-		printDescription("myList2");
-		printList(mylist2);
-		printDescription("myList2.size()");
-		cout << mylist2.size() << endl;
+		std::cout << "mylist contains:";
+		for (ft::List<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
 	}
 	{
-		printHeader("std splice()");
-		std::list<int> mylist1, mylist2;
-		std::list<int>::iterator it;
+		printHeader("std remove()");
+		int myints[]= {17,89,7,14};
+		std::list<int> mylist;// (myints,myints+4);
 
-		// set some initial values:
-		for (int i=1; i<=4; ++i)
-			mylist1.push_back(i);      // mylist1: 1 2 3 4
+		mylist.remove(89);
 
-		for (int i=1; i<=3; ++i)
-			mylist2.push_back(i*10);   // mylist2: 10 20 30
-
-		it = mylist1.begin();
-		++it;                         // points to 2
-
-		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
-		// mylist2 (empty)
-		// "it" still points to 2 (the 5th element)
-
-		mylist2.splice (mylist2.begin(),mylist1, it);
-		// mylist1: 1 10 20 30 3 4
-		// mylist2: 2
-		// "it" is now invalid.
-		it = mylist1.begin();
-		std::advance(it,3);           // "it" points now to 30
-
-		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
-		// mylist1: 30 3 4 1 10 20
-
-		printDescription("myList1");
-		printList(mylist1);
-		printDescription("myList1.size()");
-		cout << mylist1.size() << endl;
-
-		printDescription("myList2");
-		printList(mylist2);
-		printDescription("myList2.size()");
-		cout << mylist2.size() << endl;
+		std::cout << "mylist contains:";
+		for (std::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
 	}
+//	{
+//		printHeader("myList swap()");
+//		ft::List<int> mylist1, mylist2;
+//		ft::List<int>::iterator it;
+//
+//		// set some initial values:
+//		for (int i=1; i<=4; ++i)
+//			mylist1.push_back(i);      // mylist1: 1 2 3 4
+//
+//		for (int i=1; i<=3; ++i)
+//			mylist2.push_back(i*10);   // mylist2: 10 20 30
+//
+//		it = mylist1.begin();
+//		++it;                         // points to 2
+//
+//		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
+//		// mylist2 (empty)
+//		// "it" still points to 2 (the 5th element)
+//
+//		mylist2.splice (mylist2.begin(),mylist1, it);
+//		// mylist1: 1 10 20 30 3 4
+//		// mylist2: 2
+//		// "it" is now invalid.
+//		it = mylist1.begin();
+//		++it;          // "it" points now to 30
+//		++it;          // "it" points now to 30
+//		++it;          // "it" points now to 30
+//
+//		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+//		// mylist1: 30 3 4 1 10 20
+//
+//		printDescription("myList1");
+//		printList(mylist1);
+//		printDescription("myList1.size()");
+//		cout << mylist1.size() << endl;
+//
+//		printDescription("myList2");
+//		printList(mylist2);
+//		printDescription("myList2.size()");
+//		cout << mylist2.size() << endl;
+//	}
+//	{
+//		printHeader("std splice()");
+//		std::list<int> mylist1, mylist2;
+//		std::list<int>::iterator it;
+//
+//		// set some initial values:
+//		for (int i=1; i<=4; ++i)
+//			mylist1.push_back(i);      // mylist1: 1 2 3 4
+//
+//		for (int i=1; i<=3; ++i)
+//			mylist2.push_back(i*10);   // mylist2: 10 20 30
+//
+//		it = mylist1.begin();
+//		++it;                         // points to 2
+//
+//		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
+//		// mylist2 (empty)
+//		// "it" still points to 2 (the 5th element)
+//
+//		mylist2.splice (mylist2.begin(),mylist1, it);
+//		// mylist1: 1 10 20 30 3 4
+//		// mylist2: 2
+//		// "it" is now invalid.
+//		it = mylist1.begin();
+//		std::advance(it,3);           // "it" points now to 30
+//
+//		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+//		// mylist1: 30 3 4 1 10 20
+//
+//		printDescription("myList1");
+//		printList(mylist1);
+//		printDescription("myList1.size()");
+//		cout << mylist1.size() << endl;
+//
+//		printDescription("myList2");
+//		printList(mylist2);
+//		printDescription("myList2.size()");
+//		cout << mylist2.size() << endl;
+//	}
 //	{
 //		printHeader("myList front() back()");
 //		ft::List<int> mylist;
