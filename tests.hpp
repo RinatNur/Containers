@@ -45,10 +45,16 @@ void printList(std::list<T> list, typename std::list<T>::reverse_iterator it_rev
 	std::cout << std::endl;
 }
 
+// a predicate implemented as a class:
+struct is_odd {
+	bool operator() (const int& value) { return (value%2)==1; }
+};
+
 
 
 
 void printHeader(std::string header);
 void test_list();
+bool single_digit (const int& value);
 
 #endif //CONT_MY_TESTS_HPP

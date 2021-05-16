@@ -315,10 +315,21 @@ public:
 		}
 	}
 
+	template <class Predicate>
+	void remove_if (Predicate pred){
+		for (it_type it = this->begin(); it != this->end(); ++it)
+		{
+			if (pred(*it))
+				this->erase(it);
+		}
+	}
+
 	void unique(){}
 
 	template <class BinaryPredicate>
-	void unique (BinaryPredicate binary_pred){}
+	void unique (BinaryPredicate binary_pred){
+
+	}
 
 private:
 	node_pointer	m_sentinal;
