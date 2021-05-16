@@ -315,6 +315,11 @@ public:
 		}
 	}
 
+	void unique(){}
+
+	template <class BinaryPredicate>
+	void unique (BinaryPredicate binary_pred){}
+
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
