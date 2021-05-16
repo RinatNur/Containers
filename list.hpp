@@ -38,8 +38,6 @@ namespace ft {
 		return counter;
 	}
 
-
-
 template<class value_type>
 value_type const &min(value_type const &a, value_type const &b) {
 	return (a < b ? a : b);
@@ -324,17 +322,33 @@ public:
 		}
 	}
 
-	void unique(){}
+	void unique(){
+		unique(&_sameData);
+	}
 
 	template <class BinaryPredicate>
 	void unique (BinaryPredicate binary_pred){
-
+		it_type first = this->begin();
+		it_type it = first;
+		++it;
+		for (; it != this->end(); ++it)
+		{
+			if (binary_pred(*it, *first)) {
+				erase(it);
+				if (++it == this->end())
+					break;
+			}
+			++first;
+		}
 	}
 
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
-};
-}
+
+	static bool _sameData (value_type& first, value_type& second)
+	{ return ( first == second ); }
+}; //list_end
+} //ft_end
 
 #endif //CONT_MY_LIST_HPP

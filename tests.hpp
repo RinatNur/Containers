@@ -6,6 +6,7 @@
 #define CONT_MY_TESTS_HPP
 
 #include <iostream>
+#include <math.h>
 #include "list.hpp"
 #include <list>
 #include "Node.hpp"
@@ -50,11 +51,15 @@ struct is_odd {
 	bool operator() (const int& value) { return (value%2)==1; }
 };
 
-
-
+// a binary predicate implemented as a class:
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
+};
 
 void printHeader(std::string header);
 void test_list();
 bool single_digit (const int& value);
+bool same_integral_part (double first, double second);
 
 #endif //CONT_MY_TESTS_HPP
