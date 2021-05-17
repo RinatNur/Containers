@@ -94,7 +94,7 @@ private:
 	node_pointer m_node;
 
 };
-
+//TODO intergrate disconnect function
 template<class T, class Alloc = std::allocator<T> >
 class List {
 public:
@@ -105,7 +105,7 @@ public:
 	typedef const value_type*			const_reference;
 	typedef value_type*					pointer;
 	typedef const value_type*			const_pointer;
-	typedef ft::iterator<T>				iterator;
+	typedef ft::iterator<value_type>	iterator;
 	typedef const iterator				const_iterator;
 	typedef ft::Reverse_iterator<T>		reverse_iterator;
 	typedef const reverse_iterator		const_reverse_iterator;
@@ -323,7 +323,7 @@ public:
 	}
 
 	void unique(){
-		unique(&_sameData);
+		unique(&_isEqual);
 	}
 
 	template <class BinaryPredicate>
@@ -342,12 +342,56 @@ public:
 		}
 	}
 
+	void merge (List& x){
+		this->merge(x, &_isLower);
+	}
+
+	template <class Compare>
+	void merge (List& x, Compare comp) {
+		if (&x == this)
+			return ;
+		if (x.empty())
+			return ;
+		if (this->m_size == 0)
+		{
+			this->assign(x.begin(), x.end());
+			x.clear();
+			return ;
+		}
+		it_type b1 = this->begin();
+		it_type e1 = this->end();
+		it_type b2 = x.begin();
+		it_type e2 = x.end();
+		while (b1 != e1 && b2 != e2)
+		{
+			if ((*comp)(*b2, *b1))
+			{
+				this->splice(b1, x, b2);
+				b2 = x.begin();
+			}
+			else
+				++b1;
+		}
+		this->splice(this->end(), x);
+	}
+
+	void sort(){
+
+	}
+
+	template <class Compare>
+	void sort (Compare comp){
+
+	}
+
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
 
-	static bool _sameData (value_type& first, value_type& second)
+	static bool _isEqual (value_type& first, value_type& second)
 	{ return ( first == second ); }
+	static bool _isLower (value_type& first, value_type& second)
+	{ return ( first < second ); }
 }; //list_end
 } //ft_end
 

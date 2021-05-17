@@ -4,6 +4,15 @@
 
 #include "tests.hpp"
 
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value<10); }
+bool same_integral_part (double first, double second)
+{ return ( int(first)==int(second) ); }
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
+
+
+
 using std::endl;
 using std::cout;
 
@@ -27,31 +36,182 @@ void printDescription(std::string desc)
 void test_list()
 {
 	{
-		printHeader("myList remove()");
-		int myints[]= {17,89,7,14};
-		ft::List<int> mylist;
-//		for (int i = 0; i < 4; ++i)
-//			mylist.push_back(myints[i]);
+		printHeader("myList merge(), sort()");
 
-		mylist.remove(55);
+		ft::List<double> first, second;
+		ft::List<double>::iterator it;
 
-		std::cout << "mylist contains:";
-		for (ft::List<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
+		first.push_back (2.2);
+		first.push_back (2.9);
+		first.push_back (3.1);
+
+//		second.push_back (1.4);
+//		second.push_back (3.7);
+//		second.push_back (7.1);
+
+//		first.sort();
+//		second.sort();
+
+		first.merge(second);
+
+		// (second is now empty)
+
+		second.push_back (2.1);
+
+		first.merge(second,mycomparison);
+
+		printDescription("first");
+		printList(first);
+		printDescription("first.size()");
+		cout << first.size() << endl;
+
+		printDescription("second");
+		printList(second);
+		printDescription("second.size()");
+		cout << second.size() << endl;
 	}
 	{
-		printHeader("std remove()");
-		int myints[]= {17,89,7,14};
-		std::list<int> mylist;// (myints,myints+4);
+		printHeader("std3 merge(), sort()");
 
-		mylist.remove(89);
+		std::list<double> first, second;
+		std::list<double>::iterator it;
 
-		std::cout << "mylist contains:";
-		for (std::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
+		first.push_back (2.2);
+		first.push_back (2.9);
+		first.push_back (3.1);
+
+//		second.push_back (1.4);
+//		second.push_back (3.7);
+//		second.push_back (7.1);
+
+//		first.sort();
+//		second.sort();
+
+		first.merge(second);
+
+		// (second is now empty)
+
+		second.push_back (2.1);
+
+		first.merge(second,mycomparison);
+
+		printDescription("first");
+		printList(first);
+		printDescription("first.size()");
+		cout << first.size() << endl;
+
+		printDescription("second");
+		printList(second);
+		printDescription("second.size()");
+		cout << second.size() << endl;
 	}
+
+//	{
+//		printHeader("myList unique()");
+//		double mydoubles[]={ 2.72,  3.14, 12.15, 12.77, 12.77,
+//				15.3,  72.25, 72.25, 73.0,  73.35 };
+//		ft::List<double> mylist;
+//		for (int i = 0; i < 10; ++i)
+//			mylist.push_back(mydoubles[i]);   // 15 36 7 17 20 39 4 1
+//
+//		printDescription("mylist before unique");
+//		printList(mylist);
+//
+//		mylist.unique();           //  2.72,  3.14, 12.15, 12.77
+//		// 15.3,  72.25, 73.0,  73.35
+//		printDescription("mylist after unique ");
+//		printList(mylist);
+//
+//		mylist.unique (same_integral_part);  //  2.72,  3.14, 12.15
+//		// 15.3,  72.25, 73.0
+//
+//		mylist.unique (is_near());           //  2.72, 12.15, 72.25
+//
+//		printDescription("mylist              ");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("std unique()");
+//		double mydoubles[]={ 2.72,  3.14, 12.15, 12.77, 12.77,
+//							 15.3,  72.25, 72.25, 73.0,  73.35 };
+//		std::list<double> mylist (mydoubles,mydoubles+10);
+//		printDescription("mylist before unique");
+//		printList(mylist);
+//
+//		mylist.unique();           //  2.72,  3.14, 12.15, 12.77
+//		// 15.3,  72.25, 73.0,  73.35
+//		printDescription("mylist after unique ");
+//		printList(mylist);
+//
+//		mylist.unique (same_integral_part);  //  2.72,  3.14, 12.15
+//		// 15.3,  72.25, 73.0
+//
+//		mylist.unique (is_near());           //  2.72, 12.15, 72.25
+//
+//
+//		printDescription("mylist              ");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("myList remove_if()");
+//		int myints[]= {15,36,7,17,20,39,4,1};
+//		ft::List<int> mylist;
+//		for (int i = 0; i < 8; ++i)
+//			mylist.push_back(myints[i]);   // 15 36 7 17 20 39 4 1
+//
+//		mylist.remove_if (single_digit);           // 15 36 17 20 39
+//
+//		mylist.remove_if (is_odd());               // 36 20
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("std remove_if()");
+//		int myints[]= {15,36,7,17,20,39,4,1};
+//		std::list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
+//
+//		mylist.remove_if (single_digit);           // 15 36 17 20 39
+//
+//		mylist.remove_if (is_odd());               // 36 20
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("myList remove()");
+//		int myints[]= {17,89,7,14};
+//		ft::List<int> mylist;
+//		for (int i = 0; i < 4; ++i)
+//			mylist.push_back(myints[i]);
+//
+//		mylist.remove(89);
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("std remove()");
+//		int myints[]= {17,89,7,14};
+//		std::list<int> mylist;// (myints,myints+4);
+//
+//		mylist.remove(89);
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
 //	{
 //		printHeader("myList swap()");
 //		ft::List<int> mylist1, mylist2;
