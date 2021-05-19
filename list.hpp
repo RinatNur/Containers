@@ -200,9 +200,11 @@ public:
 		return (++last);
 	}
 
-	void swap(List& x) {
-		ft::swap(this->m_sentinal, x.m_sentinal);
-		ft::swap(this->m_size, x.m_size);
+	template<class value_type>
+	void swap(value_type &a, value_type &b) {
+		value_type tmp(a);
+		a = b;
+		b = tmp;
 	}
 
 	void resize (size_type n, value_type val = value_type()){
@@ -393,13 +395,24 @@ public:
 	}
 
 	void reverse(){
-		it_type last, it, itToSplice;
-		itToSplice = this->begin();
-		for (it = this->begin(); it != this->end(); ++it) {
-			last = this->end();
-			this->splice(itToSplice, *this, --last);
+		if (this->m_size <= 1)
+			return ;
+		it_type begin = this->begin();
+		it_type end = this->end();
+		size_t size = this->m_size / 2;
+		for (int i = 0; i < size; ++i)
+		{
+			this->swap(*(begin++), *(--end));
 		}
-		this->splice(itToSplice, *this, --this->end());
+//		it_type last, it, itToSplice;
+//		itToSplice = this->begin();
+//		for (it = this->begin(); it != this->end(); ++it) {
+////			last = this->end();
+//			this->splice(itToSplice, *this, --this->end());
+//			printList(*this);
+//		}
+//		this->splice(itToSplice, *this, --this->end());
+//		printList(*this);
 	}
 
 private:
@@ -416,6 +429,11 @@ private:
 			std::cout << ' ' <<  *(it_begin);
 		std::cout << std::endl;
 	}//TODO delete
+//	template <class V, class Alloc>
+	void swap(List<T, Alloc>& x) {
+		ft::swap(this->m_sentinal, x.m_sentinal);
+		ft::swap(this->m_size, x.m_size);
+	}
 }; //list_end
 
 	template <class T, class Alloc>
@@ -445,7 +463,9 @@ private:
 	}
 
 	template <class T, class Alloc>
-	bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){}
+	bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+		return (!(rhs < lhs));
+	}
 
 	template <class T, class Alloc>
 	bool operator>  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
@@ -455,7 +475,19 @@ private:
 	}
 
 	template <class T, class Alloc>
-	bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){}
+	bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+		return (!(lhs < rhs));
+	}
+
+
+	template <class T, class Alloc>
+	void swap (List<T,Alloc>& x, List<T,Alloc>& y){
+		T tmp;
+		ft::swap(*(--x.end()).getNode()->next(), *(--y.end()).getNode()->next());
+//		ft::swap(*x.begin().getNode()->previous(), *y.begin().getNode()->previous());
+//TODO соединяет оба листа в каждом листе
+
+	}
 
 } //ft_end
 

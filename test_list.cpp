@@ -49,44 +49,110 @@ int counter = 11;
 void test_list()
 {
 	{
-		printHeader("myList reverse()");
+		ft::List<int> mylist1;
+		for (int i = 1; i < 11; ++i)
+			mylist1.push_back(i);
+		ft::List<int> mylist2;
+		for (int i = 11; i < 21; ++i)
+			mylist2.push_back(i);
 
-		ft::List<int> mylist, mylist2;
+		printDescription("mylist1");
+		printList(mylist1);
+		printDescription("mylist1.size()");
+		cout << mylist1.size() << endl;
 
-		for (int i=22; i<= 22; ++i) mylist.push_back(i);
-		for (int i=1; i< 11; ++i) mylist2.push_back(i);
-		if (mylist  == mylist2)
-			cout << "true" << endl;
-		else
-			cout << "false" << endl;
+		printDescription("mylist2");
+		printList(mylist2);
+		printDescription("mylist1.size()");
+		cout << mylist2.size() << endl;
 
+		ft::swap(mylist1, mylist2);
+
+		printDescription("mylist1");
+		printList(mylist1);
+		printDescription("mylist1.size()");
+		cout << mylist1.size() << endl;
+
+		printDescription("mylist2");
+		printList(mylist2);
+		printDescription("mylist1.size()");
+		cout << mylist2.size() << endl;
+
+	}
+//	{
+//		printHeader("myList operator == < > <= >=");
+//
+//		ft::List<int> mylist1, mylist2;
+//
+//		for (int i=1; i<= 11; ++i) mylist1.push_back(i);
+//		for (int i=1; i<= 22; ++i) mylist2.push_back(i);
+//		printDescription("mylist1");
+//		printList(mylist1);
+//
+//		printDescription("mylist2");
+//		printList(mylist2);
+//
+//		if (mylist1 >= mylist2)
+//			cout << "true" << endl;
+//		else
+//			cout << "false" << endl;
+//
+//
+//	}
+//	{
+//		printHeader("std operator == < > <= >=");
+//
+//		std::list<int> mylist;// = {1,2, 3, 8, 5, 6, 7};
+//		std::list<int> mylist2;// = {5};
+//
+//		for (int i=1; i<= 11; ++i) mylist.push_back(i);
+//		for (int i=1; i<= 22; ++i) mylist2.push_back(i);
+//		if (mylist  >= mylist2)
+//			cout << "true" << endl;
+//		else
+//			cout << "false" << endl;
+//
 //		mylist.reverse();
 //
 //		printDescription("mylist");
 //		printList(mylist);
 //		printDescription("mylist.size()");
 //		cout << mylist.size() << endl;
-	}
-	{
-		printHeader("std reverse()");
-
-		std::list<int> mylist;// = {1,2, 3, 8, 5, 6, 7};
-		std::list<int> mylist2;// = {5};
-
-		for (int i=22; i<= 22; ++i) mylist.push_back(i);
-		for (int i=1; i< 11; ++i) mylist2.push_back(i);
-		if (mylist  == mylist2)
-			cout << "true" << endl;
-		else
-			cout << "false" << endl;
-
-		mylist.reverse();
-
-		printDescription("mylist");
-		printList(mylist);
-		printDescription("mylist.size()");
-		cout << mylist.size() << endl;
-	}
+//	}
+//	{
+//		printHeader("myList reverse()");
+//
+//		ft::List<int> mylist;
+//
+//		for (int i=10; i >= 0; --i)
+//			mylist.push_back(i);
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//
+//		mylist.reverse();
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("std reverse()");
+//
+//		std::list<int> mylist;// = {1,2, 3, 8, 5, 6, 7};
+//
+//		for (int i=1; i<= 11; ++i) mylist.push_back(i);
+//
+//		mylist.reverse();
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
 //	{
 //		printHeader("myList merge()");
 //
