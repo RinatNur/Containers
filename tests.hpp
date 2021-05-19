@@ -9,10 +9,12 @@
 #include <math.h>
 #include "list.hpp"
 #include <list>
+#include <string>
 #include "Node.hpp"
 
 
 // ft::List print
+
 template <typename T>
 void printList(const ft::List<T>& list) {
 	typename ft::List<T>::iterator it_begin = list.begin();

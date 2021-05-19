@@ -6,6 +6,8 @@
 #define CONT_MY_NODE_HPP
 
 #include <iostream>
+#include <typeinfo>
+#include <string>
 
 namespace ft {
 
@@ -24,9 +26,15 @@ namespace ft {
 		value_type	_value;
 		pointer		_next;
 
+		template<class Type>
+		bool _isString()
+		{
+			return (typeid(Type) == typeid(std::string));
+		}
+
 	public:
 
-		Node() : _previous(this), _value(0), _next(this) {}
+		Node() : _previous(this), _value(), _next(this) {}
 
 		void setValue(value_type data) {
 			this->_value = data;

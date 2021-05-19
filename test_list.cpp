@@ -10,6 +10,18 @@ bool same_integral_part (double first, double second)
 { return ( int(first)==int(second) ); }
 bool mycomparison (double first, double second)
 { return ( int(first)<int(second) ); }
+bool compare_nocase (const std::string& first, const std::string& second)
+{
+	unsigned int i=0;
+	while ( (i<first.length()) && (i<second.length()) )
+	{
+		if (tolower(first[i])<tolower(second[i])) return true;
+		else if (tolower(first[i])>tolower(second[i])) return false;
+		++i;
+	}
+	return ( first.length() < second.length() );
+}
+
 
 
 
@@ -33,78 +45,165 @@ void printDescription(std::string desc)
 				<< "]:";
 }
 
+int counter = 11;
 void test_list()
 {
 	{
-		printHeader("myList merge(), sort()");
+		printHeader("myList reverse()");
 
-		ft::List<double> first, second;
-		ft::List<double>::iterator it;
+		ft::List<int> mylist, mylist2;
 
-		first.push_back (2.2);
-		first.push_back (2.9);
-		first.push_back (3.1);
+		for (int i=22; i<= 22; ++i) mylist.push_back(i);
+		for (int i=1; i< 11; ++i) mylist2.push_back(i);
+		if (mylist  == mylist2)
+			cout << "true" << endl;
+		else
+			cout << "false" << endl;
 
-//		second.push_back (1.4);
-//		second.push_back (3.7);
-//		second.push_back (7.1);
-
-//		first.sort();
-//		second.sort();
-
-		first.merge(second);
-
-		// (second is now empty)
-
-		second.push_back (2.1);
-
-		first.merge(second,mycomparison);
-
-		printDescription("first");
-		printList(first);
-		printDescription("first.size()");
-		cout << first.size() << endl;
-
-		printDescription("second");
-		printList(second);
-		printDescription("second.size()");
-		cout << second.size() << endl;
+//		mylist.reverse();
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
 	}
 	{
-		printHeader("std3 merge(), sort()");
+		printHeader("std reverse()");
 
-		std::list<double> first, second;
-		std::list<double>::iterator it;
+		std::list<int> mylist;// = {1,2, 3, 8, 5, 6, 7};
+		std::list<int> mylist2;// = {5};
 
-		first.push_back (2.2);
-		first.push_back (2.9);
-		first.push_back (3.1);
+		for (int i=22; i<= 22; ++i) mylist.push_back(i);
+		for (int i=1; i< 11; ++i) mylist2.push_back(i);
+		if (mylist  == mylist2)
+			cout << "true" << endl;
+		else
+			cout << "false" << endl;
 
-//		second.push_back (1.4);
+		mylist.reverse();
+
+		printDescription("mylist");
+		printList(mylist);
+		printDescription("mylist.size()");
+		cout << mylist.size() << endl;
+	}
+//	{
+//		printHeader("myList merge()");
+//
+//		ft::List<std::string> mylist;
+//
+//		mylist.push_back ("one");
+//		mylist.push_back ("two");
+//		mylist.push_back ("Three");
+//
+//		mylist.sort();
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//
+//		mylist.sort(compare_nocase);
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("std3 merge()");
+//
+//		std::list<std::string> mylist;
+//		std::list<std::string>::iterator it;
+//		mylist.push_back ("one");
+//		mylist.push_back ("two");
+//		mylist.push_back ("Three");
+//
+//		mylist.sort();
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//
+//		mylist.sort(compare_nocase);
+//
+//		printDescription("mylist");
+//		printList(mylist);
+//		printDescription("mylist.size()");
+//		cout << mylist.size() << endl;
+//	}
+//	{
+//		printHeader("myList merge()");
+//
+//		ft::List<double> first, second;
+//		ft::List<double>::iterator it;
+//
+//
+//		first.push_back (3.1);
+//		first.push_back (2.2);
+//		first.sort();
+//		first.push_back (2.9);
+//
 //		second.push_back (3.7);
 //		second.push_back (7.1);
-
+//		second.push_back (1.4);
+//
 //		first.sort();
 //		second.sort();
-
-		first.merge(second);
-
-		// (second is now empty)
-
-		second.push_back (2.1);
-
-		first.merge(second,mycomparison);
-
-		printDescription("first");
-		printList(first);
-		printDescription("first.size()");
-		cout << first.size() << endl;
-
-		printDescription("second");
-		printList(second);
-		printDescription("second.size()");
-		cout << second.size() << endl;
-	}
+//
+//		first.merge(second);
+//
+//		// (second is now empty)
+//
+//		second.push_back (2.1);
+//
+//		first.merge(second,mycomparison);
+//
+//		printDescription("first");
+//		printList(first);
+//		printDescription("first.size()");
+//		cout << first.size() << endl;
+//
+//		printDescription("second");
+//		printList(second);
+//		printDescription("second.size()");
+//		cout << second.size() << endl;
+//	}
+//	{
+//		printHeader("std3 merge()");
+//
+//		std::list<double> first, second;
+//
+//		first.push_back (3.1);
+//		first.push_back (2.2);
+//		first.push_back (2.9);
+//
+//		second.push_back (3.7);
+//		second.push_back (7.1);
+//		second.push_back (1.4);
+//
+//		first.sort();
+//		second.sort();
+//
+//		first.merge(second);
+//
+//		// (second is now empty)
+//
+//		second.push_back (2.1);
+//
+//		first.merge(second,mycomparison);
+//
+//		printDescription("first");
+//		printList(first);
+//		printDescription("first.size()");
+//		cout << first.size() << endl;
+//
+//		printDescription("second");
+//		printList(second);
+//		printDescription("second.size()");
+//		cout << second.size() << endl;
+//	}
 
 //	{
 //		printHeader("myList unique()");

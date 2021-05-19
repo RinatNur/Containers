@@ -10,38 +10,10 @@
 #include <iterator>
 #include "Reverse_iterator.hpp"
 #include "Node.hpp"
+#include "Algorithm.hpp"
 
 namespace ft {
 
-	template<bool B, class T = void>
-	struct enable_if {};
-
-	template<class T>
-	struct enable_if<true, T> { typedef T type; };
-
-	template<class value_type>
-	void swap(value_type& a, value_type& b)
-	{
-		value_type tmp(a);
-		a = b;
-		b = tmp;
-	}
-
-	template<class It>
-	int distance(It const & first, It const & last)
-	{
-		int counter = 0;
-		It tmp = first;
-
-		for (; tmp != last; ++tmp)
-			++counter;
-		return counter;
-	}
-
-template<class value_type>
-value_type const &min(value_type const &a, value_type const &b) {
-	return (a < b ? a : b);
-}
 template <typename T>
 class iterator {
 public:
@@ -118,18 +90,23 @@ public:
 	typedef typename List<value_type>::iterator it_type;
 
 public:
-
 	List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
 	explicit List (size_type n, const value_type& val = value_type(),
-				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0){
-		for (int i = 0; i < n; ++i)
-		{
-			this->push_back(val);
-		}
-	};
+	const allocator_type& alloc = allocator_type()){}
+	template <class InputIterator>
+	List (InputIterator first, InputIterator last,
+	const allocator_type& alloc = allocator_type()){}
+	List (const List& x){}
+//	explicit List (size_type n, const value_type& val = value_type(),
+//				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0){
+//		for (int i = 0; i < n; ++i)
+//		{
+//			this->push_back(val);
+//		}
+//	};
 	~List(){
 //		std::cout << "List destructor called" << std::endl;
-		clear();
+//		clear();
 		if (m_sentinal)
 			delete m_sentinal;
 	}
@@ -145,10 +122,10 @@ public:
 	//Capacity
 
 	bool empty() const{
-		return (!this->m_size);
+		return (this->begin() == this->end());
 	}
 
-	size_type size(){
+	size_type size() const{
 		return (this->m_size);
 	}
 
@@ -197,6 +174,7 @@ public:
 		tmp->previous()->setNext(data_node); // tmp->previous() = m_sentinal
 		tmp->setPrevious(data_node);
 		++this->m_size;
+		tmp = tmp->previous();
 		return iterator(tmp);
 	}
 
@@ -245,8 +223,14 @@ public:
 	}
 
 	void clear(){
-		for (it_type it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
-			delete it.getNode();
+		int count = 0;
+		if (!this->empty()) {
+			for (it_type it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
+			{
+				delete it.getNode();
+				--this->m_size;
+			}
+		}
 		delete m_sentinal;
 		m_sentinal = new node;
 		this->m_size = 0;
@@ -376,12 +360,46 @@ public:
 	}
 
 	void sort(){
-
+		this->sort(&_isLower);
 	}
 
 	template <class Compare>
 	void sort (Compare comp){
+		// Do nothing if the list has length 0 or 1.
+		if (this->m_size && this->m_size != 1)
+		{
+			List carry;
+			List tmp[64];
+			List * fill = &tmp[0];
+			List * counter;
+			do
+			{
+				carry.splice(carry.begin(), *this, begin());
 
+				for(counter = &tmp[0]; counter != fill && !counter->empty(); ++counter)
+				{
+					counter->merge(carry, comp);
+					carry.swap(*counter);
+				}
+				carry.swap(*counter);
+				if (counter == fill)
+					++fill;
+			}
+			while ( !empty() );
+			for (counter = &tmp[1]; counter != fill; ++counter)
+				counter->merge(*(counter - 1), comp);
+			this->swap(*(fill - 1));
+		}
+	}
+
+	void reverse(){
+		it_type last, it, itToSplice;
+		itToSplice = this->begin();
+		for (it = this->begin(); it != this->end(); ++it) {
+			last = this->end();
+			this->splice(itToSplice, *this, --last);
+		}
+		this->splice(itToSplice, *this, --this->end());
 	}
 
 private:
@@ -392,7 +410,53 @@ private:
 	{ return ( first == second ); }
 	static bool _isLower (value_type& first, value_type& second)
 	{ return ( first < second ); }
+	void printList(const ft::List<T>& list) {
+		typename ft::List<T>::iterator it_begin = list.begin();
+		for (; it_begin != list.end(); ++it_begin)
+			std::cout << ' ' <<  *(it_begin);
+		std::cout << std::endl;
+	}//TODO delete
 }; //list_end
+
+	template <class T, class Alloc>
+	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return false;
+		iterator lit = lhs.begin();
+		iterator rit = rhs.begin();
+		for(; lit != lhs.end(); ++lit)
+		{
+			if (*lit != *(rit++))
+				return false;
+		}
+		return true;
+	}
+
+	template <class T, class Alloc>
+	bool operator!= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+		return (!(lhs == rhs));
+	}
+
+	template <class T, class Alloc>
+	bool operator<  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+		if (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))
+			return true;
+		return false;
+	}
+
+	template <class T, class Alloc>
+	bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){}
+
+	template <class T, class Alloc>
+	bool operator>  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+		if (lhs < rhs || lhs == rhs)
+			return false;
+		return true;
+	}
+
+	template <class T, class Alloc>
+	bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){}
+
 } //ft_end
 
 #endif //CONT_MY_LIST_HPP
