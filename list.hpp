@@ -122,9 +122,14 @@ public:
 	iterator end() { return iterator(m_sentinal); }
 	const_iterator end() const { return const_iterator(m_sentinal); }
 
-	reverse_iterator rbegin() {
-		return reverse_iterator(m_sentinal->previous()); }
+	reverse_iterator rbegin() { return reverse_iterator(m_sentinal->previous()); }
+	const_reverse_iterator rbegin() const {
+		return const_reverse_iterator(m_sentinal->previous()); }
+
 	reverse_iterator rend() { return reverse_iterator(m_sentinal); }
+	const_reverse_iterator rend() const {
+		return const_reverse_iterator(m_sentinal);
+	}
 
 	//Capacity
 
@@ -133,10 +138,10 @@ public:
 	}
 
 	size_type size() const{
-		return (this->m_size);
+		return (this->m_size); //TODO complexity up to linear;
 	}
 
-	size_type max_size() {
+	size_type max_size() const {
 		return std::numeric_limits<size_type>::max() / sizeof(Node<T>);
 	}
 
