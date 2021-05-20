@@ -415,6 +415,10 @@ public:
 //		printList(*this);
 	}
 
+		void swap(List<value_type , Alloc>& x) {
+			ft::swap(this->m_sentinal, x.m_sentinal);
+			ft::swap(this->m_size, x.m_size);
+		}
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
@@ -429,11 +433,7 @@ private:
 			std::cout << ' ' <<  *(it_begin);
 		std::cout << std::endl;
 	}//TODO delete
-//	template <class V, class Alloc>
-	void swap(List<T, Alloc>& x) {
-		ft::swap(this->m_sentinal, x.m_sentinal);
-		ft::swap(this->m_size, x.m_size);
-	}
+
 }; //list_end
 
 	template <class T, class Alloc>
@@ -482,11 +482,7 @@ private:
 
 	template <class T, class Alloc>
 	void swap (List<T,Alloc>& x, List<T,Alloc>& y){
-		T tmp;
-		ft::swap(*(--x.end()).getNode()->next(), *(--y.end()).getNode()->next());
-//		ft::swap(*x.begin().getNode()->previous(), *y.begin().getNode()->previous());
-//TODO соединяет оба листа в каждом листе
-
+		x.swap(y);
 	}
 
 } //ft_end

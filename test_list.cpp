@@ -50,7 +50,7 @@ void test_list()
 {
 	{
 		ft::List<int> mylist1;
-		for (int i = 1; i < 11; ++i)
+		for (int i = 1; i < 3; ++i)
 			mylist1.push_back(i);
 		ft::List<int> mylist2;
 		for (int i = 11; i < 21; ++i)
@@ -75,7 +75,7 @@ void test_list()
 
 		printDescription("mylist2");
 		printList(mylist2);
-		printDescription("mylist1.size()");
+		printDescription("mylist2.size()");
 		cout << mylist2.size() << endl;
 
 	}
