@@ -10,6 +10,7 @@
 #include "list.hpp"
 #include <list>
 #include <string>
+#include <vector>
 #include "Node.hpp"
 
 

@@ -17,11 +17,10 @@ namespace ft {
 template <typename T>
 class iterator {
 public:
+
 	typedef T							value_type;
-//	typedef ft::DataNode<value_type>	DataNode;
 	typedef ft::Node<value_type>		node;
 	typedef node*						node_pointer;
-//	typedef d difference_type;
 
 public:
 	iterator(node_pointer node) : m_node(node) {}
@@ -83,8 +82,6 @@ public:
 	typedef const reverse_iterator		const_reverse_iterator;
 	typedef std::ptrdiff_t				difference_type;
 	typedef size_t						size_type;
-//	typedef ft::DataNode<value_type>	DataNode;
-//	typedef DataNode*					DataNode_pointer;
 	typedef ft::Node<value_type>		node;
 	typedef node*						node_pointer;
 	typedef typename List<value_type>::iterator it_type;
@@ -109,8 +106,7 @@ public:
 	}
 
 	~List(){
-//		std::cout << "List destructor called" << std::endl;
-//		clear();
+		clear();
 		if (m_sentinal)
 			delete m_sentinal;
 	}
@@ -162,8 +158,10 @@ public:
 	}
 
 	//Modifiers
+
 	template <class InputIterator>
-	void assign (InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0){
+	void assign (InputIterator first, InputIterator last,
+			  typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0){
 		this->clear();
 		for (; first != last; ++first)
 			this->push_back(*first);
@@ -175,9 +173,29 @@ public:
 			this->push_back(val);
 	}
 
-	iterator insert(iterator position, T data) {
+	void push_front (const value_type& val) {
+		insert(begin(), val);
+	}
+
+	void pop_front() {
+		erase(this->begin());
+		if (this->m_size > 0)
+			--this->m_size;
+	}
+
+	void push_back (const value_type& val) {
+		insert(end(), val);
+	}
+
+	void pop_back() {
+		erase(this->m_sentinal->previous());
+		if (this->m_size > 0)
+			--this->m_size;
+	}
+
+	iterator insert(iterator position, const value_type& val) {
 		node_pointer data_node = new node;
-		data_node->setValue(data);
+		data_node->setValue(val);
 		node_pointer tmp = position.getNode();
 		data_node->setNext(tmp);
 		data_node->setPrevious(tmp->previous());
@@ -188,11 +206,23 @@ public:
 		return iterator(tmp);
 	}
 
+	void insert (iterator position, size_type n, const value_type& val){
+		for (int i = 0; i < n; ++i)
+			this->insert(position, val);
+	}
+
+	template <class InputIterator>
+	void insert (iterator position, InputIterator first, InputIterator last,
+				 typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0){
+		for (; first != last; ++first)
+			insert(position, *first);
+	}
+
 	iterator erase (iterator position) {
 		node_pointer tmp = position.getNode();
 		tmp->next()->setPrevious(tmp->previous());
 		tmp->previous()->setNext(tmp->next());
-		delete tmp;
+		delete position.getNode();
 		if (this->m_size > 0)
 			--this->m_size;
 		return iterator(++position);
@@ -204,10 +234,15 @@ public:
 		first_ptr->previous()->setNext(last_ptr->next());
 		last_ptr->next()->setPrevious(first_ptr->previous());
 		for (; first != last; ++first)
-			delete first.getNode();
+			delete first.getNode();//Todo
 		if (this->m_size > 0)
 			--this->m_size;
 		return (++last);
+	}
+
+	void swap(List& x) {
+		ft::swap(this->m_sentinal, x.m_sentinal);
+		ft::swap(this->m_size, x.m_size);
 	}
 
 	void resize (size_type n, value_type val = value_type()){
@@ -236,29 +271,11 @@ public:
 				--this->m_size;
 			}
 		}
-		delete m_sentinal;
-		m_sentinal = new node;
+//		delete m_sentinal;//TODO try to refactor this part
+//		m_sentinal = new node;
+		m_sentinal->setPrevious(m_sentinal);
+		m_sentinal->setNext(m_sentinal);
 		this->m_size = 0;
-	}
-
-	void push_back(T data) {
-		insert(end(), data);
-	}
-
-	void push_front(T data) {
-		insert(begin(), data);
-	}
-
-	void pop_back() {
-		erase(this->m_sentinal->previous());
-		if (this->m_size > 0)
-			--this->m_size;
-	}
-
-	void pop_front() {
-		erase(this->begin());
-		if (this->m_size > 0)
-			--this->m_size;
 	}
 
 	//Operations:
@@ -312,7 +329,7 @@ public:
 	}
 
 	void unique(){
-		unique(&_isEqual);
+		unique(&isEqual);//TODO test changed _isEqual to isEqual from Algorithm.hpp
 	}
 
 	template <class BinaryPredicate>
@@ -332,7 +349,7 @@ public:
 	}
 
 	void merge (List& x){
-		this->merge(x, &_isLower);
+		this->merge(x, &less_than);//TODO test changet _isLower to less_than
 	}
 
 	template <class Compare>
@@ -365,7 +382,7 @@ public:
 	}
 
 	void sort(){
-		this->sort(&_isLower);
+		this->sort(&less_than);//TODO test changet _isLower to less_than
 	}
 
 	template <class Compare>
@@ -407,29 +424,12 @@ public:
 		{
 			this->swap(*(begin++), *(--end));
 		}
-//		it_type last, it, itToSplice;
-//		itToSplice = this->begin();
-//		for (it = this->begin(); it != this->end(); ++it) {
-////			last = this->end();
-//			this->splice(itToSplice, *this, --this->end());
-//			printList(*this);
-//		}
-//		this->splice(itToSplice, *this, --this->end());
-//		printList(*this);
 	}
 
-		void swap(List<value_type , Alloc>& x) {
-			ft::swap(this->m_sentinal, x.m_sentinal);
-			ft::swap(this->m_size, x.m_size);
-		}
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
 
-	static bool _isEqual (value_type& first, value_type& second)
-	{ return ( first == second ); }
-	static bool _isLower (value_type& first, value_type& second)
-	{ return ( first < second ); }
 	void printList(const ft::List<T>& list) {
 		typename ft::List<T>::iterator it_begin = list.begin();
 		for (; it_begin != list.end(); ++it_begin)

@@ -35,6 +35,7 @@ namespace ft {
 	public:
 
 		Node() : _previous(this), _value(), _next(this) {}
+		virtual ~Node() {}
 
 		void setValue(value_type data) {
 			this->_value = data;

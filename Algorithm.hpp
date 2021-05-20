@@ -43,7 +43,7 @@ namespace ft {
 
 
 	template <class value_type>
-	bool equal(value_type const &lhs, value_type const &rhs)
+	bool isEqual(value_type const &lhs, value_type const &rhs)
 	{
 		return lhs == rhs;
 	}

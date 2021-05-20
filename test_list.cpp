@@ -48,42 +48,98 @@ int counter = 11;
 void test_list()
 {
 	{
-//		for (int i = 1; i < 3; ++i)
-//			mylist1.push_back(i);
-		ft::List<int> mylist2;
-		for (int i = 11; i < 21; ++i)
-			mylist2.push_back(i);
-		ft::iterator it = mylist2.begin();
-		++it;
-		++it;
-		++it;
-		++it;
-		++it;
-		ft::List<int> mylist1(mylist2);
-
-		printDescription("mylist1");
-		printList(mylist1);
-		printDescription("mylist1.size()");
-		cout << mylist1.size() << endl;
-
-		printDescription("mylist2");
-		printList(mylist2);
-		printDescription("mylist1.size()");
-		cout << mylist2.size() << endl;
-
-		ft::swap(mylist1, mylist2);
-
-		printDescription("mylist1");
-		printList(mylist1);
-		printDescription("mylist1.size()");
-		cout << mylist1.size() << endl;
-
-		printDescription("mylist2");
-		printList(mylist2);
-		printDescription("mylist2.size()");
-		cout << mylist2.size() << endl;
+		printHeader("myList test");
+		ft::List<int> mylist1(35000,5);
 
 	}
+//	{
+//		printHeader("myList insert()");
+//		ft::List<int> mylist1;
+//		for (int i = 1; i < 11; ++i)
+//			mylist1.push_back(i);
+//		ft::List<int> mylist2;
+//		std::vector<int> vec;
+//		for (int i = 33; i < 40; ++i)
+//			vec.push_back(i);
+////		mylist1.insert(mylist1.end(), 5,99);
+////		mylist1.insert(mylist1.end(), vec.begin(), vec.end());
+//
+//		printDescription("mylist1");
+//		printList(mylist1);
+//		printDescription("mylist1.size()");
+//		cout << mylist1.size() << endl;
+//		ft::List<int>::iterator it = mylist1.end();
+//		ft::List<int>::iterator it2;
+//		it2 = mylist1.erase(--it);
+////		++it;
+//		cout << "it2 = " << *it2 << endl;
+//		printDescription("mylist1");
+//		printList(mylist1);
+//		printDescription("mylist1.size()");
+//		cout << mylist1.size() << endl;
+//	}
+//	{
+//		printHeader("std insert()");
+//		std::list<int> mylist1;
+//		for (int i = 1; i < 11; ++i)
+//			mylist1.push_back(i);
+//		std::list<int> mylist2;
+//		std::vector<int> vec;
+//		for (int i = 33; i < 40; ++i)
+//			vec.push_back(i);
+//		mylist1.insert(mylist1.end(), 5,99);
+//		mylist1.insert(mylist1.end(), vec.begin(), vec.end());
+//
+//
+//		printDescription("mylist1");
+//		printList(mylist1);
+//		printDescription("mylist1.size()");
+//		cout << mylist1.size() << endl;
+//
+//		printDescription("mylist2");
+//		printList(mylist2);
+//		printDescription("mylist2.size()");
+//		cout << mylist2.size() << endl;
+//	}
+
+//	{
+//		printHeader("myList swap(List, List");
+//		for (int i = 1; i < 3; ++i)
+//			mylist1.push_back(i);
+//		ft::List<int> mylist2;
+//		for (int i = 11; i < 21; ++i)
+//			mylist2.push_back(i);
+//		ft::iterator it = mylist2.begin();
+//		++it;
+//		++it;
+//		++it;
+//		++it;
+//		++it;
+//		ft::List<int> mylist1(mylist2);
+//
+//		printDescription("mylist1");
+//		printList(mylist1);
+//		printDescription("mylist1.size()");
+//		cout << mylist1.size() << endl;
+//
+//		printDescription("mylist2");
+//		printList(mylist2);
+//		printDescription("mylist1.size()");
+//		cout << mylist2.size() << endl;
+//
+//		ft::swap(mylist1, mylist2);
+//
+//		printDescription("mylist1");
+//		printList(mylist1);
+//		printDescription("mylist1.size()");
+//		cout << mylist1.size() << endl;
+//
+//		printDescription("mylist2");
+//		printList(mylist2);
+//		printDescription("mylist2.size()");
+//		cout << mylist2.size() << endl;
+//
+//	}
 //	{
 //		printHeader("myList operator == < > <= >=");
 //
