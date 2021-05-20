@@ -4,7 +4,6 @@
 
 #include "tests.hpp"
 
-// a predicate implemented as a function:
 bool single_digit (const int& value) { return (value<10); }
 bool same_integral_part (double first, double second)
 { return ( int(first)==int(second) ); }
@@ -49,12 +48,18 @@ int counter = 11;
 void test_list()
 {
 	{
-		ft::List<int> mylist1;
-		for (int i = 1; i < 3; ++i)
-			mylist1.push_back(i);
+//		for (int i = 1; i < 3; ++i)
+//			mylist1.push_back(i);
 		ft::List<int> mylist2;
 		for (int i = 11; i < 21; ++i)
 			mylist2.push_back(i);
+		ft::iterator it = mylist2.begin();
+		++it;
+		++it;
+		++it;
+		++it;
+		++it;
+		ft::List<int> mylist1(mylist2);
 
 		printDescription("mylist1");
 		printList(mylist1);

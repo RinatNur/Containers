@@ -13,8 +13,6 @@
 #include "Node.hpp"
 
 
-// ft::List print
-
 template <typename T>
 void printList(const ft::List<T>& list) {
 	typename ft::List<T>::iterator it_begin = list.begin();

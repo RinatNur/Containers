@@ -90,20 +90,24 @@ public:
 	typedef typename List<value_type>::iterator it_type;
 
 public:
-	List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
+	explicit List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
 	explicit List (size_type n, const value_type& val = value_type(),
-	const allocator_type& alloc = allocator_type()){}
-	template <class InputIterator>
-	List (InputIterator first, InputIterator last,
-	const allocator_type& alloc = allocator_type()){}
-	List (const List& x){}
-//	explicit List (size_type n, const value_type& val = value_type(),
-//				const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0){
-//		for (int i = 0; i < n; ++i)
-//		{
-//			this->push_back(val);
-//		}
-//	};
+	const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {
+		for (int i = 0; i < n; ++i)
+			this->push_back(val);
+	}
+	List (iterator first, iterator last,
+	const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {
+		while (first != last)
+		{
+			push_back(*first);
+			++first;
+		}
+	}
+	List (const List& x): m_sentinal(new node), m_size(0){
+		this->assign(x.begin(),x.end());
+	}
+
 	~List(){
 //		std::cout << "List destructor called" << std::endl;
 //		clear();
@@ -112,8 +116,11 @@ public:
 	}
 
 	//ITERATORS
-	iterator begin() const { return iterator(m_sentinal->next()); }
-	iterator end() const { return iterator(m_sentinal); }
+	iterator begin() { return iterator(m_sentinal->next()); }
+	const_iterator begin() const { return const_iterator(m_sentinal->next()); }
+
+	iterator end() { return iterator(m_sentinal); }
+	const_iterator end() const { return const_iterator(m_sentinal); }
 
 	reverse_iterator rbegin() {
 		return reverse_iterator(m_sentinal->previous()); }
@@ -130,8 +137,6 @@ public:
 	}
 
 	size_type max_size() {
-//		return (ft::min((size_type) std::numeric_limits<difference_type>::max(),// TODO why max of difference type is nesessary?
-//				  std::numeric_limits<size_type>::max() / sizeof(DataNode)));
 		return std::numeric_limits<size_type>::max() / sizeof(Node<T>);
 	}
 
@@ -198,13 +203,6 @@ public:
 		if (this->m_size > 0)
 			--this->m_size;
 		return (++last);
-	}
-
-	template<class value_type>
-	void swap(value_type &a, value_type &b) {
-		value_type tmp(a);
-		a = b;
-		b = tmp;
 	}
 
 	void resize (size_type n, value_type val = value_type()){
