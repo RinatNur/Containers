@@ -10,7 +10,8 @@
 int main ()
 {
 //	test_list();
-	queue_test();
+//	queue_test();
+	vector_test();
 //	stack_test();
 //	sleep(10);
 	return 0;

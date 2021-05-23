@@ -68,5 +68,6 @@ bool same_integral_part (double first, double second);
 
 void stack_test();
 void queue_test();
+void vector_test();
 
 #endif //CONT_MY_TESTS_HPP

@@ -54,10 +54,14 @@ public:
 		return tmp;
 	}// postfix decrement operator
 
-	bool operator==(const iterator& rhs) const { return this->m_node == rhs.m_node; }
-	bool operator!=(const iterator& rhs) const { return this->m_node != rhs.m_node; }
-	T & operator*() { return (m_node->getValue()); }
+	bool operator==(const iterator &rhs) const { return this->m_node == rhs.m_node; }
+	bool operator!=(const iterator &rhs) const { return this->m_node != rhs.m_node; }
+	bool operator<(const iterator &rhs) const { return this->m_node < rhs.m_node; }
+	bool operator<=(const iterator &rhs) const { return this->m_node <= rhs.m_node; }
+	bool operator>(const iterator &rhs) const { return this->m_node > rhs.m_node; }
+	bool operator>=(const iterator &rhs) const { return this->m_node >= rhs.m_node; }
 
+	value_type & operator*() { return (m_node->getValue()); }
 	node_pointer  getNode() const { return this->m_node; }
 
 private:
@@ -70,21 +74,21 @@ template<class T, class Alloc = std::allocator<T> >
 class List {
 public:
 
-	typedef T							value_type;
-	typedef Alloc						allocator_type;
-	typedef value_type&					reference;
-	typedef const value_type*			const_reference;
-	typedef value_type*					pointer;
-	typedef const value_type*			const_pointer;
-	typedef ft::iterator<value_type>	iterator;
-	typedef const iterator				const_iterator;
-	typedef ft::Reverse_iterator<T>		reverse_iterator;
-	typedef const reverse_iterator		const_reverse_iterator;
-	typedef std::ptrdiff_t				difference_type;
-	typedef size_t						size_type;
-	typedef ft::Node<value_type>		node;
-	typedef node*						node_pointer;
-	typedef typename List<value_type>::iterator it_type;
+	typedef T									value_type;
+	typedef Alloc								allocator_type;
+	typedef value_type&							reference;
+	typedef const value_type*					const_reference;
+	typedef value_type*							pointer;
+	typedef const value_type*					const_pointer;
+	typedef ft::iterator<value_type>			iterator;
+	typedef const iterator						const_iterator;
+	typedef ft::Reverse_iterator<T>				reverse_iterator;
+	typedef const reverse_iterator				const_reverse_iterator;
+	typedef std::ptrdiff_t						difference_type;
+	typedef size_t								size_type;
+	typedef ft::Node<value_type>				node;
+	typedef node								*node_pointer;
+	typedef typename List<value_type>::iterator	it_type;
 
 public:
 	explicit List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
