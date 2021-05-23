@@ -15,7 +15,7 @@ namespace ft {
 	struct Node {
 	public:
 
-		typedef T	value_type;
+		typedef T					value_type;
 		typedef Node<value_type>	node;
 		typedef node*				pointer;
 		typedef node&				reference;

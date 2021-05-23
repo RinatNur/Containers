@@ -4,6 +4,23 @@
 
 #include "tests.hpp"
 
+void printHeader(std::string header)
+{
+	std::cout  << "\033[1;35m"
+			   << "<<<<< "
+			   << header
+			   << " >>>>>"
+			   << "\033[0m"
+			   << std::endl;
+}
+
+void printDescription(std::string desc)
+{
+	std::cout	<< "["
+				 << desc
+				 << "]:";
+}
+
 bool single_digit (const int& value) { return (value<10); }
 bool same_integral_part (double first, double second)
 { return ( int(first)==int(second) ); }
@@ -21,30 +38,6 @@ bool compare_nocase (const std::string& first, const std::string& second)
 	return ( first.length() < second.length() );
 }
 
-
-
-
-using std::endl;
-using std::cout;
-
-void printHeader(std::string header)
-{
-	std::cout  << "\033[1;35m"
-			   << "<<<<< "
-			   << header
-			   << " >>>>>"
-			   << "\033[0m"
-			   << std::endl;
-}
-
-void printDescription(std::string desc)
-{
-	std::cout	<< "["
-				<< desc
-				<< "]:";
-}
-
-int counter = 11;
 void test_list()
 {
 	{

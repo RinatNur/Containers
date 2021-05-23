@@ -9,7 +9,8 @@
 
 int main ()
 {
-	test_list();
+//	test_list();
+	test_stack();
 //	sleep(10);
 	return 0;
 }

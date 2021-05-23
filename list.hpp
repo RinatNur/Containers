@@ -189,8 +189,6 @@ public:
 
 	void pop_back() {
 		erase(this->m_sentinal->previous());
-		if (this->m_size > 0)
-			--this->m_size;
 	}
 
 	iterator insert(iterator position, const value_type& val) {

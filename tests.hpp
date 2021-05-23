@@ -9,10 +9,13 @@
 #include <math.h>
 #include "list.hpp"
 #include <list>
+#include <stack>
 #include <string>
 #include <vector>
 #include "Node.hpp"
 
+using std::endl;
+using std::cout;
 
 template <typename T>
 void printList(const ft::List<T>& list) {
@@ -58,9 +61,10 @@ struct is_near {
 	{ return (fabs(first-second)<5.0); }
 };
 
-void printHeader(std::string header);
 void test_list();
 bool single_digit (const int& value);
 bool same_integral_part (double first, double second);
+
+void test_stack();
 
 #endif //CONT_MY_TESTS_HPP
