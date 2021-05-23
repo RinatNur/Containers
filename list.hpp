@@ -179,8 +179,6 @@ public:
 
 	void pop_front() {
 		erase(this->begin());
-		if (this->m_size > 0)
-			--this->m_size;
 	}
 
 	void push_back (const value_type& val) {

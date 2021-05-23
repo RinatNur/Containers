@@ -8,7 +8,7 @@
 void printHeader(std::string header);
 void printDescription(std::string desc);
 
-void test_stack() {
+void stack_test() {
 	{
 		printHeader("myStack");
 

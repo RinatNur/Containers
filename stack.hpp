@@ -45,7 +45,7 @@ public:
 	}
 
 	void pop() {
-		this->cntr.pop_back();
+		this->cntr.pop_back(); //TODO test it
 	}
 };//stack end
 

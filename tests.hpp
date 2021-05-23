@@ -10,6 +10,7 @@
 #include "list.hpp"
 #include <list>
 #include <stack>
+#include <queue>
 #include <string>
 #include <vector>
 #include "Node.hpp"
@@ -65,6 +66,7 @@ void test_list();
 bool single_digit (const int& value);
 bool same_integral_part (double first, double second);
 
-void test_stack();
+void stack_test();
+void queue_test();
 
 #endif //CONT_MY_TESTS_HPP
