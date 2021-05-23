@@ -53,70 +53,31 @@ namespace ft
 		void pop() {
 			this->cntr.pop_front();
 		}
+
+		friend bool operator==(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+			return (lhs.cntr == rhs.cntr);
+		}
+
+		friend bool operator!=(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+			return (lhs.cntr != rhs.cntr);
+		}
+
+		friend bool operator<(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+			return (lhs.cntr < rhs.cntr);
+		}
+
+		friend bool operator<=(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+			return (lhs.cntr <= rhs.cntr);
+		}
+
+		friend bool operator>(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+			return (lhs.cntr > rhs.cntr);
+		}
+
+		friend bool operator>=(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+			return (lhs.cntr >= rhs.cntr);
+		}
+
 	};//Queue end
-
-	template <class T, class Container>
-	bool operator== (const Queue<T,Container>& lhs, const Queue<T,Container>& rhs){
-		Queue<T,Container> lcopy(lhs);
-		Queue<T,Container> rcopy(rhs);
-		if (lcopy.size() != rcopy.size())
-			return false;
-		for (int i = 0; lcopy.size(); ++i)
-		{
-			if (lcopy.front() != rcopy.front())
-				return false;
-			lcopy.pop();
-			rcopy.pop();
-		}
-		return true;
-	}
-
-	template <class T, class Container>
-	bool operator!= (const Queue<T,Container>& lhs, const Queue<T,Container>& rhs){
-		return !(lhs == rhs);
-	}
-
-	template <class T, class Container>
-	bool operator<  (const Queue<T,Container>& lhs, const Queue<T,Container>& rhs){
-		bool equal = true;
-		Queue<T,Container> lcopy(lhs);
-		Queue<T,Container> rcopy(rhs);
-		if (lcopy.size() != rcopy.size())
-		{
-			while (lcopy.size() > rcopy.size())
-				lcopy.pop();
-			while (rcopy.size() > lcopy.size())
-				rcopy.pop();
-		}
-
-		while (!lcopy.empty())
-		{
-			if (lcopy.front() > rcopy.front())
-				return false;
-			else if (rcopy.front() > lcopy.front())
-				equal = false;
-			lcopy.pop();
-			rcopy.pop();
-		}
-		if (equal && (lhs.size() == rhs.size() || lhs.size() > rhs.size()))
-			return false;
-		return true;
-	}
-
-	template <class T, class Container>
-	bool operator<= (const Queue<T,Container>& lhs, const Queue<T,Container>& rhs){
-		return !(rhs < lhs);
-	}
-
-	template <class T, class Container>
-	bool operator>  (const Queue<T,Container>& lhs, const Queue<T,Container>& rhs){
-		return rhs < lhs;
-	}
-
-	template <class T, class Container>
-	bool operator>= (const Queue<T,Container>& lhs, const Queue<T,Container>& rhs){
-		return !(lhs < rhs);;
-	}
-
 };//ft end
 #endif //CONT_MY_QUEUE_HPP

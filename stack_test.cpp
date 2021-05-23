@@ -12,14 +12,14 @@ void stack_test() {
 	{
 		printHeader("myStack");
 
-		ft::Stack<int> myStack1;
-		ft::Stack<int> myStack2;
+		ft::Stack<int, ft::List<int> > myStack1;
+		ft::Stack<int, ft::List<int> > myStack2;
 		myStack1.push(5);
-//		myStack1.push(10);
+		myStack1.push(10);
 
 		myStack2.push(6);
 		myStack2.push(10);
-		if (myStack1 <= myStack2)
+		if (myStack1 == myStack2)
 			cout << "true" << endl;
 		else
 			cout << "false" << endl;
