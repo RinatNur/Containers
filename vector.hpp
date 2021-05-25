@@ -7,11 +7,10 @@
 
 
 #include <iostream>
-#include <iostream>
 #include <iterator>
 #include "Reverse_iterator.hpp"
-#include "Node.hpp"
 #include "Algorithm.hpp"
+#include "Number.hpp"
 
 namespace ft {
 
@@ -43,11 +42,11 @@ namespace ft {
 		}
 
 		reference operator*() {
-			return (*this);
+			return (*this->_ptr);
 		}
 
 		const_reference operator*() const {
-			return (*this);
+			return (*this->_ptr);
 		}
 
 		pointer operator->() {
@@ -170,7 +169,7 @@ namespace ft {
 
 		Vector& operator=(Vector const & x) {
 			//TODO write code
-		}
+		}//TODO asdadsg
 
 		iterator begin() {
 			return (iterator(this->_cntr));
@@ -180,19 +179,69 @@ namespace ft {
 		}
 
 		iterator end() {
-			return (iterator(&(this->_cntr[this->_size])));//TODO add &
+			return (iterator(&(this->_cntr[this->_size])));
 		}
 		const_iterator end() const{
-			return (iterator(&(this->_cntr[this->_size])));//TODO add &
+			return (iterator(&(this->_cntr[this->_size])));
 		}
 
-		void push_back (const value_type& val){
-//			new(&this->_cntr[this->_size++]) value_type(val);
+		//Capacity
+
+		void reserve (size_type n){
+			if (this->_capacity == 0)
+			{
+				n = (n > 128) ? n : 128;
+				this->_cntr = static_cast<pointer>(::operator new( sizeof(value_type) * n));
+				this->_capacity = n;
+			} else if (n > this->_capacity)
+			{
+				n = (n > this->_capacity * 2) ? n : this->_capacity * 2;
+				pointer tmp = static_cast<pointer>(::operator new(sizeof (value_type) * n));
+				if (this->_cntr)
+				{
+					for (int i = 0; i < this->_size; ++i)
+						tmp[i] = this->_cntr[i];
+					::operator delete(this->_cntr);
+				}
+				this->_cntr = tmp;
+				this->_capacity = n;
+			}
 		}
+
+		//Modifiers
+		void push_back (const value_type& val){
+			if (this->_size == this->_capacity)
+				this->reserve(this->_size * 2);
+			this->_cntr[this->_size] = val;
+			++_size;
+		}
+
+
+
 
 
 
 	};//vector end
+
+	template <class T, class Alloc>
+	bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+
+	}
+
+//	template <class T, class Alloc>
+//	bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
+//
+//	template <class T, class Alloc>
+//	bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
+//
+//	template <class T, class Alloc>
+//	bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
+//
+//	template <class T, class Alloc>
+//	bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
+//
+//	template <class T, class Alloc>
+//	bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
 
 }// ft end
 

@@ -443,8 +443,8 @@ private:
 	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
 		if (lhs.size() != rhs.size())
 			return false;
-		iterator lit = lhs.begin();
-		iterator rit = rhs.begin();
+		typename ft::List<T>::iterator lit = lhs.begin();
+		typename ft::List<T>::iterator rit = rhs.begin();
 		for(; lit != lhs.end(); ++lit)
 		{
 			if (*lit != *(rit++))

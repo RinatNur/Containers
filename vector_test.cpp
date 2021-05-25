@@ -10,9 +10,10 @@ void vector_test() {
 	myVector.push_back(5);
 	myVector.push_back(10);
 	myVector.push_back(15);
+	myVector.push_back(25);
 
 	for (ft::Vector<int>::iterator it = myVector.begin(); it != myVector.end(); ++it)
 	{
-
+		cout << " " << *it;
 	}
 }
