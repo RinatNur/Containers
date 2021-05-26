@@ -157,7 +157,7 @@ namespace ft {
 		template <class InputIterator>
 		Vector (InputIterator first, InputIterator last,
 		const allocator_type& alloc = allocator_type()) :  _cntr(nullptr), _capacity(0), _size(0) {
-			this->assign(first, last);
+//			this->assign(first, last);
 		}
 		Vector (const Vector& x) : _cntr(nullptr), _capacity(0), _size(x._size) {
 			//TODO write constructor's code
@@ -194,9 +194,18 @@ namespace ft {
 			return std::numeric_limits<size_type>::max() / sizeof(value_type);
 		}
 
+		void resize (size_type n, value_type val = value_type()){
+		//TODO after insert and erase
+		}
+
+		size_type capacity() const {
+			return this->_capacity;
+		}
+
 		void reserve (size_type n){
 			if (this->_capacity == 0)
 			{
+				if (n == 1)
 				n = (n > 128) ? n : 128;
 				this->_cntr = static_cast<pointer>(::operator new( sizeof(value_type) * n));
 				this->_capacity = n;
@@ -207,9 +216,8 @@ namespace ft {
 				if (this->_cntr)
 				{
 					for (int i = 0; i < this->_size; ++i)
-						tmp[i] = this->_cntr[i];
-					::operator delete(this->_cntr);
-				}
+						new(&(tmp[i])) value_type(this->_cntr[i]);
+					::operator delete(this->_cntr);				}
 				this->_cntr = tmp;
 				this->_capacity = n;
 			}
@@ -219,7 +227,7 @@ namespace ft {
 		void push_back (const value_type& val){
 			if (this->_size == this->_capacity)
 				this->reserve(this->_size * 2);
-			this->_cntr[this->_size] = val;
+			new(&(this->_cntr[this->_size])) value_type(val);
 			++_size;
 		}
 		void pop_back(){

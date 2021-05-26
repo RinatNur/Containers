@@ -25,13 +25,12 @@ void vector_test() {
 //		++it;
 //		--it;
 //		cout << "it = " << *it << endl;
-		cout << "max_size = " << myVector.max_size() << endl;
 
-		myVector.pop_back();
-		myVector.pop_back();
-		myVector.pop_back();
-		myVector.pop_back();
-		myVector.pop_back();
+//		myVector.pop_back();
+//		myVector.pop_back();
+//		myVector.pop_back();
+//		myVector.pop_back();
+//		myVector.pop_back();
 		for (ft::Vector<int>::iterator it = myVector.begin(); it != myVector.end(); ++it) {
 			cout << " " << *it;
 		}
@@ -39,13 +38,18 @@ void vector_test() {
 	}
 	{
 		printHeader("std vector");
-		std::vector<int> myVector;
+		std::vector<int> myVector(2,5);
 		myVector.push_back(5);
 		myVector.push_back(10);
+		cout << "capacity = " << myVector.capacity() << endl;
 		myVector.push_back(15);
 		myVector.push_back(25);
+		myVector.push_back(25);
+		myVector.push_back(25);
+		myVector.push_back(25);
+		myVector.push_back(25);
+		myVector.push_back(25);
 		std::vector<int>::iterator it = myVector.begin();
-		cout << "max_size = " << myVector.max_size() << endl;
 
 //		++it;
 //		--it;
