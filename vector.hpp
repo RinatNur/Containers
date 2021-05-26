@@ -186,6 +186,13 @@ namespace ft {
 		}
 
 		//Capacity
+		size_type size() const {
+			return this->_size;
+		}
+
+		size_type max_size() const {
+			return std::numeric_limits<size_type>::max() / sizeof(value_type);
+		}
 
 		void reserve (size_type n){
 			if (this->_capacity == 0)
@@ -214,6 +221,10 @@ namespace ft {
 				this->reserve(this->_size * 2);
 			this->_cntr[this->_size] = val;
 			++_size;
+		}
+		void pop_back(){
+			if (this->_size > 0)
+				this->_cntr[--this->_size].value_type::~value_type();
 		}
 
 

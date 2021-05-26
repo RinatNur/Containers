@@ -142,7 +142,7 @@ public:
 	}
 
 	size_type max_size() const {
-		return std::numeric_limits<size_type>::max() / sizeof(Node<T>);
+		return std::numeric_limits<size_type>::max() / sizeof(Node<value_type>); //changed T to value_type
 	}
 
 	//Element access:
