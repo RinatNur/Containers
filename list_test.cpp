@@ -601,7 +601,7 @@ void test_list()
 //		myList.push_back(10);
 //
 //		printList(myList);
-//		std::cout << "m_size = " << myList.size() << endl;
+//		std::cout << "size_ = " << myList.size() << endl;
 //		cout << "max_size = " << myList.max_size() << endl;
 //		std::cout << "is list empty " << myList.empty() << endl;
 //	}
@@ -610,7 +610,7 @@ void test_list()
 //		std::list<int>	myList;
 //		myList.push_back(10);
 //		printList(myList);
-//		std::cout << "m_size = " << myList.size() << endl;
+//		std::cout << "size_ = " << myList.size() << endl;
 //		cout << "max_size = " << myList.max_size() << endl;
 //		std::cout << "is list empty " << myList.empty() << endl;
 //	}

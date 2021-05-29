@@ -131,7 +131,7 @@ namespace ft {
 		typedef T											value_type;
 		typedef Alloc										allocator_type;
 		typedef value_type&									reference;
-		typedef const value_type*							const_reference;
+		typedef const value_type&							const_reference;
 		typedef value_type*									pointer;
 		typedef const value_type*							const_pointer;
 		typedef VectorIterator<value_type>					iterator;
@@ -139,106 +139,182 @@ namespace ft {
 		typedef Reverse_iterator<iterator>					reverse_iterator;
 		typedef Reverse_iterator<const_iterator>			const_reverse_iterator;
 		typedef std::ptrdiff_t								difference_type;
-		typedef size_t										size_type;
+		typedef unsigned long								size_type;
 //		typedef typename Vector<value_type>::VectorIterator	it_type;
 
 	private:
 
-		pointer		_cntr;
-		size_type	_capacity;
-		size_type	_size;
+		pointer		cntr_;
+		size_type	size_;
+		size_type	capacity_;
+
+		void printVector(Vector& tmp) {
+			for (iterator it = tmp.begin(); it != tmp.end(); ++it)
+			{
+				std::cout << " " << *it;
+			}
+			std::cout << std::endl;
+		}
+
+		void copy_to_allocated_mem(size_type index, const_reference val)
+		{
+			new(&this->cntr_[index]) value_type(val);
+		}
+
 
 	public:
-		explicit Vector (const allocator_type& alloc = allocator_type()) :  _cntr(nullptr), _capacity(0), _size(0) {}
-		explicit Vector (size_type n, const_reference val = value_type(),
-		const allocator_type& alloc = allocator_type()) :  _cntr(nullptr), _capacity(0), _size(0) {
-//			this->assign(n, val);
+		Vector (const allocator_type& alloc = allocator_type()) : cntr_(nullptr), size_(0), capacity_(0) {
+		}
+		Vector (size_type n, const_reference val = value_type(),
+		  	const allocator_type& alloc = allocator_type()) : cntr_(nullptr), capacity_(0), size_(0) {
+			this->assign(n, val);
 		}
 		template <class InputIterator>
 		Vector (InputIterator first, InputIterator last,
-		const allocator_type& alloc = allocator_type()) :  _cntr(nullptr), _capacity(0), _size(0) {
-//			this->assign(first, last);
+		const allocator_type& alloc = allocator_type()) :  cntr_(nullptr), capacity_(0), size_(0) {
+			this->assign(first, last);
 		}
-		Vector (const Vector& x) : _cntr(nullptr), _capacity(0), _size(x._size) {
+		Vector (const Vector& x) : cntr_(x.cntr_), capacity_(x.capacity_), size_(x.size_) {
 			//TODO write constructor's code
 		}
 
 		virtual ~Vector() {
-			//TODO write destructor's code
+			this->clear();
+			if (this->cntr_)
+				::delete (this->cntr_);
 		}
 
 		Vector& operator=(Vector const & x) {
 			//TODO write code
-		}//TODO asdadsg
+		}
+
+		reference operator[](size_type index)
+		{
+			return this->cntr_[index];
+		}
 
 		iterator begin() {
-			return (iterator(this->_cntr));
+			return (iterator(this->cntr_));
 		}
 		const_iterator begin() const{
-			return (iterator(this->_cntr));
+			return (const_iterator(this->cntr_));
 		}
 
 		iterator end() {
-			return (iterator(&(this->_cntr[this->_size])));
+			return (iterator(&(this->cntr_[this->size_])));
 		}
 		const_iterator end() const{
-			return (iterator(&(this->_cntr[this->_size])));
+			return (const_iterator(&(this->cntr_[this->size_])));
 		}
 
 		//Capacity
 		size_type size() const {
-			return this->_size;
+			return this->size_;
 		}
 
 		size_type max_size() const {
 			return std::numeric_limits<size_type>::max() / sizeof(value_type);
 		}
 
-		void resize (size_type n, value_type val = value_type()){
-		//TODO after insert and erase
-		}
-
 		size_type capacity() const {
-			return this->_capacity;
+			return this->capacity_;
 		}
 
 		void reserve (size_type n){
-			if (this->_capacity == 0)
+			if (n > this->max_size())
+				throw std::bad_alloc();
+			if (this->capacity_ == 0)
 			{
-				if (n == 1)
-				n = (n > 128) ? n : 128;
-				this->_cntr = static_cast<pointer>(::operator new( sizeof(value_type) * n));
-				this->_capacity = n;
-			} else if (n > this->_capacity)
+				n = (this->size_ <= 1) ? 1 : n;
+				this->cntr_ = static_cast<pointer>(::operator new(sizeof(value_type) * n));
+				this->capacity_ = n;
+			} else if (n > this->capacity_)
 			{
-				n = (n > this->_capacity * 2) ? n : this->_capacity * 2;
+				n = (n > this->capacity_ * 2) ? n : this->capacity_ * 2;
 				pointer tmp = static_cast<pointer>(::operator new(sizeof (value_type) * n));
-				if (this->_cntr)
+				if (this->cntr_)
 				{
-					for (int i = 0; i < this->_size; ++i)
-						new(&(tmp[i])) value_type(this->_cntr[i]);
-					::operator delete(this->_cntr);				}
-				this->_cntr = tmp;
-				this->_capacity = n;
+					for (int i = 0; i < this->size_; ++i)
+						new(&tmp[i]) value_type(this->cntr_[i]);
+					::operator delete(this->cntr_);				}
+				this->cntr_ = tmp;
+				this->capacity_ = n;
 			}
 		}
 
 		//Modifiers
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last,
+					 typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0)
+		{
+			this->clear();
+			for (; first != last; ++first)
+				this->push_back(*first);
+		}
+		void assign (size_type n, const value_type& val){
+			this->clear();
+			for (int i = 0; i < n; ++i)
+				this->push_back(val);
+		}
+
 		void push_back (const value_type& val){
-			if (this->_size == this->_capacity)
-				this->reserve(this->_size * 2);
-			new(&(this->_cntr[this->_size])) value_type(val);
-			++_size;
+			if (this->size_ == this->capacity_) {
+				this->reserve(this->size_ * 2);
+			}
+			new(&this->cntr_[this->size_]) value_type(val);
+			size_ = size_ + 1;
 		}
 		void pop_back(){
-			if (this->_size > 0)
-				this->_cntr[--this->_size].value_type::~value_type();
+			if (this->size_ > 0)
+				--this->size_;
+				this->cntr_[this->size_].value_type::~value_type();
 		}
 
+		iterator insert (iterator position, const value_type& val){
+			this->insert(position, 1, val);
+			return (++position);
+		}
+
+		void insert (iterator position, size_type n, const value_type& val){
+			size_type i = 0;
+			iterator it = this->begin();
+
+			for (; it != position; ++it)
+				++i;
+			if (this->size_ + n >= this->capacity_)
+				this->reserve(this->size_ + n);
 
 
+			for (size_type j = this->size_; j >= 1 && j >= i; j--) // loop moves values in array after position to the and of new array
+				this->copy_to_allocated_mem(j + n - 1, this->cntr_[j - 1]);
+			for (size_type j = 0; j < n; j++) // loop fills inserted cells with val;
+				this->copy_to_allocated_mem(i + j, val);
+			this->size_ += n;
 
+		}
 
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last,
+					 typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0){
+			iterator it = this->begin();
+			size_type size = last - first;
+			if (this->size_ + size >= this->capacity_)
+				this->reserve(this->size_ + size);
+			size_type i = 0;
+			for (; it != position; ++it)
+				++i;
+			for (size_type j = this->size_; j >= 1 && j > i; j--) // loop moves values in array after position to the and of new array
+				this->copy_to_allocated_mem(j + size - 1, this->cntr_[j - 1]);
+			for (size_type j = 0; j < size; j++) // loop fills inserted cells with val;
+				this->copy_to_allocated_mem(i + j, *first++);
+			this->size_ += size;
+		}
+
+		void clear(){
+			for (size_type i = 0; i < this->size_; ++i)
+				this->cntr_[i].value_type::~value_type();
+			this->size_ = 0;
+		}
 
 	};//vector end
 

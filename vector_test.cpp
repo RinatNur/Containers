@@ -10,54 +10,80 @@ void printDescription(std::string desc);
 
 void vector_test() {
 	{
-		printHeader("myVector");
-		ft::Vector<int> myVector;
-		myVector.push_back(5);
-		myVector.push_back(10);
-		myVector.push_back(15);
-		myVector.push_back(25);
+		printHeader("myvector");
+		ft::Vector<int> myvector;
+		ft::Vector<int> myvector2;
 
-		ft::Vector<int>::iterator it = myVector.begin();
-//		++it;
-//		++it;
-//		++it;
-//		++it;
-//		++it;
-//		--it;
-//		cout << "it = " << *it << endl;
+		ft::Vector<int>::iterator it;
+		myvector.push_back(100);
+		myvector.push_back(200);
+		myvector.push_back(300);
+		myvector2.push_back(400);
+		myvector2.push_back(500);
+		it = myvector.begin();
+		++it;
 
-//		myVector.pop_back();
-//		myVector.pop_back();
-//		myVector.pop_back();
-//		myVector.pop_back();
-//		myVector.pop_back();
-		for (ft::Vector<int>::iterator it = myVector.begin(); it != myVector.end(); ++it) {
+//		it = myvector.insert ( it , 200 );
+		myvector.insert (it, myvector2.begin(), myvector2.end());
+//
+////		myvector.push_back(15);
+////		myvector.push_back(25);
+//
+////		ft::Vector<int>::iterator it = myvector.begin();
+////		++it;
+////		++it;
+////		++it;
+////		++it;
+////		++it;
+////		--it;
+////		cout << "it = " << *it << endl;
+//
+////		myvector.pop_back();
+////		myvector.pop_back();
+////		myvector.pop_back();
+////		myvector.pop_back();
+////		myvector.pop_back();
+		for (ft::Vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it) {
 			cout << " " << *it;
 		}
 		cout << endl;
+//		for (ft::Vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it) {
+//			cout << " " << *it;
+//		}
+//		cout << endl;
 	}
 	{
 		printHeader("std vector");
-		std::vector<int> myVector(2,5);
-		myVector.push_back(5);
-		myVector.push_back(10);
-		cout << "capacity = " << myVector.capacity() << endl;
-		myVector.push_back(15);
-		myVector.push_back(25);
-		myVector.push_back(25);
-		myVector.push_back(25);
-		myVector.push_back(25);
-		myVector.push_back(25);
-		myVector.push_back(25);
-		std::vector<int>::iterator it = myVector.begin();
-
+		std::vector<int> myvector;
+		std::vector<int>::iterator it;//		it = myvector.begin();
+		myvector.push_back(100);
+		myvector.push_back(200);
+		myvector.push_back(300);
+		myvector.push_back(400);
+		myvector.push_back(500);
+		it = myvector.begin();
 //		++it;
-//		--it;
-//		cout << "it = " << *it << endl;
-//		myVector.pop_back();
-		for (std::vector<int>::iterator it = myVector.begin(); it != myVector.end(); ++it) {
-			cout << " " << *it;
-		}
+
+//		it = myvector.insert ( it , 200 );
+		myvector.insert (it, ++myvector.begin(), myvector.end());
+//		std::vector<int> tmp (myvector);
+
+
+//		// "it" no longer valid, get a new one:
+//		it = myvector.begin();
+//////
+//		std::vector<int> anothervector (2,400);
+//		myvector.insert (it+2,anothervector.begin(),anothervector.end());
+//		cout << "capacity = " << myvector.capacity() << endl;
+////
+//		int myarray [] = { 501,502,503 };
+//		myvector.insert (myvector.begin(), myarray, myarray+3);
+
+		std::cout << "myvector contains:";
+		for (it=myvector.begin(); it<myvector.end(); it++)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+
 //	myVector[2].int::~int();
 		cout << endl;
 	}
