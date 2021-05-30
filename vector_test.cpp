@@ -26,9 +26,10 @@ void printDescription(std::string desc)
 
 void vector_test() {
 	{
-		printHeader("myvector erase()");
+		printHeader("myvector swap()");
 		ft::Vector<int> myvector (5,5);
 		ft::Vector<int> myvector2 (3,3);
+		ft::Vector<int> myvector3;
 
 		std::cout << "myvector contains:";
 		for (unsigned i=0; i<myvector.size(); ++i)
@@ -53,6 +54,15 @@ void vector_test() {
 		for (unsigned i=0; i<myvector2.size(); ++i)
 			std::cout << ' ' << myvector2[i];
 		std::cout << '\n';
+
+		printDescription("is myvector3 empty");
+		cout << std::boolalpha << myvector3.empty() << endl;
+		printDescription("myvector3.push_back(3)");
+		cout << endl;
+		myvector3.push_back(3);
+		printDescription("is myvector3 empty");
+		cout << std::boolalpha << myvector3.empty() << endl;
+
 	}
 	{
 		printHeader("myvector erase()");

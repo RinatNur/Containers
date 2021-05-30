@@ -220,6 +220,10 @@ namespace ft {
 			return this->capacity_;
 		}
 
+		bool empty() const {
+			return this->size_ == 0;
+		}
+
 		void reserve (size_type n){
 			if (n > this->max_size())
 				throw std::bad_alloc();
