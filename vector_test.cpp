@@ -27,6 +27,35 @@ void printDescription(std::string desc)
 void vector_test() {
 	{
 		printHeader("myvector erase()");
+		ft::Vector<int> myvector (5,5);
+		ft::Vector<int> myvector2 (3,3);
+
+		std::cout << "myvector contains:";
+		for (unsigned i=0; i<myvector.size(); ++i)
+			std::cout << ' ' << myvector[i];
+		std::cout << '\n';
+
+		std::cout << "myvector2 contains:";
+		for (unsigned i=0; i<myvector2.size(); ++i)
+			std::cout << ' ' << myvector2[i];
+		std::cout << '\n';
+
+		printDescription("after swap");
+		cout << endl;
+		myvector.swap(myvector2);
+
+		std::cout << "myvector contains:";
+		for (unsigned i=0; i<myvector.size(); ++i)
+			std::cout << ' ' << myvector[i];
+		std::cout << '\n';
+
+		std::cout << "myvector2 contains:";
+		for (unsigned i=0; i<myvector2.size(); ++i)
+			std::cout << ' ' << myvector2[i];
+		std::cout << '\n';
+	}
+	{
+		printHeader("myvector erase()");
 		ft::Vector<int> myvector;
 
 		// set some values (from 1 to 10)

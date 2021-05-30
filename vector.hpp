@@ -355,10 +355,17 @@ namespace ft {
 			return last;
 		}
 
+
 		void clear(){
 			for (size_type i = 0; i < this->size_; ++i)
 				this->cntr_[i].value_type::~value_type();
 			this->size_ = 0;
+		}
+
+		void swap (Vector& x) {
+			ft::swap(this->cntr_, x.cntr_);
+			ft::swap(this->size_, x.size_);
+			ft::swap(this->capacity_, x.capacity_);
 		}
 
 	};//vector end
