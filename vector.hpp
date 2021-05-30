@@ -188,11 +188,6 @@ namespace ft {
 			//TODO write code
 		}
 
-		reference operator[](size_type index)
-		{
-			return this->cntr_[index];
-		}
-
 		iterator begin() {
 			return (iterator(this->cntr_));
 		}
@@ -214,6 +209,27 @@ namespace ft {
 
 		size_type max_size() const {
 			return std::numeric_limits<size_type>::max() / sizeof(value_type);
+		}
+
+		void resize (size_type n, value_type val = value_type()){
+			if (n > this->capacity_)
+				reserve(n);
+			else if (n <= this->size_)
+			{
+				for (size_type i = (this->size_ - 1); i >= n; --i)
+				{
+					this->cntr_[i].value_type::~value_type();
+					--this->size_;
+				}
+			}
+			else if (n > this->size_){
+				for (int i = this->size_; i < n; ++i)
+				{
+					this->copy_to_allocated_mem(i, val);
+					++this->size_;
+				}
+
+			}
 		}
 
 		size_type capacity() const {
@@ -244,6 +260,36 @@ namespace ft {
 				this->cntr_ = tmp;
 				this->capacity_ = n;
 			}
+		}
+//		Element access:
+		reference operator[](size_type index)
+		{
+			return this->cntr_[index];
+		}
+
+		reference at (size_type n) {
+			if (n >= this->size_)
+				throw std::out_of_range ("out of range");
+			return *(this->cntr_ + n);
+		}
+		const_reference at (size_type n) const{
+			if (n >= this->size_)
+				throw std::out_of_range ("out of range");
+			return *(this->cntr_ + n);
+		}
+
+		reference front(){
+			return *this->cntr_;
+		}
+		const_reference front() const{
+			return *this->cntr_;
+		}
+
+		reference back() {
+			return *(this->cntr_ + this->size_ - 1);
+		}
+		const_reference back() const {
+			return *(this->cntr_ + this->size_ - 1);
 		}
 
 		//Modifiers

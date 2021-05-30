@@ -26,80 +26,162 @@ void printDescription(std::string desc)
 
 void vector_test() {
 	{
-		printHeader("myvector swap()");
-		ft::Vector<int> myvector (5,5);
-		ft::Vector<int> myvector2 (3,3);
-		ft::Vector<int> myvector3;
-
-		std::cout << "myvector contains:";
-		for (unsigned i=0; i<myvector.size(); ++i)
-			std::cout << ' ' << myvector[i];
-		std::cout << '\n';
-
-		std::cout << "myvector2 contains:";
-		for (unsigned i=0; i<myvector2.size(); ++i)
-			std::cout << ' ' << myvector2[i];
-		std::cout << '\n';
-
-		printDescription("after swap");
-		cout << endl;
-		myvector.swap(myvector2);
-
-		std::cout << "myvector contains:";
-		for (unsigned i=0; i<myvector.size(); ++i)
-			std::cout << ' ' << myvector[i];
-		std::cout << '\n';
-
-		std::cout << "myvector2 contains:";
-		for (unsigned i=0; i<myvector2.size(); ++i)
-			std::cout << ' ' << myvector2[i];
-		std::cout << '\n';
-
-		printDescription("is myvector3 empty");
-		cout << std::boolalpha << myvector3.empty() << endl;
-		printDescription("myvector3.push_back(3)");
-		cout << endl;
-		myvector3.push_back(3);
-		printDescription("is myvector3 empty");
-		cout << std::boolalpha << myvector3.empty() << endl;
-
-	}
-	{
-		printHeader("myvector erase()");
+		printHeader("myvector front() back()");
 		ft::Vector<int> myvector;
+		// set some initial content:
+		for (int i=1;i<10;i++) myvector.push_back(i);
 
-		// set some values (from 1 to 10)
-		for (int i=1; i<=10; i++) myvector.push_back(i);
-
-		// erase the 6th element
-		myvector.erase (myvector.begin()+5);
-
-		// erase the first 3 elements:
-		myvector.erase (myvector.begin(),myvector.begin()+3);
+		myvector.resize(5);
+		myvector.resize(8,100);
+		myvector.resize(12);
 
 		std::cout << "myvector contains:";
-		for (unsigned i=0; i<myvector.size(); ++i)
+		for (int i=0;i<myvector.size();i++)
 			std::cout << ' ' << myvector[i];
 		std::cout << '\n';
 	}
+
 	{
-		printHeader("std erase()");
+		printHeader("std front() back()");
 		std::vector<int> myvector;
+		// set some initial content:
+		for (int i=1;i<10;i++) myvector.push_back(i);
 
-		// set some values (from 1 to 10)
-		for (int i=1; i<=10; i++) myvector.push_back(i);
-
-		// erase the 6th element
-		myvector.erase (myvector.begin()+5);
-
-		// erase the first 3 elements:
-		myvector.erase (myvector.begin(),myvector.begin()+3);
+		myvector.resize(5);
+		myvector.resize(8,100);
+		myvector.resize(12);
 
 		std::cout << "myvector contains:";
-		for (unsigned i=0; i<myvector.size(); ++i)
+		for (int i=0;i<myvector.size();i++)
 			std::cout << ' ' << myvector[i];
 		std::cout << '\n';
 	}
+//	{
+//		printHeader("myvector front() back()");
+//		ft::Vector<int> myvector;
+//		myvector.push_back(78);
+//		myvector.push_back(16);
+//
+//		// now front equals 78, and back 16
+//
+//		myvector.front() -= myvector.back();
+//
+//		std::cout << "myvector.front() is now " << myvector.front() << '\n';
+//	}
+//
+//	{
+//		printHeader("std front() back()");
+//		std::vector<int> myvector;
+//
+//		myvector.push_back(78);
+//		myvector.push_back(16);
+//
+//		// now front equals 78, and back 16
+//
+//		myvector.front() -= myvector.back();
+//
+//		std::cout << "myvector.front() is now " << myvector.front() << '\n';
+//	}
+//	{
+//		printHeader("myvector at()");
+//		ft::Vector<int> myvector (10);
+//		for (unsigned i=0; i<myvector.size(); i++)
+//			myvector.at(i)=i;
+//
+//		std::cout << "myvector contains:";
+//		for (unsigned i=0; i<myvector.size(); i++)
+//			std::cout << ' ' << myvector.at(i);
+//		std::cout << '\n';
+//	}
+//
+//	{
+//		printHeader("std at()");
+//		std::vector<int> myvector (10);   // 10 zero-initialized ints
+//
+//		// assign some values:
+//		for (unsigned i=0; i<myvector.size(); i++)
+//			myvector.at(i)=i;
+//
+//		std::cout << "myvector contains:";
+//		for (unsigned i=0; i<myvector.size(); i++)
+//			std::cout << ' ' << myvector.at(i);
+//		std::cout << '\n';
+//	}
+//	{
+//		printHeader("myvector swap()");
+//		ft::Vector<int> myvector (5,5);
+//		ft::Vector<int> myvector2 (3,3);
+//		ft::Vector<int> myvector3;
+//
+//		std::cout << "myvector contains:";
+//		for (unsigned i=0; i<myvector.size(); ++i)
+//			std::cout << ' ' << myvector[i];
+//		std::cout << '\n';
+//
+//		std::cout << "myvector2 contains:";
+//		for (unsigned i=0; i<myvector2.size(); ++i)
+//			std::cout << ' ' << myvector2[i];
+//		std::cout << '\n';
+//
+//		printDescription("after swap");
+//		cout << endl;
+//		myvector.swap(myvector2);
+//
+//		std::cout << "myvector contains:";
+//		for (unsigned i=0; i<myvector.size(); ++i)
+//			std::cout << ' ' << myvector[i];
+//		std::cout << '\n';
+//
+//		std::cout << "myvector2 contains:";
+//		for (unsigned i=0; i<myvector2.size(); ++i)
+//			std::cout << ' ' << myvector2[i];
+//		std::cout << '\n';
+//
+//		printDescription("is myvector3 empty");
+//		cout << std::boolalpha << myvector3.empty() << endl;
+//		printDescription("myvector3.push_back(3)");
+//		cout << endl;
+//		myvector3.push_back(3);
+//		printDescription("is myvector3 empty");
+//		cout << std::boolalpha << myvector3.empty() << endl;
+//
+//	}
+//	{
+//		printHeader("myvector erase()");
+//		ft::Vector<int> myvector;
+//
+//		// set some values (from 1 to 10)
+//		for (int i=1; i<=10; i++) myvector.push_back(i);
+//
+//		// erase the 6th element
+//		myvector.erase (myvector.begin()+5);
+//
+//		// erase the first 3 elements:
+//		myvector.erase (myvector.begin(),myvector.begin()+3);
+//
+//		std::cout << "myvector contains:";
+//		for (unsigned i=0; i<myvector.size(); ++i)
+//			std::cout << ' ' << myvector[i];
+//		std::cout << '\n';
+//	}
+//	{
+//		printHeader("std erase()");
+//		std::vector<int> myvector;
+//
+//		// set some values (from 1 to 10)
+//		for (int i=1; i<=10; i++) myvector.push_back(i);
+//
+//		// erase the 6th element
+//		myvector.erase (myvector.begin()+5);
+//
+//		// erase the first 3 elements:
+//		myvector.erase (myvector.begin(),myvector.begin()+3);
+//
+//		std::cout << "myvector contains:";
+//		for (unsigned i=0; i<myvector.size(); ++i)
+//			std::cout << ' ' << myvector[i];
+//		std::cout << '\n';
+//	}
 //	{
 //		printHeader("myvector assign()");
 //		ft::Vector<int> first;
