@@ -136,8 +136,8 @@ namespace ft {
 		typedef const value_type*							const_pointer;
 		typedef VectorIterator<value_type>					iterator;
 		typedef VectorIterator<value_type const>			const_iterator;
-		typedef Reverse_iterator<iterator>					reverse_iterator;
-		typedef Reverse_iterator<const_iterator>			const_reverse_iterator;
+//		typedef Reverse_iterator<iterator>					reverse_iterator;
+//		typedef Reverse_iterator<const_iterator>			const_reverse_iterator;
 		typedef std::ptrdiff_t								difference_type;
 		typedef unsigned long								size_type;
 //		typedef typename Vector<value_type>::VectorIterator	it_type;
@@ -271,8 +271,27 @@ namespace ft {
 		}
 
 		iterator insert (iterator position, const value_type& val){
-			this->insert(position, 1, val);
-			return (++position);
+			size_type i = 0;
+			iterator it = this->begin();
+
+			for (; it != position; ++it)
+				++i;
+			if (this->size_ + 1 >= this->capacity_)
+				this->reserve(this->size_ + 1);
+
+
+			for (size_type j = this->size_; j >= 1 && j >= i; j--) // loop moves values in array after position to the and of new array
+				this->copy_to_allocated_mem(j + 1 - 1, this->cntr_[j - 1]);
+			for (size_type j = 0; j < 1; j++) // loop fills inserted cells with val;
+				this->copy_to_allocated_mem(i + j, val);
+			this->size_ += 1;
+			it = this->begin();
+			while (i > 0)
+			{
+				++it;
+				--i;
+			}
+			return (it);
 		}
 
 		void insert (iterator position, size_type n, const value_type& val){
@@ -297,17 +316,40 @@ namespace ft {
 		void insert (iterator position, InputIterator first, InputIterator last,
 					 typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0){
 			iterator it = this->begin();
-			size_type size = last - first;
-			if (this->size_ + size >= this->capacity_)
-				this->reserve(this->size_ + size);
 			size_type i = 0;
 			for (; it != position; ++it)
 				++i;
+			size_type size = last - first;
+			if (this->size_ + size >= this->capacity_)
+				this->reserve(this->size_ + size);
 			for (size_type j = this->size_; j >= 1 && j > i; j--) // loop moves values in array after position to the and of new array
 				this->copy_to_allocated_mem(j + size - 1, this->cntr_[j - 1]);
 			for (size_type j = 0; j < size; j++) // loop fills inserted cells with val;
 				this->copy_to_allocated_mem(i + j, *first++);
 			this->size_ += size;
+		}
+
+		iterator erase (iterator position) {
+			iterator next(position);
+			++next;
+			return (iterator(position, next));
+		}
+		iterator erase (iterator first, iterator last){
+			iterator it = this->begin();
+			size_type i = 0;
+			size_type j;
+			for (; it != first; ++it)
+				++i;
+			j = i;
+			for (; first != last; ++first) {
+				this->cntr_[i].value_type::~value_type();
+				++i;
+			}
+			for (; last != this->end(); ++last) {
+				this->copy_to_allocated_mem(j, *last);
+				++j;
+			}
+
 		}
 
 		void clear(){
