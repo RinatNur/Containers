@@ -136,8 +136,8 @@ namespace ft {
 		typedef const value_type*							const_pointer;
 		typedef VectorIterator<value_type>					iterator;
 		typedef VectorIterator<value_type const>			const_iterator;
-//		typedef Reverse_iterator<iterator>					reverse_iterator;
-//		typedef Reverse_iterator<const_iterator>			const_reverse_iterator;
+		typedef Reverse_iterator<iterator>					reverse_iterator;
+		typedef Reverse_iterator<const_iterator>			const_reverse_iterator;
 		typedef std::ptrdiff_t								difference_type;
 		typedef unsigned long								size_type;
 //		typedef typename Vector<value_type>::VectorIterator	it_type;
@@ -174,8 +174,9 @@ namespace ft {
 		const allocator_type& alloc = allocator_type()) :  cntr_(nullptr), capacity_(0), size_(0) {
 			this->assign(first, last);
 		}
-		Vector (const Vector& x) : cntr_(x.cntr_), capacity_(x.capacity_), size_(x.size_) {
-			//TODO write constructor's code
+		Vector (const Vector& x) : cntr_(nullptr), capacity_(0), size_(x.size_) {
+			this->clear();
+			this->assign(x.begin(),x.end());
 		}
 
 		virtual ~Vector() {
@@ -185,7 +186,9 @@ namespace ft {
 		}
 
 		Vector& operator=(Vector const & x) {
-			//TODO write code
+			this->clear();
+			this->assign(x.begin(),x.end());
+			return *this;
 		}
 
 		iterator begin() {
@@ -200,6 +203,20 @@ namespace ft {
 		}
 		const_iterator end() const{
 			return (const_iterator(&(this->cntr_[this->size_])));
+		}
+
+		reverse_iterator rbegin(){
+			return (reverse_iterator(this->end()));
+		}
+		const_reverse_iterator rbegin() const{
+			return (const_reverse_iterator(this->end()));
+		}
+
+		reverse_iterator rend(){
+			return (reverse_iterator(this->cntr_));
+		}
+		const_reverse_iterator rend() const{
+			return (const_reverse_iterator(this->cntr_));
 		}
 
 		//Capacity
@@ -261,8 +278,14 @@ namespace ft {
 				this->capacity_ = n;
 			}
 		}
+
 //		Element access:
 		reference operator[](size_type index)
+		{
+			return this->cntr_[index];
+		}
+
+		const_reference operator[](size_type index) const
 		{
 			return this->cntr_[index];
 		}
@@ -312,8 +335,9 @@ namespace ft {
 				this->reserve(this->size_ * 2);
 			}
 			new(&this->cntr_[this->size_]) value_type(val);
-			size_ = size_ + 1;
+			this->size_ = this->size_ + 1;
 		}
+
 		void pop_back(){
 			if (this->size_ > 0)
 				--this->size_;
@@ -405,6 +429,11 @@ namespace ft {
 			return last;
 		}
 
+		void swap (Vector& x) {
+			ft::swap(this->cntr_, x.cntr_);
+			ft::swap(this->size_, x.size_);
+			ft::swap(this->capacity_, x.capacity_);
+		}
 
 		void clear(){
 			for (size_type i = 0; i < this->size_; ++i)
@@ -412,33 +441,58 @@ namespace ft {
 			this->size_ = 0;
 		}
 
-		void swap (Vector& x) {
-			ft::swap(this->cntr_, x.cntr_);
-			ft::swap(this->size_, x.size_);
-			ft::swap(this->capacity_, x.capacity_);
+		allocator_type get_allocator() const {
+			return (Alloc());
 		}
 
 	};//vector end
 
 	template <class T, class Alloc>
 	bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+		if (lhs.size() != rhs.size())
+			return false;
+		for (size_t i = 0; i < lhs.size(); ++i)
+		{
+			if (lhs[i] != rhs[i])
+				return false;
+		}
+		return true;
 
 	}
+	template <class T, class Alloc>
+	bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+		return (!(lhs == rhs));
+	}
 
-//	template <class T, class Alloc>
-//	bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
-//
-//	template <class T, class Alloc>
-//	bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
-//
-//	template <class T, class Alloc>
-//	bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
-//
-//	template <class T, class Alloc>
-//	bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
-//
-//	template <class T, class Alloc>
-//	bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){}
+	template <class T, class Alloc>
+	bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+		if (lexicographical_compare(lhs.begin(), lhs.end(),rhs.begin(),rhs.end()))
+			return true;
+		return false;
+	}
+
+	template <class T, class Alloc>
+	bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+		return (!(rhs < lhs));
+	}
+
+	template <class T, class Alloc>
+	bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+		if (lhs < rhs || lhs == rhs)
+			return false;
+		return true;
+	}
+
+	template <class T, class Alloc>
+	bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs){
+		return (!(lhs < rhs));
+	}
+
+	template <class T, class Alloc>
+	void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y)
+	{
+		x.swap(y);
+	}
 
 }// ft end
 

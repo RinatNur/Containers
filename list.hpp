@@ -426,6 +426,10 @@ public:
 		}
 	}
 
+	allocator_type get_allocator() const {
+		return (Alloc());
+	}
+
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;

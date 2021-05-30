@@ -25,37 +25,138 @@ void printDescription(std::string desc)
 }
 
 void vector_test() {
+
 	{
 		printHeader("myvector front() back()");
-		ft::Vector<int> myvector;
-		// set some initial content:
-		for (int i=1;i<10;i++) myvector.push_back(i);
-
-		myvector.resize(5);
-		myvector.resize(8,100);
-		myvector.resize(12);
-
-		std::cout << "myvector contains:";
-		for (int i=0;i<myvector.size();i++)
-			std::cout << ' ' << myvector[i];
+		ft::Vector<int> myvector(2,3);
+		ft::Vector<int> myvector3(myvector);
+//		myvector3 = myvector;
+		std::cout << "myvector3 contains:";
+		for (ft::Vector<int>::iterator it = myvector3.begin(); it != myvector3.end(); ++it)
+			std::cout << ' ' << *it;
 		std::cout << '\n';
+		std::cout << "myvector2 contains:";
+		ft::Vector<int> myvector2(3, 5);
+		for (ft::Vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+		myvector.swap(myvector2);
+		std::cout << "myvector contains:";
+		for (ft::Vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+		std::cout << "myvector2 contains:";
+		for (ft::Vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+		int * p;
+		unsigned int i;
+
+		if (myvector < myvector2)
+			cout << "true" << endl;
+		else
+			cout << "false" << endl;
+
+		// allocate an array with space for 5 elements using vector's allocator:
+		p = myvector.get_allocator().allocate(5);
+
+		// construct values in-place on the array:
+		for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
+
+		std::cout << "The allocated array contains:";
+		for (i=0; i<5; i++) std::cout << ' ' << p[i];
+		std::cout << '\n';
+
+		// destroy and deallocate:
+		for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
+		myvector.get_allocator().deallocate(p,5);
 	}
 
 	{
-		printHeader("std front() back()");
-		std::vector<int> myvector;
-		// set some initial content:
-		for (int i=1;i<10;i++) myvector.push_back(i);
+		std::vector<int> myvector;  // 5 default-constructed ints
+		int * p;
+		unsigned int i;
 
-		myvector.resize(5);
-		myvector.resize(8,100);
-		myvector.resize(12);
+		// allocate an array with space for 5 elements using vector's allocator:
+		p = myvector.get_allocator().allocate(5);
 
-		std::cout << "myvector contains:";
-		for (int i=0;i<myvector.size();i++)
-			std::cout << ' ' << myvector[i];
+		// construct values in-place on the array:
+		for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
+
+		std::cout << "The allocated array contains:";
+		for (i=0; i<5; i++) std::cout << ' ' << p[i];
 		std::cout << '\n';
+
+		// destroy and deallocate:
+		for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
+		myvector.get_allocator().deallocate(p,5);
 	}
+//	{
+//		printHeader("myvector front() back()");
+//		ft::Vector<int> myvector(5);
+//
+//		int i=0;
+//
+//		ft::Vector<int>::reverse_iterator rit = myvector.rbegin();
+//		for (; rit!= myvector.rend(); ++rit)
+//			*rit = ++i;
+//
+//		ft::Vector<int>::iterator it = myvector.begin();
+//		cout << "begin = " << *it << endl;
+//		it = it + 2;
+//		cout << "begin = " << *it << endl;
+//
+//		std::cout << "myvector contains:";
+//		for (ft::Vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+//			std::cout << ' ' << *it;
+//		std::cout << '\n';
+//	}
+//
+//	{
+//		std::vector<int> myvector (5);  // 5 default-constructed ints
+//
+//		int i=0;
+//
+//		std::vector<int>::reverse_iterator rit = myvector.rbegin();
+//		for (; rit!= myvector.rend(); ++rit)
+//			*rit = ++i;
+//
+//		std::cout << "myvector contains:";
+//		for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+//			std::cout << ' ' << *it;
+//		std::cout << '\n';
+//	}
+//	{
+//		printHeader("myvector front() back()");
+//		ft::Vector<int> myvector;
+//		// set some initial content:
+//		for (int i=1;i<10;i++) myvector.push_back(i);
+//
+//		myvector.resize(5);
+//		myvector.resize(8,100);
+//		myvector.resize(12);
+//
+//		std::cout << "myvector contains:";
+//		for (int i=0;i<myvector.size();i++)
+//			std::cout << ' ' << myvector[i];
+//		std::cout << '\n';
+//	}
+//
+//	{
+//		printHeader("std front() back()");
+//		std::vector<int> myvector;
+//		// set some initial content:
+//		for (int i=1;i<10;i++) myvector.push_back(i);
+//
+//		myvector.resize(5);
+//		myvector.resize(8,100);
+//		myvector.resize(12);
+//
+//		std::cout << "myvector contains:";
+//		for (int i=0;i<myvector.size();i++)
+//			std::cout << ' ' << myvector[i];
+//		std::cout << '\n';
+//	}
 //	{
 //		printHeader("myvector front() back()");
 //		ft::Vector<int> myvector;
