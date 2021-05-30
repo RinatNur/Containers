@@ -332,24 +332,27 @@ namespace ft {
 		iterator erase (iterator position) {
 			iterator next(position);
 			++next;
-			return (iterator(position, next));
+			return (erase(position, next));
 		}
+
 		iterator erase (iterator first, iterator last){
 			iterator it = this->begin();
+			size_type NumOfEraseElements = last -first;
 			size_type i = 0;
 			size_type j;
 			for (; it != first; ++it)
 				++i;
 			j = i;
-			for (; first != last; ++first) {
-				this->cntr_[i].value_type::~value_type();
-				++i;
-			}
-			for (; last != this->end(); ++last) {
-				this->copy_to_allocated_mem(j, *last);
+			for (it = last; it != this->end(); ++it) {
+				this->cntr_[j] = *it;
 				++j;
 			}
-
+			for (it = last;  it != this->end(); ++it) {
+				this->cntr_[j].value_type::~value_type();
+				++j;
+			}
+			this->size_ -= NumOfEraseElements;
+			return last;
 		}
 
 		void clear(){

@@ -5,8 +5,24 @@
 #include "tests.hpp"
 #include "vector.hpp"
 
-void printHeader(std::string header);
-void printDescription(std::string desc);
+//void printHeader(std::string header);
+//void printDescription(std::string desc);
+void printHeader(std::string header)
+{
+	std::cout  << "\033[1;35m"
+			   << "<<<<< "
+			   << header
+			   << " >>>>>"
+			   << "\033[0m"
+			   << std::endl;
+}
+
+void printDescription(std::string desc)
+{
+	std::cout	<< "["
+				 << desc
+				 << "]:";
+}
 
 void vector_test() {
 	{
@@ -17,7 +33,7 @@ void vector_test() {
 		for (int i=1; i<=10; i++) myvector.push_back(i);
 
 		// erase the 6th element
-//		myvector.erase (myvector.begin()+5);
+		myvector.erase (myvector.begin()+5);
 
 		// erase the first 3 elements:
 		myvector.erase (myvector.begin(),myvector.begin()+3);
@@ -36,9 +52,9 @@ void vector_test() {
 
 		// erase the 6th element
 		myvector.erase (myvector.begin()+5);
-//
-//		// erase the first 3 elements:
-//		myvector.erase (myvector.begin(),myvector.begin()+3);
+
+		// erase the first 3 elements:
+		myvector.erase (myvector.begin(),myvector.begin()+3);
 
 		std::cout << "myvector contains:";
 		for (unsigned i=0; i<myvector.size(); ++i)
