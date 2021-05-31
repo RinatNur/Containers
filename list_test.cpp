@@ -38,11 +38,39 @@ bool compare_nocase (const std::string& first, const std::string& second)
 	return ( first.length() < second.length() );
 }
 
-void test_list()
+void list_test()
 {
 	{
-		printHeader("myList test");
-		ft::List<int> mylist1(35000,5);
+		printHeader("myList reverse iterator");
+		ft::List<int> mylist1;
+		ft::List<int>::iterator it = mylist1.begin();
+		for (int i = 1; i < 11; ++i)
+			mylist1.push_back(i);
+		printDescription("mylist1");
+		printList(mylist1);
+		ft::List<int>::reverse_iterator rit = mylist1.rbegin();
+		cout << "rit.rbegin = " << *rit << endl;
+		int y = 0;
+		for (; rit != mylist1.rend(); ++rit)
+			cout << " " << *rit;
+		cout << endl;
+//		for ()
+
+	}
+	{
+		printHeader("std reverse iterator");
+		std::list<int> mylist1;
+		std::list<int>::iterator it = mylist1.begin();
+		for (int i = 1; i < 11; ++i)
+			mylist1.push_back(i);
+		printDescription("mylist1");
+		printList(mylist1);
+		std::list<int>::reverse_iterator rit = mylist1.rbegin();
+		int y = 0;
+		for (; rit != mylist1.rend(); ++rit)
+			cout << " " << *rit;
+		cout << endl;
+//		for ()
 
 	}
 //	{

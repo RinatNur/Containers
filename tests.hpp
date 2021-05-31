@@ -62,7 +62,7 @@ struct is_near {
 	{ return (fabs(first-second)<5.0); }
 };
 
-void test_list();
+void list_test();
 bool single_digit (const int& value);
 bool same_integral_part (double first, double second);
 

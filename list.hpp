@@ -19,22 +19,27 @@ class iterator {
 public:
 
 	typedef T							value_type;
+	typedef value_type&					reference;
+	typedef const value_type&			const_reference;
+	typedef value_type*					pointer;
+	typedef const value_type*			const_pointer;
+	typedef std::ptrdiff_t				difference_type;
 	typedef ft::Node<value_type>		node;
 	typedef node*						node_pointer;
 
 public:
-	iterator(node_pointer node) : m_node(node) {}
-	iterator() : m_node(0) {}
+	iterator(node_pointer node) : _ptr(node) {}
+	iterator() : _ptr(0) {}
 
-	iterator(const iterator& rhs) : m_node(rhs.m_node) {};
+	iterator(const iterator& rhs) : _ptr(rhs._ptr) {};
 	virtual ~iterator(){};
 
 	iterator const& operator=(const iterator& rhs) {
-		this->m_node = rhs.m_node;
+		this->_ptr = rhs._ptr;
 		return *this;
 	}
 	iterator &operator++() {
-		m_node = m_node->next();
+		_ptr = _ptr->next();
 		return *this;
 	}
 	iterator operator++(int) {
@@ -44,7 +49,7 @@ public:
 	}// postfix increment operator
 
 	iterator &operator--() {
-		m_node = m_node->previous();
+		_ptr = _ptr->previous();
 		return *this;
 	}// prefix decrement operator
 
@@ -54,19 +59,19 @@ public:
 		return tmp;
 	}// postfix decrement operator
 
-	bool operator==(const iterator &rhs) const { return this->m_node == rhs.m_node; }
-	bool operator!=(const iterator &rhs) const { return this->m_node != rhs.m_node; }
-	bool operator<(const iterator &rhs) const { return this->m_node < rhs.m_node; }
-	bool operator<=(const iterator &rhs) const { return this->m_node <= rhs.m_node; }
-	bool operator>(const iterator &rhs) const { return this->m_node > rhs.m_node; }
-	bool operator>=(const iterator &rhs) const { return this->m_node >= rhs.m_node; }
+	bool operator==(const iterator &rhs) const { return this->_ptr == rhs._ptr; }
+	bool operator!=(const iterator &rhs) const { return this->_ptr != rhs._ptr; }
+	bool operator<(const iterator &rhs) const { return this->_ptr < rhs._ptr; }
+	bool operator<=(const iterator &rhs) const { return this->_ptr <= rhs._ptr; }
+	bool operator>(const iterator &rhs) const { return this->_ptr > rhs._ptr; }
+	bool operator>=(const iterator &rhs) const { return this->_ptr >= rhs._ptr; }
 
-	value_type & operator*() { return (m_node->getValue()); }
-	node_pointer  getNode() const { return this->m_node; }
+	value_type & operator*() { return (_ptr->getValue()); }
+	node_pointer  getNode() const { return this->_ptr; }
 
-private:
+protected:
 
-	node_pointer m_node;
+	node_pointer _ptr;
 
 };
 //TODO intergrate disconnect function
@@ -77,12 +82,12 @@ public:
 	typedef T									value_type;
 	typedef Alloc								allocator_type;
 	typedef value_type&							reference;
-	typedef const value_type*					const_reference;
+	typedef const value_type&					const_reference;
 	typedef value_type*							pointer;
 	typedef const value_type*					const_pointer;
-	typedef ft::iterator<value_type>			iterator;
+	typedef iterator<value_type>				iterator;
 	typedef const iterator						const_iterator;
-	typedef ft::Reverse_iterator<T>				reverse_iterator;
+	typedef Reverse_iterator<iterator>			reverse_iterator;
 	typedef const reverse_iterator				const_reverse_iterator;
 	typedef std::ptrdiff_t						difference_type;
 	typedef size_t								size_type;
@@ -122,13 +127,17 @@ public:
 	iterator end() { return iterator(m_sentinal); }
 	const_iterator end() const { return const_iterator(m_sentinal); }
 
-	reverse_iterator rbegin() { return reverse_iterator(m_sentinal->previous()); }
+	reverse_iterator rbegin() {
+		return reverse_iterator(this->end());
+	}
 	const_reverse_iterator rbegin() const {
-		return const_reverse_iterator(m_sentinal->previous()); }
+		return const_reverse_iterator(this->end()); }
 
-	reverse_iterator rend() { return reverse_iterator(m_sentinal); }
+	reverse_iterator rend() {
+		return reverse_iterator(this->begin());
+	}
 	const_reverse_iterator rend() const {
-		return const_reverse_iterator(m_sentinal);
+		return const_reverse_iterator(this->begin());
 	}
 
 	//Capacity

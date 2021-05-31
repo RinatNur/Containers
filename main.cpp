@@ -9,9 +9,9 @@
 
 int main ()
 {
-//	test_list();
+	list_test();
 //	queue_test();
-	vector_test();
+//	vector_test();
 //	stack_test();
 //	sleep(10);
 	return 0;
