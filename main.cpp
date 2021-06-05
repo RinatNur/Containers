@@ -9,7 +9,8 @@
 
 int main ()
 {
-	list_test();
+	map_test();
+//	list_test();
 //	queue_test();
 //	vector_test();
 //	stack_test();
