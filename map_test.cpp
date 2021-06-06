@@ -10,6 +10,14 @@ void printDescription(std::string desc);
 
 void map_test(){
 	{
+		printHeader("myMap test");
+		ft::Map<int,int> mymap;
+		ft::Map<int,int> mymap1;
+		mymap.insert(std::pair<int,int>(50,5) );
+//		cout << mymap. << endl;
+
+	}
+	{
 		printHeader("std test");
 		std::map<int,std::string> mymap;
 		mymap[50] = "hello";
