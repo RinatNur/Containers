@@ -8,12 +8,12 @@
 #include <iostream>
 
 namespace ft{
-	template<class T>
-	struct MapNode {
+	template<class Key, class T>
+	class MapNode {
 
 	public:
 
-		typedef T											value_type;
+		typedef std::pair<Key, T>									value_type;
 //		typedef Alloc										allocator_type;
 		typedef value_type&									reference;
 		typedef const value_type&							const_reference;
@@ -27,14 +27,14 @@ namespace ft{
 		typedef unsigned long								size_type;
 		typedef MapNode*									node_pointer;
 
-	private:
+	protected:
 		value_type		m_value;
 		node_pointer	m_parent;
 		node_pointer	m_left;
 		node_pointer	m_right;
 
 	public:
-		MapNode() : m_value(0), m_parent(nullptr), m_left(nullptr), m_right(nullptr) {}
+		MapNode() : m_value(std::pair<Key,T>(0,0)), m_parent(nullptr), m_left(nullptr), m_right(nullptr) {}
 		MapNode(const_reference val) : m_value(val), m_parent(nullptr), m_left(nullptr), m_right(nullptr) {}
 		virtual~MapNode(){}
 
@@ -50,6 +50,8 @@ namespace ft{
 		value_type& getValue() const {
 			return this->m_value;
 		}
+
+
 
 	};
 }

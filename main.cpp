@@ -3,17 +3,17 @@
 //
 
 
-#include "tests.hpp"
-#include <vector>
-#include <libc.h>
-
-int main ()
-{
-	map_test();
-//	list_test();
-//	queue_test();
-//	vector_test();
-//	stack_test();
-//	sleep(10);
-	return 0;
-}
+//#include "tests.hpp"
+//#include <vector>
+//#include <libc.h>
+//
+//int main ()
+//{
+//	map_test();
+////	list_test();
+////	queue_test();
+////	vector_test();
+////	stack_test();
+////	sleep(10);
+//	return 0;
+//}

@@ -12,8 +12,8 @@ void queue_test(){
 		{
 		printHeader("myQueue");
 //
-		ft::Queue<int> myQueue1;
-		ft::Queue<int> myQueue2;
+		ft::queue<int> myQueue1;
+		ft::queue<int> myQueue2;
 
 		printDescription("is empty");
 		cout << std::boolalpha << myQueue1.empty() << endl;

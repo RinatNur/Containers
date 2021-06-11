@@ -9,7 +9,7 @@
 namespace ft
 {
 	template<class T, class Container = ft::List<T> >
-	class Queue {
+	class queue {
 
 	public:
 
@@ -20,9 +20,9 @@ namespace ft
 	protected:
 		container_type cntr;
 	public:
-		explicit Queue (const container_type& ctnr = container_type()) : cntr(ctnr) {}
-		Queue(Queue const &x) : cntr(x.cntr) {}
-		virtual ~Queue() {};
+		explicit queue (const container_type& ctnr = container_type()) : cntr(ctnr) {}
+		queue(queue const &x) : cntr(x.cntr) {}
+		virtual ~queue() {};
 
 		bool empty() const {
 			return this->cntr.empty();
@@ -54,30 +54,30 @@ namespace ft
 			this->cntr.pop_front();
 		}
 
-		friend bool operator==(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+		friend bool operator==(queue<value_type, container_type> const &lhs, queue<value_type, container_type> const &rhs) {
 			return (lhs.cntr == rhs.cntr);
 		}
 
-		friend bool operator!=(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+		friend bool operator!=(queue<value_type, container_type> const &lhs, queue<value_type, container_type> const &rhs) {
 			return (lhs.cntr != rhs.cntr);
 		}
 
-		friend bool operator<(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+		friend bool operator<(queue<value_type, container_type> const &lhs, queue<value_type, container_type> const &rhs) {
 			return (lhs.cntr < rhs.cntr);
 		}
 
-		friend bool operator<=(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+		friend bool operator<=(queue<value_type, container_type> const &lhs, queue<value_type, container_type> const &rhs) {
 			return (lhs.cntr <= rhs.cntr);
 		}
 
-		friend bool operator>(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+		friend bool operator>(queue<value_type, container_type> const &lhs, queue<value_type, container_type> const &rhs) {
 			return (lhs.cntr > rhs.cntr);
 		}
 
-		friend bool operator>=(Queue<value_type, container_type> const &lhs, Queue<value_type, container_type> const &rhs) {
+		friend bool operator>=(queue<value_type, container_type> const &lhs, queue<value_type, container_type> const &rhs) {
 			return (lhs.cntr >= rhs.cntr);
 		}
 
-	};//Queue end
+	};//queue end
 };//ft end
 #endif //CONT_MY_QUEUE_HPP
