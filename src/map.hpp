@@ -203,8 +203,8 @@ namespace ft {
 		public:
 			value_compare(Compare c) : comp(c) {}
 			typedef bool		result_type;
-			typedef value_type	first_argument_type;//TODO not used
-			typedef value_type	second_argument_type;//TODO not used
+			typedef value_type	first_argument_type;
+			typedef value_type	second_argument_type;
 			bool operator() (const value_type& x, const value_type& y) const {
 				return(comp(x.first, y.first));
 			}

@@ -24,7 +24,6 @@ void check_size(ft::queue<T> &x, std::queue<T> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-//		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
 	}
 }
 
@@ -107,11 +106,9 @@ int main(void) {
 			std_queue.push(i);
 		while (!ft_queue.empty() && !std_queue.empty()) {
 			if (ft_queue.front() == std_queue.front()) {
-//				std::cout << ft_queue.front() << " : " << std_queue.front() << std::endl;
 				PUT_STR(OK);
 			}
 			else {
-//				std::cout << ft_queue.front() << " : " << std_queue.front() << std::endl;
 				PUT_STR(KO);
 			}
 			ft_queue.pop();

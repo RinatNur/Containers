@@ -23,7 +23,6 @@ void check_size(ft::stack<T> &x, std::stack<T> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-//		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
 	}
 }
 
@@ -103,11 +102,9 @@ int main(void) {
 			std_stack.push(i);
 		while (!ft_stack.empty() && !std_stack.empty()) {
 			if (ft_stack.top() == std_stack.top()) {
-//				std::cout << ft_stack.top() << " : " << std_stack.top() << std::endl;
 				PUT_STR(OK);
 			}
 			else {
-//				std::cout << ft_stack.top() << " : " << std_stack.top() << std::endl;
 				PUT_STR(KO);
 			}
 			ft_stack.pop();

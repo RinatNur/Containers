@@ -74,7 +74,7 @@ protected:
 	node_pointer _ptr;
 
 };
-//TODO intergrate disconnect function
+
 template<class T, class Alloc = std::allocator<T> >
 class list {
 public:
@@ -153,7 +153,7 @@ public:
 	}
 
 	size_type size() const{
-		return (this->m_size); //TODO complexity up to linear;
+		return (this->m_size);
 	}
 
 	size_type max_size() const {
@@ -249,7 +249,7 @@ public:
 		first_ptr->previous()->setNext(last_ptr->next());
 		last_ptr->next()->setPrevious(first_ptr->previous());
 		for (; first != last; ++first)
-			delete first.getNode();//Todo
+			delete first.getNode();
 		if (this->m_size > 0)
 			--this->m_size;
 		return (++last);
@@ -280,14 +280,12 @@ public:
 	void clear(){
 		int count = 0;
 		if (!this->empty()) {
-			for (it_type it = this->begin(); it != this->end(); ++it)//TODO invalid read in operator++;
+			for (it_type it = this->begin(); it != this->end(); ++it)
 			{
 				delete it.getNode();
 				--this->m_size;
 			}
 		}
-//		delete m_sentinal;//TODO try to refactor this part
-//		m_sentinal = new node;
 		m_sentinal->setPrevious(m_sentinal);
 		m_sentinal->setNext(m_sentinal);
 		this->m_size = 0;
@@ -344,7 +342,7 @@ public:
 	}
 
 	void unique(){
-		unique(&isEqual<value_type>);//TODO test changed _isEqual to isEqual from Algorithm.hpp
+		unique(&isEqual<value_type>);
 	}
 
 	template <class BinaryPredicate>
@@ -364,7 +362,7 @@ public:
 	}
 
 	void merge (list& x){
-		this->merge(x, &less_than<value_type>);//TODO test changet _isLower to less_than
+		this->merge(x, &less_than<value_type>);
 	}
 
 	template <class Compare>
@@ -426,7 +424,7 @@ public:
 	}
 
 	void sort(){
-		this->sort(&less_than<value_type>);//TODO test changet _isLower to less_than
+		this->sort(&less_than<value_type>);
 	}
 
 	void reverse(){
@@ -448,13 +446,6 @@ public:
 private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
-
-	void printList(const ft::list<T>& list) {
-		typename ft::list<T>::iterator it_begin = list.begin();
-		for (; it_begin != list.end(); ++it_begin)
-			std::cout << ' ' <<  *(it_begin);
-		std::cout << std::endl;
-	}//TODO delete
 
 }; //list_end
 

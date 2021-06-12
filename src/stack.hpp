@@ -45,7 +45,7 @@ public:
 	}
 
 	void pop() {
-		this->cntr.pop_back(); //TODO test it
+		this->cntr.pop_back();
 	}
 
 	friend bool operator==(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {

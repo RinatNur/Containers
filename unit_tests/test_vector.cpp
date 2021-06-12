@@ -45,7 +45,6 @@ void check_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
 			break;
 		} else {
-//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -67,7 +66,6 @@ void check_reverse_value(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 			cout << LB << *ft_itb << " != " << *std_itb << CLEAN << std::endl;
 			break;
 		} else {
-//			cout << P << *ft_itb << " == " << *std_itb << CLEAN << std::endl;
 			flag = true;
 		}
 		++ft_itb;
@@ -85,7 +83,6 @@ void check_size(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 	} else {
 		flag = true;
-//		cout << P << x.size() << " == " << y.size() << CLEAN << std::endl;
 	}
 }
 
@@ -97,7 +94,6 @@ void check_capacity(ft::vector<T> &x, std::vector<T> &y, bool &flag) {
 		cout << LB << x.capacity() << " != " << y.capacity() << CLEAN << std::endl;
 	} else {
 		flag = true;
-//		cout << P << x.capacity() << " == " << y.capacity() << CLEAN << std::endl;
 	}
 }
 
@@ -171,7 +167,6 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_bar, std_bar, flag);
 		check_flag(flag);
-//		check_capacity(ft_bar, std_bar, flag);
 		check_flag(flag);
 		ft_foo = ft::vector<int>();
 		std_foo = std::vector<int>();
@@ -179,7 +174,6 @@ int main(void) {
 		check_flag(flag);
 		check_size(ft_foo, std_foo, flag);
 		check_flag(flag);
-//		check_capacity(ft_foo, std_foo, flag);
 	}
 #endif
 #ifdef T3
@@ -231,20 +225,6 @@ int main(void) {
 		}
 		check_flag(flag);
 
-//		PUT_STR(B"_________");
-//
-//		check_reverse_value(ft, std, flag);
-//		check_flag(flag);
-//
-//
-//		PUT_STR(B"=========");
-//		ft::vector<int> v(10, 42);
-//		ft::vector<int>::reverse_iterator ritb = v.rbegin();
-//		ft::vector<int>::reverse_iterator rite = v.rend();
-//		while (ritb != rite) {
-//			std::cout << *ritb << std::endl;
-//			++ritb;
-//		}
 	}
 #endif
 #ifdef T4
@@ -260,7 +240,6 @@ int main(void) {
 			cout << LB << x.size() << " != " << y.size() << CLEAN << std::endl;
 		} else {
 			flag = true;
-//			cout << LB << x.size() << " == " << y.size() << CLEAN << std::endl;
 		}
 		check_flag(flag);
 	}
@@ -278,7 +257,6 @@ int main(void) {
 			cout << LB << x.max_size() << " != " << y.max_size() << CLEAN << std::endl;
 		} else {
 			flag = true;
-//			cout << LB << x.max_size() << " == " << y.max_size() << CLEAN << std::endl;
 		}
 		check_flag(flag);
 	}
@@ -517,12 +495,6 @@ int main(void) {
 		ft_third.assign (myints,myints+3);
 		std_third.assign (myints,myints+3);
 
-//		check_size(ft_third, std_third, flag);
-//		check_flag(flag);
-//		check_capacity(ft_third, std_third, flag);
-//		check_flag(flag);
-//		check_value(ft_third, std_third, flag);
-//		check_flag(flag);
 	}
 #endif
 #ifdef T15
@@ -653,10 +625,8 @@ int main(void) {
 			ft_it = ft.insert(ft_it, 42);
 			std_it = std.insert(std_it, 42);
 			if (*ft_it == *std_it) {
-//			std::cout << *ft_it << " == " << *std_it << std::endl;
 				PUT_STR(OK);
 			} else {
-//			std::cout << *ft_it << " != " << *std_it << std::endl;
 				PUT_STR(KO);
 			}
 			check_value(ft, std, flag);
@@ -681,10 +651,8 @@ int main(void) {
 			ft_it = ft.insert(ft_it, 42);
 			std_it = std.insert(std_it, 42);
 			if (*ft_it == *std_it) {
-//			std::cout << *ft_it << " == " << *std_it << std::endl;
 				PUT_STR(OK);
 			} else {
-//			std::cout << *ft_it << " != " << *std_it << std::endl;
 				PUT_STR(KO);
 			}
 			check_value(ft, std, flag);
