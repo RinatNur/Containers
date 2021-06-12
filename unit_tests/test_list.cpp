@@ -486,11 +486,8 @@ int main(void) {
 			ft.push_back(i);
 			std.push_back(i);
 		}
-		auto it_ft = ft.rend();
-		--it_ft;
-		auto it_std = std.rend();
-		--it_std; //TODO * takes method from iterator, not reverse iterator
-		if (*it_ft == *it_std)
+
+		if (*--ft.rend() == *--std.rend())
 			PUT_STR(OK);
 		else {
 			cout << LB << *(--ft.rend()) << " != " << *(--std.rend()) << CLEAN << std::endl;

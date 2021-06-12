@@ -195,13 +195,13 @@ namespace ft {
 		typedef ft::ReverseBidirectionalIterator<value_type, pointer, reference> reverse_iterator;
 		typedef ft::ReverseBidirectionalIterator<value_type, const_pointer, const_reference> const_reverse_iterator;
 		typedef ptrdiff_t											difference_type;
-		typedef size_t												size_type;
+		typedef unsigned long												size_type;
 
 		class value_compare : public std::binary_function<value_type, value_type, bool> {
 		protected:
 			Compare comp;
-			value_compare(Compare c) : comp(c) {}
 		public:
+			value_compare(Compare c) : comp(c) {}
 			typedef bool		result_type;
 			typedef value_type	first_argument_type;//TODO not used
 			typedef value_type	second_argument_type;//TODO not used
@@ -292,7 +292,8 @@ namespace ft {
 		}
 
 		size_type max_size() const {
-			return (_alloc.max_size() / 2);
+			return (ft::min((size_type) std::numeric_limits<difference_type>::max(),
+							std::numeric_limits<size_type>::max() / (sizeof(node) + sizeof(pointer))));
 		}
 
 		mapped_type& operator[] (const key_type& k) {
@@ -486,8 +487,8 @@ namespace ft {
 			iterator it = find(k);
 			if (it == end())
 				for (it = begin(); it != end() && compare(it->first,k); it++) {}
-			else
-				--it;
+//			else
+//				--it;
 			return (it);
 		}
 
@@ -497,11 +498,13 @@ namespace ft {
 
 		iterator upper_bound(const key_type& k) {
 			iterator it = find(k);
-			if (it == end())
-				for (; it != end() && compare(it->first,k); it--) {}
-			else
-				++it;
-			return (it);
+			if (it == end()) {
+				--it;
+				for (; it != begin() && compare(k, it->first); it--) {
+					int i = 0;
+				}
+			}
+			return (++it);
 		}
 
 		const_iterator upper_bound(const key_type& k) const {

@@ -66,7 +66,7 @@ public:
 	bool operator>(const iterator &rhs) const { return this->_ptr > rhs._ptr; }
 	bool operator>=(const iterator &rhs) const { return this->_ptr >= rhs._ptr; }
 
-	reference operator*() { return (_ptr->getValue()); }
+	virtual reference operator*() { return (_ptr->getValue()); }
 	node_pointer  getNode() const { return this->_ptr; }
 
 protected:
@@ -117,9 +117,9 @@ public:
 	}
 
 	~list(){
-		clear();
-		if (m_sentinal)
-			delete m_sentinal;
+//		clear();
+//		if (m_sentinal)
+//			delete m_sentinal;
 	}
 
 	list &operator=(list const &other) {

@@ -41,11 +41,11 @@ namespace ft {
 			return *this;
 		}
 
-		reference operator*() {
+		virtual reference operator*() {
 			return (*this->_ptr);
 		}
 
-		const_reference operator*() const {
+		virtual const_reference operator*() const {
 			return (*this->_ptr);
 		}
 
