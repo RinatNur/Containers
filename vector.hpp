@@ -262,7 +262,7 @@ namespace ft {
 				throw std::bad_alloc();
 			if (this->capacity_ == 0)
 			{
-				n = (this->size_ <= 1) ? 1 : n;
+				n = (n == 0) ? 1 : n;
 				this->cntr_ = static_cast<pointer>(::operator new(sizeof(value_type) * n));
 				this->capacity_ = n;
 			} else if (n > this->capacity_)
@@ -321,11 +321,13 @@ namespace ft {
 					 typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0)
 		{
 			this->clear();
+			reserve(last - first);
 			for (; first != last; ++first)
 				this->push_back(*first);
 		}
 		void assign (size_type n, const value_type& val){
 			this->clear();
+			this->reserve(n);
 			for (int i = 0; i < n; ++i)
 				this->push_back(val);
 		}
@@ -426,7 +428,7 @@ namespace ft {
 				++j;
 			}
 			this->size_ -= NumOfEraseElements;
-			return last;
+			return first;
 		}
 
 		void swap (vector& x) {
