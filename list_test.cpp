@@ -21,9 +21,9 @@ void printDescription(std::string desc)
 				 << "]:";
 }
 
-bool single_digit (const int& value) { return (value<10); }
-bool same_integral_part (double first, double second)
-{ return ( int(first)==int(second) ); }
+//bool single_digit (const int& value) { return (value<10); }
+//bool same_integral_part (double first, double second)
+//{ return ( int(first)==int(second) ); }
 bool mycomparison (double first, double second)
 { return ( int(first)<int(second) ); }
 bool compare_nocase (const std::string& first, const std::string& second)
@@ -42,13 +42,13 @@ void list_test()
 {
 	{
 		printHeader("myList reverse iterator");
-		ft::List<int> mylist1;
-		ft::List<int>::iterator it = mylist1.begin();
+		ft::list<int> mylist1;
+		ft::list<int>::iterator it = mylist1.begin();
 		for (int i = 1; i < 11; ++i)
 			mylist1.push_back(i);
 		printDescription("mylist1");
 		printList(mylist1);
-		ft::List<int>::reverse_iterator rit = mylist1.rbegin();
+		ft::list<int>::reverse_iterator rit = mylist1.rbegin();
 		cout << "rit.rbegin = " << *rit << endl;
 		int y = 0;
 		for (; rit != mylist1.rend(); ++rit)
@@ -75,10 +75,10 @@ void list_test()
 	}
 //	{
 //		printHeader("myList insert()");
-//		ft::List<int> mylist1;
+//		ft::list<int> mylist1;
 //		for (int i = 1; i < 11; ++i)
 //			mylist1.push_back(i);
-//		ft::List<int> mylist2;
+//		ft::list<int> mylist2;
 //		std::vector<int> vec;
 //		for (int i = 33; i < 40; ++i)
 //			vec.push_back(i);
@@ -89,8 +89,8 @@ void list_test()
 //		printList(mylist1);
 //		printDescription("mylist1.size()");
 //		cout << mylist1.size() << endl;
-//		ft::List<int>::iterator it = mylist1.end();
-//		ft::List<int>::iterator it2;
+//		ft::list<int>::iterator it = mylist1.end();
+//		ft::list<int>::iterator it2;
 //		it2 = mylist1.erase(--it);
 ////		++it;
 //		cout << "it2 = " << *it2 << endl;
@@ -124,10 +124,10 @@ void list_test()
 //	}
 
 //	{
-//		printHeader("myList swap(List, List");
+//		printHeader("myList swap_alg(list, list");
 //		for (int i = 1; i < 3; ++i)
 //			mylist1.push_back(i);
-//		ft::List<int> mylist2;
+//		ft::list<int> mylist2;
 //		for (int i = 11; i < 21; ++i)
 //			mylist2.push_back(i);
 //		ft::iterator it = mylist2.begin();
@@ -136,7 +136,7 @@ void list_test()
 //		++it;
 //		++it;
 //		++it;
-//		ft::List<int> mylist1(mylist2);
+//		ft::list<int> mylist1(mylist2);
 //
 //		printDescription("mylist1");
 //		printList(mylist1);
@@ -148,7 +148,7 @@ void list_test()
 //		printDescription("mylist1.size()");
 //		cout << mylist2.size() << endl;
 //
-//		ft::swap(mylist1, mylist2);
+//		ft::swap_alg(mylist1, mylist2);
 //
 //		printDescription("mylist1");
 //		printList(mylist1);
@@ -164,7 +164,7 @@ void list_test()
 //	{
 //		printHeader("myList operator == < > <= >=");
 //
-//		ft::List<int> mylist1, mylist2;
+//		ft::list<int> mylist1, mylist2;
 //
 //		for (int i=1; i<= 11; ++i) mylist1.push_back(i);
 //		for (int i=1; i<= 22; ++i) mylist2.push_back(i);
@@ -204,7 +204,7 @@ void list_test()
 //	{
 //		printHeader("myList reverse()");
 //
-//		ft::List<int> mylist;
+//		ft::list<int> mylist;
 //
 //		for (int i=10; i >= 0; --i)
 //			mylist.push_back(i);
@@ -238,7 +238,7 @@ void list_test()
 //	{
 //		printHeader("myList merge()");
 //
-//		ft::List<std::string> mylist;
+//		ft::list<std::string> mylist;
 //
 //		mylist.push_back ("one");
 //		mylist.push_back ("two");
@@ -284,8 +284,8 @@ void list_test()
 //	{
 //		printHeader("myList merge()");
 //
-//		ft::List<double> first, second;
-//		ft::List<double>::iterator it;
+//		ft::list<double> first, second;
+//		ft::list<double>::iterator it;
 //
 //
 //		first.push_back (3.1);
@@ -357,7 +357,7 @@ void list_test()
 //		printHeader("myList unique()");
 //		double mydoubles[]={ 2.72,  3.14, 12.15, 12.77, 12.77,
 //				15.3,  72.25, 72.25, 73.0,  73.35 };
-//		ft::List<double> mylist;
+//		ft::list<double> mylist;
 //		for (int i = 0; i < 10; ++i)
 //			mylist.push_back(mydoubles[i]);   // 15 36 7 17 20 39 4 1
 //
@@ -406,7 +406,7 @@ void list_test()
 //	{
 //		printHeader("myList remove_if()");
 //		int myints[]= {15,36,7,17,20,39,4,1};
-//		ft::List<int> mylist;
+//		ft::list<int> mylist;
 //		for (int i = 0; i < 8; ++i)
 //			mylist.push_back(myints[i]);   // 15 36 7 17 20 39 4 1
 //
@@ -436,7 +436,7 @@ void list_test()
 //	{
 //		printHeader("myList remove()");
 //		int myints[]= {17,89,7,14};
-//		ft::List<int> mylist;
+//		ft::list<int> mylist;
 //		for (int i = 0; i < 4; ++i)
 //			mylist.push_back(myints[i]);
 //
@@ -460,9 +460,9 @@ void list_test()
 //		cout << mylist.size() << endl;
 //	}
 //	{
-//		printHeader("myList swap()");
-//		ft::List<int> mylist1, mylist2;
-//		ft::List<int>::iterator it;
+//		printHeader("myList swap_alg()");
+//		ft::list<int> mylist1, mylist2;
+//		ft::list<int>::iterator it;
 //
 //		// set some initial values:
 //		for (int i=1; i<=4; ++i)
@@ -541,7 +541,7 @@ void list_test()
 //	}
 //	{
 //		printHeader("myList front() back()");
-//		ft::List<int> mylist;
+//		ft::list<int> mylist;
 //
 //		mylist.push_back(77);
 //		mylist.push_back(22);
@@ -568,8 +568,8 @@ void list_test()
 //	{
 //		printHeader("myList assign()");
 //		unsigned long s;
-//		ft::List<int>	myList;
-//		ft::List<int>	myList_tmp;
+//		ft::list<int>	myList;
+//		ft::list<int>	myList_tmp;
 //
 //		myList.push_back(10);
 //		myList.push_back(20);
@@ -625,7 +625,7 @@ void list_test()
 //	{
 //		printHeader("myList empty() size() max_size()");
 //		unsigned long s;
-//		ft::List<int>	myList;
+//		ft::list<int>	myList;
 //		myList.push_back(10);
 //
 //		printList(myList);
@@ -644,7 +644,7 @@ void list_test()
 //	}
 //	{
 //		printHeader("myList pop_back() pop_front()");
-//		ft::List<int>	myList;
+//		ft::list<int>	myList;
 //		myList.push_back(10);
 //		myList.push_back(20);
 //		myList.push_back(30);
@@ -670,7 +670,7 @@ void list_test()
 //	}
 //	{
 //		printHeader("myList resize");
-//		ft::List<int>	myList;
+//		ft::list<int>	myList;
 //		myList.push_back(10);
 //		myList.push_back(20);
 //		myList.push_back(30);
@@ -694,13 +694,13 @@ void list_test()
 //	}
 //	{
 //		printHeader("myList iterators begin() end()");
-//		ft::List<int>	myList;
+//		ft::list<int>	myList;
 //		myList.push_back(10);
 //		myList.push_back(20);
 //		myList.push_back(30);
 //		myList.push_back(40);
-//		ft::List<int>::iterator first = myList.begin();
-//		ft::List<int>::iterator second = myList.end();
+//		ft::list<int>::iterator first = myList.begin();
+//		ft::list<int>::iterator second = myList.end();
 ////		--second;
 ////		--second;
 //		printList(myList);
@@ -727,11 +727,11 @@ void list_test()
 //
 //	{
 ////		printHeader("myList iterators rbegin() rend()"); TODO segmentation fault
-////		ft::List<int>	myList;
+////		ft::list<int>	myList;
 ////		myList.push_back(10);
 ////		myList.push_back(20);
 ////		myList.push_back(30);
-////		ft::List<int>::reverse_iterator it_r = myList.rend();
+////		ft::list<int>::reverse_iterator it_r = myList.rend();
 ////
 ////		printList(myList, myList.rbegin());
 ////		myList.clear();
@@ -750,11 +750,11 @@ void list_test()
 //	}
 //	{
 //		printHeader("myList operator+ operator-");
-//		ft::List<int>	myList;
+//		ft::list<int>	myList;
 //		for (int i = 1; i < 9; ++i)
 //			myList.push_back(i);
-//		ft::List<int>::reverse_iterator it_r = myList.rbegin();
-//		ft::List<int>::reverse_iterator it_tmp;
+//		ft::list<int>::reverse_iterator it_r = myList.rbegin();
+//		ft::list<int>::reverse_iterator it_tmp;
 ////		std::cout << *it_r << "\n";
 ////		++it_r;
 ////		std::cout << *it_r << "\n";

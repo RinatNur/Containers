@@ -27,15 +27,15 @@ void printDescription(std::string desc);
 void vector_test() {
 	{
 		printHeader("myvector reverse iterator");
-		ft::Vector<int> myVector;
+		ft::vector<int> myVector;
 		for (int i = 1; i < 11; ++i)
 			myVector.push_back(i);
-		ft::Vector<int>::iterator it = myVector.begin();
+		ft::vector<int>::iterator it = myVector.begin();
 		printDescription("myVector");
 		for (; it != myVector.end(); ++it)
 			cout << " " << *it;
 		cout << endl;
-		ft::Vector<int>::reverse_iterator rit = myVector.rbegin();
+		ft::vector<int>::reverse_iterator rit = myVector.rbegin();
 		cout << "rit.rbegin = " << *rit << endl;
 		int y = 0;
 		for (; rit != myVector.rend(); ++rit)
@@ -45,25 +45,25 @@ void vector_test() {
 
 //	{
 //		printHeader("myvector front() back()");
-//		ft::Vector<int> myvector(2,3);
-//		ft::Vector<int> myvector3(myvector);
+//		ft::vector<int> myvector(2,3);
+//		ft::vector<int> myvector3(myvector);
 ////		myvector3 = myvector;
 //		std::cout << "myvector3 contains:";
-//		for (ft::Vector<int>::iterator it = myvector3.begin(); it != myvector3.end(); ++it)
+//		for (ft::vector<int>::iterator it = myvector3.begin(); it != myvector3.end(); ++it)
 //			std::cout << ' ' << *it;
 //		std::cout << '\n';
 //		std::cout << "myvector2 contains:";
-//		ft::Vector<int> myvector2(3, 5);
-//		for (ft::Vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it)
+//		ft::vector<int> myvector2(3, 5);
+//		for (ft::vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it)
 //			std::cout << ' ' << *it;
 //		std::cout << '\n';
-//		myvector.swap(myvector2);
+//		myvector.swap_alg(myvector2);
 //		std::cout << "myvector contains:";
-//		for (ft::Vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+//		for (ft::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
 //			std::cout << ' ' << *it;
 //		std::cout << '\n';
 //		std::cout << "myvector2 contains:";
-//		for (ft::Vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it)
+//		for (ft::vector<int>::iterator it = myvector2.begin(); it != myvector2.end(); ++it)
 //			std::cout << ' ' << *it;
 //		std::cout << '\n';
 //		int * p;
@@ -110,21 +110,21 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector front() back()");
-//		ft::Vector<int> myvector(5);
+//		ft::vector<int> myvector(5);
 //
 //		int i=0;
 //
-//		ft::Vector<int>::reverse_iterator rit = myvector.rbegin();
+//		ft::vector<int>::reverse_iterator rit = myvector.rbegin();
 //		for (; rit!= myvector.rend(); ++rit)
 //			*rit = ++i;
 //
-//		ft::Vector<int>::iterator it = myvector.begin();
+//		ft::vector<int>::iterator it = myvector.begin();
 //		cout << "begin = " << *it << endl;
 //		it = it + 2;
 //		cout << "begin = " << *it << endl;
 //
 //		std::cout << "myvector contains:";
-//		for (ft::Vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+//		for (ft::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
 //			std::cout << ' ' << *it;
 //		std::cout << '\n';
 //	}
@@ -145,7 +145,7 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector front() back()");
-//		ft::Vector<int> myvector;
+//		ft::vector<int> myvector;
 //		// set some initial content:
 //		for (int i=1;i<10;i++) myvector.push_back(i);
 //
@@ -176,7 +176,7 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector front() back()");
-//		ft::Vector<int> myvector;
+//		ft::vector<int> myvector;
 //		myvector.push_back(78);
 //		myvector.push_back(16);
 //
@@ -202,7 +202,7 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector at()");
-//		ft::Vector<int> myvector (10);
+//		ft::vector<int> myvector (10);
 //		for (unsigned i=0; i<myvector.size(); i++)
 //			myvector.at(i)=i;
 //
@@ -226,10 +226,10 @@ void vector_test() {
 //		std::cout << '\n';
 //	}
 //	{
-//		printHeader("myvector swap()");
-//		ft::Vector<int> myvector (5,5);
-//		ft::Vector<int> myvector2 (3,3);
-//		ft::Vector<int> myvector3;
+//		printHeader("myvector swap_alg()");
+//		ft::vector<int> myvector (5,5);
+//		ft::vector<int> myvector2 (3,3);
+//		ft::vector<int> myvector3;
 //
 //		std::cout << "myvector contains:";
 //		for (unsigned i=0; i<myvector.size(); ++i)
@@ -241,9 +241,9 @@ void vector_test() {
 //			std::cout << ' ' << myvector2[i];
 //		std::cout << '\n';
 //
-//		printDescription("after swap");
+//		printDescription("after swap_alg");
 //		cout << endl;
-//		myvector.swap(myvector2);
+//		myvector.swap_alg(myvector2);
 //
 //		std::cout << "myvector contains:";
 //		for (unsigned i=0; i<myvector.size(); ++i)
@@ -266,7 +266,7 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector erase()");
-//		ft::Vector<int> myvector;
+//		ft::vector<int> myvector;
 //
 //		// set some values (from 1 to 10)
 //		for (int i=1; i<=10; i++) myvector.push_back(i);
@@ -302,11 +302,11 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector assign()");
-//		ft::Vector<int> first;
-//		ft::Vector<int> second;
-//		ft::Vector<int> third;
+//		ft::vector<int> first;
+//		ft::vector<int> second;
+//		ft::vector<int> third;
 //
-//		ft::Vector<int>::iterator it;
+//		ft::vector<int>::iterator it;
 //
 //		first.assign (7,100);             // 7 ints with a value of 100
 //		std::cout << "myvector contains:";
@@ -357,10 +357,10 @@ void vector_test() {
 //	}
 //	{
 //		printHeader("myvector insert()");
-//		ft::Vector<int> myvector;
-//		ft::Vector<int> myvector2;
+//		ft::vector<int> myvector;
+//		ft::vector<int> myvector2;
 //
-//		ft::Vector<int>::iterator it;
+//		ft::vector<int>::iterator it;
 //		it = myvector.begin();
 //		it = myvector.insert ( it ,  200 );
 //

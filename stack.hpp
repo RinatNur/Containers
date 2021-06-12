@@ -9,8 +9,8 @@
 
 namespace ft
 {
-template<class T, class Container = ft::List<T> >
-class Stack {
+template<class T, class Container = ft::list<T> >
+class stack {
 
 public:
 
@@ -21,9 +21,9 @@ public:
 protected:
 	container_type cntr;
 public:
-	explicit Stack(const container_type &ctnr = container_type()) : cntr(ctnr) {}
-	Stack(Stack const &x) : cntr(x.cntr) {}
-	virtual ~Stack() {};
+	explicit stack(const container_type &ctnr = container_type()) : cntr(ctnr) {}
+	stack(stack const &x) : cntr(x.cntr) {}
+	virtual ~stack() {};
 
 	bool empty() const {
 		return this->cntr.empty();
@@ -48,27 +48,27 @@ public:
 		this->cntr.pop_back(); //TODO test it
 	}
 
-	friend bool operator==(Stack<value_type, container_type> const &lhs, Stack<value_type, container_type> const &rhs) {
+	friend bool operator==(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {
 		return (lhs.cntr == rhs.cntr);
 	}
 
-	friend bool operator!=(Stack<value_type, container_type> const &lhs, Stack<value_type, container_type> const &rhs) {
+	friend bool operator!=(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {
 		return (lhs.cntr != rhs.cntr);
 	}
 
-	friend bool operator<(Stack<value_type, container_type> const &lhs, Stack<value_type, container_type> const &rhs) {
+	friend bool operator<(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {
 		return (lhs.cntr < rhs.cntr);
 	}
 
-	friend bool operator<=(Stack<value_type, container_type> const &lhs, Stack<value_type, container_type> const &rhs) {
+	friend bool operator<=(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {
 		return (lhs.cntr <= rhs.cntr);
 	}
 
-	friend bool operator>(Stack<value_type, container_type> const &lhs, Stack<value_type, container_type> const &rhs) {
+	friend bool operator>(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {
 		return (lhs.cntr > rhs.cntr);
 	}
 
-	friend bool operator>=(Stack<value_type, container_type> const &lhs, Stack<value_type, container_type> const &rhs) {
+	friend bool operator>=(stack<value_type, container_type> const &lhs, stack<value_type, container_type> const &rhs) {
 		return (lhs.cntr >= rhs.cntr);
 	}
 

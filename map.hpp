@@ -7,6 +7,7 @@
 
 # include <memory>
 # include <limits>
+#include "Algorithm.hpp"
 
 namespace ft {
 	template<class Value>
@@ -177,7 +178,7 @@ namespace ft {
 		}
 	};
 
-	template<class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
+	template<class Key, class T, class Compare = ft::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
 	class map {
 	public:
 		typedef Key													key_type;
@@ -219,17 +220,17 @@ namespace ft {
 		Alloc		_alloc;
 
 	public:
-		explicit map(const Compare& compare = Compare(), const Alloc& alloc = Alloc()) : head(new node()), tail(new node()), root(NULL), _size(0), compare(compare), _alloc(alloc) {
+		explicit map(const key_compare& compare = Compare(), const Alloc& alloc = Alloc()) : head(new node()), tail(new node()), root(NULL), _size(0), compare(compare), _alloc(alloc) {
 			head->parent = tail;
 			tail->parent = head;
 		};
-
 		template<class InputIterator>
-		map(InputIterator first, InputIterator last, typename std::iterator_traits<InputIterator>::type* = 0, const Compare& compare = Compare(), const Alloc& alloc = Alloc()) : head(new node()), tail(new node()), root(NULL), _size(0), compare(compare), _alloc(alloc) {
+		map(InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0, const Compare& compare = Compare(), const Alloc& alloc = Alloc()) : head(new node()), tail(new node()), root(NULL), _size(0), compare(compare), _alloc(alloc) {
 			head->parent = tail;
 			tail->parent = head;
 			insert(first, last);
 		}
+
 
 		map(const map& other) : head(new node()), tail(new node()), root(NULL), _size(0), compare(other.compare), _alloc(other._alloc) {
 			head->parent = tail;
@@ -334,7 +335,7 @@ namespace ft {
 		}
 
 		template<class InputIterator>
-		void insert(InputIterator first, InputIterator last, typename std::iterator_traits<InputIterator>::type* = 0) {
+		void insert(InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0) {
 			for (;first != last; first++)
 				insert(*first);
 		}
@@ -386,9 +387,9 @@ namespace ft {
 			else
 				child_ptr = &root;
 			*child_ptr = rep;
-			ft::swap(rep->parent, pos->parent);
-			ft::swap(rep->right, pos->right);
-			ft::swap(rep->left, pos->left);
+			ft::swap_alg(rep->parent, pos->parent);
+			ft::swap_alg(rep->right, pos->right);
+			ft::swap_alg(rep->left, pos->left);
 			if (rep->right == rep)
 				rep->right = pos;
 			rep->right->parent = rep;
@@ -438,12 +439,12 @@ namespace ft {
 		}
 
 		void swap(map& x) {
-			ft::swap(head, x.head);
-			ft::swap(tail, x.tail);
-			ft::swap(root, x.root);
-			ft::swap(_size, x._size);
-			ft::swap(compare, x.compare);
-			ft::swap(_alloc, x._alloc);
+			ft::swap_alg(head, x.head);
+			ft::swap_alg(tail, x.tail);
+			ft::swap_alg(root, x.root);
+			ft::swap_alg(_size, x._size);
+			ft::swap_alg(compare, x.compare);
+			ft::swap_alg(_alloc, x._alloc);
 		}
 
 		void clear() {

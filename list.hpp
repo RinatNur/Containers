@@ -66,7 +66,7 @@ public:
 	bool operator>(const iterator &rhs) const { return this->_ptr > rhs._ptr; }
 	bool operator>=(const iterator &rhs) const { return this->_ptr >= rhs._ptr; }
 
-	value_type & operator*() { return (_ptr->getValue()); }
+	reference operator*() { return (_ptr->getValue()); }
 	node_pointer  getNode() const { return this->_ptr; }
 
 protected:
@@ -76,7 +76,7 @@ protected:
 };
 //TODO intergrate disconnect function
 template<class T, class Alloc = std::allocator<T> >
-class List {
+class list {
 public:
 
 	typedef T									value_type;
@@ -90,36 +90,42 @@ public:
 	typedef Reverse_iterator<iterator>			reverse_iterator;
 	typedef const reverse_iterator				const_reverse_iterator;
 	typedef std::ptrdiff_t						difference_type;
-	typedef size_t								size_type;
+	typedef unsigned long						size_type;
 	typedef ft::Node<value_type>				node;
 	typedef node								*node_pointer;
-	typedef typename List<value_type>::iterator	it_type;
+	typedef typename list<value_type>::iterator	it_type;
 
 public:
-	explicit List(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
-	explicit List (size_type n, const value_type& val = value_type(),
-	const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {
+	explicit list(const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {}
+	explicit list (size_type n, const value_type& val = value_type(),
+				   const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {
 		for (int i = 0; i < n; ++i)
 			this->push_back(val);
 	}
-	List (iterator first, iterator last,
-	const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {
+
+	template<class InputIterator>
+	list (InputIterator first, InputIterator last, typename enable_if<!std::numeric_limits<InputIterator>::is_specialized>::type * = 0,
+		  const allocator_type& alloc = allocator_type()) : m_sentinal(new node), m_size(0) {
 		while (first != last)
 		{
 			push_back(*first);
 			++first;
 		}
 	}
-	List (const List& x): m_sentinal(new node), m_size(0){
+	list (const list& x): m_sentinal(new node), m_size(0){
 		this->assign(x.begin(),x.end());
 	}
 
-	~List(){
+	~list(){
 		clear();
 		if (m_sentinal)
 			delete m_sentinal;
 	}
 
+	list &operator=(list const &other) {
+		this->assign(other.begin(), other.end());
+		return (*this);
+	}
 	//ITERATORS
 	iterator begin() { return iterator(m_sentinal->next()); }
 	const_iterator begin() const { return const_iterator(m_sentinal->next()); }
@@ -151,7 +157,7 @@ public:
 	}
 
 	size_type max_size() const {
-		return std::numeric_limits<size_type>::max() / sizeof(Node<value_type>); //changed T to value_type
+		return (ft::min((size_type) std::numeric_limits<difference_type>::max(), std::numeric_limits<size_type>::max() / (sizeof(node) - sizeof(pointer))));
 	}
 
 	//Element access:
@@ -249,9 +255,9 @@ public:
 		return (++last);
 	}
 
-	void swap(List& x) {
-		ft::swap(this->m_sentinal, x.m_sentinal);
-		ft::swap(this->m_size, x.m_size);
+	void swap(list& x) {
+		ft::swap_alg(this->m_sentinal, x.m_sentinal);
+		ft::swap_alg(this->m_size, x.m_size);
 	}
 
 	void resize (size_type n, value_type val = value_type()){
@@ -289,15 +295,15 @@ public:
 
 	//Operations:
 
-	void splice (iterator position, List& x){
+	void splice (iterator position, list& x){
 		splice(position, x, x.begin(), x.end());
 	};
 
-	void splice (iterator position, List& x, iterator i){
+	void splice (iterator position, list& x, iterator i){
 		splice(position, x, i, ++i);
 	};
 
-	void splice (iterator position, List& x, iterator first, iterator last){
+	void splice (iterator position, list& x, iterator first, iterator last){
 		if (first == last)
 			return ;
 		int sizeOfCutSection = ft::distance(first, last);
@@ -338,7 +344,7 @@ public:
 	}
 
 	void unique(){
-		unique(&isEqual);//TODO test changed _isEqual to isEqual from Algorithm.hpp
+		unique(&isEqual<value_type>);//TODO test changed _isEqual to isEqual from Algorithm.hpp
 	}
 
 	template <class BinaryPredicate>
@@ -357,12 +363,12 @@ public:
 		}
 	}
 
-	void merge (List& x){
-		this->merge(x, &less_than);//TODO test changet _isLower to less_than
+	void merge (list& x){
+		this->merge(x, &less_than<value_type>);//TODO test changet _isLower to less_than
 	}
 
 	template <class Compare>
-	void merge (List& x, Compare comp) {
+	void merge (list& x, Compare comp) {
 		if (&x == this)
 			return ;
 		if (x.empty())
@@ -390,19 +396,15 @@ public:
 		this->splice(this->end(), x);
 	}
 
-	void sort(){
-		this->sort(&less_than);//TODO test changet _isLower to less_than
-	}
-
 	template <class Compare>
 	void sort (Compare comp){
 		// Do nothing if the list has length 0 or 1.
 		if (this->m_size && this->m_size != 1)
 		{
-			List carry;
-			List tmp[64];
-			List * fill = &tmp[0];
-			List * counter;
+			list carry;
+			list tmp[64];
+			list * fill = &tmp[0];
+			list * counter;
 			do
 			{
 				carry.splice(carry.begin(), *this, begin());
@@ -423,6 +425,10 @@ public:
 		}
 	}
 
+	void sort(){
+		this->sort(&less_than<value_type>);//TODO test changet _isLower to less_than
+	}
+
 	void reverse(){
 		if (this->m_size <= 1)
 			return ;
@@ -431,7 +437,7 @@ public:
 		size_t size = this->m_size / 2;
 		for (int i = 0; i < size; ++i)
 		{
-			this->swap(*(begin++), *(--end));
+			ft::swap_alg(*(begin++), *(--end));
 		}
 	}
 
@@ -443,8 +449,8 @@ private:
 	node_pointer	m_sentinal;
 	size_type		m_size;
 
-	void printList(const ft::List<T>& list) {
-		typename ft::List<T>::iterator it_begin = list.begin();
+	void printList(const ft::list<T>& list) {
+		typename ft::list<T>::iterator it_begin = list.begin();
 		for (; it_begin != list.end(); ++it_begin)
 			std::cout << ' ' <<  *(it_begin);
 		std::cout << std::endl;
@@ -453,11 +459,11 @@ private:
 }; //list_end
 
 	template <class T, class Alloc>
-	bool operator== (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs) {
+	bool operator== (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
 		if (lhs.size() != rhs.size())
 			return false;
-		typename ft::List<T>::iterator lit = lhs.begin();
-		typename ft::List<T>::iterator rit = rhs.begin();
+		typename ft::list<T>::iterator lit = lhs.begin();
+		typename ft::list<T>::iterator rit = rhs.begin();
 		for(; lit != lhs.end(); ++lit)
 		{
 			if (*lit != *(rit++))
@@ -467,37 +473,37 @@ private:
 	}
 
 	template <class T, class Alloc>
-	bool operator!= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+	bool operator!= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
 		return (!(lhs == rhs));
 	}
 
 	template <class T, class Alloc>
-	bool operator<  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+	bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
 		if (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()))
 			return true;
 		return false;
 	}
 
 	template <class T, class Alloc>
-	bool operator<= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+	bool operator<= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
 		return (!(rhs < lhs));
 	}
 
 	template <class T, class Alloc>
-	bool operator>  (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+	bool operator>  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
 		if (lhs < rhs || lhs == rhs)
 			return false;
 		return true;
 	}
 
 	template <class T, class Alloc>
-	bool operator>= (const List<T,Alloc>& lhs, const List<T,Alloc>& rhs){
+	bool operator>= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs){
 		return (!(lhs < rhs));
 	}
 
 
 	template <class T, class Alloc>
-	void swap (List<T,Alloc>& x, List<T,Alloc>& y){
+	void swap (list<T,Alloc>& x, list<T,Alloc>& y){
 		x.swap(y);
 	}
 

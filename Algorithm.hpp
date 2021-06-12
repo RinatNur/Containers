@@ -24,6 +24,14 @@ namespace ft {
 			return true;
 	}
 
+	template<typename T>
+	struct less: public std::binary_function<T, T, bool>
+	{
+		bool operator()(const T& x, const T& y) const {
+			return (x < y);
+		}
+	};
+
 	template<bool B, class T = void>
 	struct enable_if {};
 
@@ -66,7 +74,7 @@ namespace ft {
 	}
 
 	template<class value_type>
-	void swap(value_type &a, value_type &b) {
+	void swap_alg(value_type &a, value_type &b) {
 		value_type tmp(a);
 		a = b;
 		b = tmp;

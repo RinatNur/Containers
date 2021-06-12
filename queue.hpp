@@ -8,7 +8,7 @@
 
 namespace ft
 {
-	template<class T, class Container = ft::List<T> >
+	template<class T, class Container = ft::list<T> >
 	class queue {
 
 	public:

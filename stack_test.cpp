@@ -12,8 +12,8 @@ void stack_test() {
 	{
 		printHeader("myStack");
 
-		ft::Stack<int, ft::List<int> > myStack1;
-		ft::Stack<int, ft::List<int> > myStack2;
+		ft::stack<int, ft::list<int> > myStack1;
+		ft::stack<int, ft::list<int> > myStack2;
 		myStack1.push(5);
 		myStack1.push(10);
 
