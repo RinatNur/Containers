@@ -1,4 +1,5 @@
 #include "unit_tests.hpp"
+
 #define T1 // constructors
 #define T2 // empty()
 #define T3 // size()
@@ -118,5 +119,6 @@ int main(void) {
 		}
 	}
 #endif
+	getchar();
 	return 0;
 }

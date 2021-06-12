@@ -690,5 +690,6 @@ int main(void) {
 		}
 	}
 #endif
+	getchar();
 	return 0;
 }

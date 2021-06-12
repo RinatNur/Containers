@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../list.hpp"
-#include "../vector.hpp"
-#include "../map.hpp"
-#include "../stack.hpp"
-#include "../queue.hpp"
+#include "../src/list.hpp"
+#include "../src/vector.hpp"
+#include "../src/map.hpp"
+#include "../src/stack.hpp"
+#include "../src/queue.hpp"
 
 #include <type_traits>
 #include <list>

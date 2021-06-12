@@ -1661,5 +1661,6 @@ int main(void) {
 		check_flag(flag);
 	}
 #endif
+	getchar();
 	return (0);
 }

@@ -117,9 +117,9 @@ public:
 	}
 
 	~list(){
-//		clear();
-//		if (m_sentinal)
-//			delete m_sentinal;
+		clear();
+		if (m_sentinal)
+			delete m_sentinal;
 	}
 
 	list &operator=(list const &other) {
