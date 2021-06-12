@@ -33,21 +33,21 @@ namespace ft
 		}
 
 		value_type& front(){
-			return this->cntr.back();
+			return this->cntr.front();
 		}
 		const value_type& front() const{
-			return this->cntr.back();
+			return this->cntr.front();
 		}
 
 		value_type& back(){
-			return this->cntr.front();
+			return this->cntr.back();
 		}
 		const value_type& back() const{
-			return this->cntr.front();
+			return this->cntr.back();
 		}
 
 		void push (const value_type& val){
-			this->cntr.push_front(val);
+			this->cntr.push_back(val);
 		}
 
 		void pop() {
